@@ -1,0 +1,2526 @@
+[
+{
+  "model": "safarisite.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$MPj439WWvtbNxsQgdHAVuc$NCm+9VwBaG1JftCXBisSWiWc3fRq28klz765xOXzJr0=",
+    "last_login": "2026-03-31T05:35:20.921Z",
+    "is_superuser": true,
+    "username": "safariadmin",
+    "first_name": "",
+    "last_name": "",
+    "email": "safariadmin@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-03-19T09:00:41.559Z",
+    "user_type": "admin",
+    "profile_image": "",
+    "bio": "",
+    "phone_number": "",
+    "date_of_birth": null,
+    "preferred_currency": "USD",
+    "newsletter_subscription": false,
+    "created_at": "2026-03-19T09:00:42.871Z",
+    "updated_at": "2026-03-19T11:40:53.399Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "safarisite.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$4wb26Ac8Ilqh3bechU6oma$ZdJnG7XPJKXd8vjXnEcgooBNaVmqKnkIaOVDPlfJEew=",
+    "last_login": "2026-03-31T06:30:20.884Z",
+    "is_superuser": false,
+    "username": "adam",
+    "first_name": "adam",
+    "last_name": "square",
+    "email": "adamsquare64@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-31T06:30:16.231Z",
+    "user_type": "traveler",
+    "profile_image": "",
+    "bio": "",
+    "phone_number": "+254720659798",
+    "date_of_birth": null,
+    "preferred_currency": "USD",
+    "newsletter_subscription": false,
+    "created_at": "2026-03-31T06:30:20.829Z",
+    "updated_at": "2026-03-31T06:30:20.829Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "safarisite.destination",
+  "pk": 1,
+  "fields": {
+    "name": "Masai Mara",
+    "slug": "masai-mara-kenya",
+    "continent": "africa",
+    "country": "Kenya",
+    "description": "Masai Mara delivers cinematic game drives, deep horizons, and the kind of wildlife density that makes every drive feel loaded with possibility.",
+    "short_description": "Golden savannahs, dramatic crossings, and big cat country.",
+    "featured_image": "destinations/pexels-mcgzay-27720736.jpg",
+    "gallery_images": [],
+    "video_url": null,
+    "latitude": null,
+    "longitude": null,
+    "tour_count": 2,
+    "visitor_count": 0,
+    "average_rating": "0.00",
+    "review_count": 0,
+    "meta_title": "Masai Mara",
+    "meta_description": "Golden savannahs, dramatic crossings, and big cat country.",
+    "is_featured": true,
+    "is_active": true,
+    "created_at": "2026-03-19T11:40:53.518Z",
+    "updated_at": "2026-03-31T05:47:01.743Z"
+  }
+},
+{
+  "model": "safarisite.destination",
+  "pk": 2,
+  "fields": {
+    "name": "Amboseli",
+    "slug": "amboseli-kenya",
+    "continent": "africa",
+    "country": "Kenya",
+    "description": "Amboseli is built on contrast: dry lakebeds, dust, acacia lines, and the monumental silhouette of Kilimanjaro behind moving herds.",
+    "short_description": "Elephants under the shadow of Kilimanjaro.",
+    "featured_image": "destinations/pexels-crisbel-solano-1214111535-35701190.jpg",
+    "gallery_images": [],
+    "video_url": null,
+    "latitude": null,
+    "longitude": null,
+    "tour_count": 2,
+    "visitor_count": 0,
+    "average_rating": "0.00",
+    "review_count": 0,
+    "meta_title": "Amboseli",
+    "meta_description": "Elephants under the shadow of Kilimanjaro.",
+    "is_featured": true,
+    "is_active": true,
+    "created_at": "2026-03-19T11:40:53.532Z",
+    "updated_at": "2026-03-31T05:43:44.918Z"
+  }
+},
+{
+  "model": "safarisite.destination",
+  "pk": 3,
+  "fields": {
+    "name": "Serengeti",
+    "slug": "serengeti-tanzania",
+    "continent": "africa",
+    "country": "Tanzania",
+    "description": "The Serengeti is pure safari scale, where movement, weather, and wildlife create a changing theater across the plains.",
+    "short_description": "Migration drama and endless plains.",
+    "featured_image": "destinations/pexels-jairos-adventure-1635095-10222036.jpg",
+    "gallery_images": [],
+    "video_url": null,
+    "latitude": null,
+    "longitude": null,
+    "tour_count": 1,
+    "visitor_count": 0,
+    "average_rating": "0.00",
+    "review_count": 0,
+    "meta_title": "Serengeti",
+    "meta_description": "Migration drama and endless plains.",
+    "is_featured": true,
+    "is_active": true,
+    "created_at": "2026-03-19T11:40:53.552Z",
+    "updated_at": "2026-03-31T05:48:38.551Z"
+  }
+},
+{
+  "model": "safarisite.destination",
+  "pk": 4,
+  "fields": {
+    "name": "Zanzibar",
+    "slug": "zanzibar-tanzania",
+    "continent": "africa",
+    "country": "Tanzania",
+    "description": "Zanzibar softens the pace after safari with warm water, carved architecture, and layered coastal culture.",
+    "short_description": "Spice air, ocean light, and historic stone streets.",
+    "featured_image": "destinations/pexels-photobymau-photobymau-2154512590-33629218.jpg",
+    "gallery_images": [],
+    "video_url": null,
+    "latitude": null,
+    "longitude": null,
+    "tour_count": 2,
+    "visitor_count": 0,
+    "average_rating": "0.00",
+    "review_count": 0,
+    "meta_title": "Zanzibar",
+    "meta_description": "Spice air, ocean light, and historic stone streets.",
+    "is_featured": true,
+    "is_active": true,
+    "created_at": "2026-03-19T11:40:53.568Z",
+    "updated_at": "2026-03-31T05:50:51.547Z"
+  }
+},
+{
+  "model": "safarisite.destination",
+  "pk": 5,
+  "fields": {
+    "name": "Volcanoes National Park",
+    "slug": "volcanoes-national-park-rwanda",
+    "continent": "africa",
+    "country": "Rwanda",
+    "description": "Volcanoes National Park offers steep green terrain, intimate gorilla trekking, and one of East Africas most emotional wildlife experiences.",
+    "short_description": "Cool mountain air and rare primate encounters.",
+    "featured_image": "destinations/pexels-mn-str-1235237659-30847954.jpg",
+    "gallery_images": [],
+    "video_url": null,
+    "latitude": null,
+    "longitude": null,
+    "tour_count": 2,
+    "visitor_count": 0,
+    "average_rating": "0.00",
+    "review_count": 0,
+    "meta_title": "Volcanoes National Park",
+    "meta_description": "Cool mountain air and rare primate encounters.",
+    "is_featured": true,
+    "is_active": true,
+    "created_at": "2026-03-19T11:40:53.580Z",
+    "updated_at": "2026-03-31T05:49:45.673Z"
+  }
+},
+{
+  "model": "safarisite.destination",
+  "pk": 6,
+  "fields": {
+    "name": "Namib Desert",
+    "slug": "namib-desert-namibia",
+    "continent": "africa",
+    "country": "Namibia",
+    "description": "Namibia is where silence, shape, and light do most of the storytelling, creating a refined desert travel experience.",
+    "short_description": "Minimalist landscapes and sculpted dunes.",
+    "featured_image": "destinations/pexels-wendy-r-137430417-10260009.jpg",
+    "gallery_images": [],
+    "video_url": null,
+    "latitude": null,
+    "longitude": null,
+    "tour_count": 1,
+    "visitor_count": 0,
+    "average_rating": "0.00",
+    "review_count": 0,
+    "meta_title": "Namib Desert",
+    "meta_description": "Minimalist landscapes and sculpted dunes.",
+    "is_featured": true,
+    "is_active": true,
+    "created_at": "2026-03-19T11:40:53.592Z",
+    "updated_at": "2026-03-31T05:47:54.068Z"
+  }
+},
+{
+  "model": "safarisite.destination",
+  "pk": 7,
+  "fields": {
+    "name": "Laikipia",
+    "slug": "laikipia-kenya",
+    "continent": "africa",
+    "country": "Kenya",
+    "description": "Laikipia blends conservation, strong guiding, and a more intimate style of safari built around private landscapes.",
+    "short_description": "Private conservancies and design-led safari lodges.",
+    "featured_image": "destinations/pexels-mwauraken-28977882.jpg",
+    "gallery_images": [],
+    "video_url": null,
+    "latitude": null,
+    "longitude": null,
+    "tour_count": 1,
+    "visitor_count": 0,
+    "average_rating": "0.00",
+    "review_count": 0,
+    "meta_title": "Laikipia",
+    "meta_description": "Private conservancies and design-led safari lodges.",
+    "is_featured": true,
+    "is_active": true,
+    "created_at": "2026-03-19T11:40:53.604Z",
+    "updated_at": "2026-03-31T05:46:04.231Z"
+  }
+},
+{
+  "model": "safarisite.destination",
+  "pk": 8,
+  "fields": {
+    "name": "Cape Town",
+    "slug": "cape-town-south-africa",
+    "continent": "africa",
+    "country": "South Africa",
+    "description": "Cape Town brings architecture, food, ocean air, and polished city energy before a classic bush extension.",
+    "short_description": "Urban style before the wild.",
+    "featured_image": "destinations/pexels-iluvhimbi-32304898.jpg",
+    "gallery_images": [],
+    "video_url": null,
+    "latitude": null,
+    "longitude": null,
+    "tour_count": 1,
+    "visitor_count": 0,
+    "average_rating": "0.00",
+    "review_count": 0,
+    "meta_title": "Cape Town",
+    "meta_description": "Urban style before the wild.",
+    "is_featured": true,
+    "is_active": true,
+    "created_at": "2026-03-19T11:40:53.615Z",
+    "updated_at": "2026-03-31T05:44:35.211Z"
+  }
+},
+{
+  "model": "safarisite.category",
+  "pk": 1,
+  "fields": {
+    "name": "Classic Safari",
+    "slug": "classic-safari",
+    "description": "Game drives and flagship wildlife circuits.",
+    "icon": "fa-solid fa-binoculars",
+    "featured_image": "categories/pexels-joao-roberto-413077276-15017212.jpg",
+    "order": 1,
+    "is_active": true
+  }
+},
+{
+  "model": "safarisite.category",
+  "pk": 2,
+  "fields": {
+    "name": "Luxury Escape",
+    "slug": "luxury-escape",
+    "description": "High-comfort journeys with premium stays and service.",
+    "icon": "fa-solid fa-gem",
+    "featured_image": "categories/pexels-quang-nguyen-vinh-222549-14917453.jpg",
+    "order": 2,
+    "is_active": true
+  }
+},
+{
+  "model": "safarisite.category",
+  "pk": 3,
+  "fields": {
+    "name": "Adventure Trek",
+    "slug": "adventure-trek",
+    "description": "Active travel with hiking and demanding terrain.",
+    "icon": "fa-solid fa-mountain",
+    "featured_image": "categories/pexels-inuetc-33014019.jpg",
+    "order": 3,
+    "is_active": true
+  }
+},
+{
+  "model": "safarisite.category",
+  "pk": 4,
+  "fields": {
+    "name": "Beach Extension",
+    "slug": "beach-extension",
+    "description": "Coastal downtime after inland safari.",
+    "icon": "fa-solid fa-umbrella-beach",
+    "featured_image": "",
+    "order": 4,
+    "is_active": true
+  }
+},
+{
+  "model": "safarisite.category",
+  "pk": 5,
+  "fields": {
+    "name": "Family Journey",
+    "slug": "family-journey",
+    "description": "Trips designed for mixed ages and flexible pacing.",
+    "icon": "fa-solid fa-people-roof",
+    "featured_image": "categories/pexels-vkmoraesph-103845317-18689100.jpg",
+    "order": 5,
+    "is_active": true
+  }
+},
+{
+  "model": "safarisite.category",
+  "pk": 6,
+  "fields": {
+    "name": "Photography",
+    "slug": "photography",
+    "description": "Itineraries built for light, position, and timing.",
+    "icon": "fa-solid fa-camera-retro",
+    "featured_image": "categories/pexels-ornanvelazquez-14396370.jpg",
+    "order": 6,
+    "is_active": true
+  }
+},
+{
+  "model": "safarisite.tag",
+  "pk": 1,
+  "fields": {
+    "name": "Big Five",
+    "slug": "big-five"
+  }
+},
+{
+  "model": "safarisite.tag",
+  "pk": 2,
+  "fields": {
+    "name": "Migration",
+    "slug": "migration"
+  }
+},
+{
+  "model": "safarisite.tag",
+  "pk": 3,
+  "fields": {
+    "name": "Luxury Camp",
+    "slug": "luxury-camp"
+  }
+},
+{
+  "model": "safarisite.tag",
+  "pk": 4,
+  "fields": {
+    "name": "Family Friendly",
+    "slug": "family-friendly"
+  }
+},
+{
+  "model": "safarisite.tag",
+  "pk": 5,
+  "fields": {
+    "name": "Beach Finish",
+    "slug": "beach-finish"
+  }
+},
+{
+  "model": "safarisite.tag",
+  "pk": 6,
+  "fields": {
+    "name": "Gorilla Trek",
+    "slug": "gorilla-trek"
+  }
+},
+{
+  "model": "safarisite.tag",
+  "pk": 7,
+  "fields": {
+    "name": "Desert Light",
+    "slug": "desert-light"
+  }
+},
+{
+  "model": "safarisite.tag",
+  "pk": 8,
+  "fields": {
+    "name": "Conservation",
+    "slug": "conservation"
+  }
+},
+{
+  "model": "safarisite.tag",
+  "pk": 9,
+  "fields": {
+    "name": "Photography",
+    "slug": "photography"
+  }
+},
+{
+  "model": "safarisite.tag",
+  "pk": 10,
+  "fields": {
+    "name": "Private Guide",
+    "slug": "private-guide"
+  }
+},
+{
+  "model": "safarisite.tag",
+  "pk": 11,
+  "fields": {
+    "name": "Honeymoon",
+    "slug": "honeymoon"
+  }
+},
+{
+  "model": "safarisite.tag",
+  "pk": 12,
+  "fields": {
+    "name": "Cultural Immersion",
+    "slug": "cultural-immersion"
+  }
+},
+{
+  "model": "safarisite.tag",
+  "pk": 13,
+  "fields": {
+    "name": "Walking Safari",
+    "slug": "walking-safari"
+  }
+},
+{
+  "model": "safarisite.tag",
+  "pk": 14,
+  "fields": {
+    "name": "Short Escape",
+    "slug": "short-escape"
+  }
+},
+{
+  "model": "safarisite.tag",
+  "pk": 15,
+  "fields": {
+    "name": "Fly-In Safari",
+    "slug": "fly-in-safari"
+  }
+},
+{
+  "model": "safarisite.tour",
+  "pk": 1,
+  "fields": {
+    "title": "Masai Mara Signature Migration Safari",
+    "slug": "masai-mara-signature-migration-safari",
+    "destination": 1,
+    "overview": "A polished migration itinerary with prime game drives, strong guiding, and elegant tented comfort.",
+    "itinerary": [
+      "Day 1: Arrival and briefing for Masai Mara Signature Migration Safari.",
+      "Day 2: Signature experience in Masai Mara.",
+      "Final day: Relaxed departure planning and transfer support."
+    ],
+    "inclusions": [
+      "Accommodation",
+      "Professional guide",
+      "Game drives or guided activities",
+      "Park fees",
+      "Ground transfers"
+    ],
+    "exclusions": [
+      "International flights",
+      "Travel insurance",
+      "Visa fees",
+      "Personal expenses"
+    ],
+    "packing_list": [
+      "Neutral clothing",
+      "Comfortable walking shoes",
+      "Sunscreen",
+      "Camera",
+      "Light jacket"
+    ],
+    "featured_image": "tours/pexels-mikeknibbs-17849763.jpg",
+    "gallery_images": [],
+    "video_url": null,
+    "price_per_person": "2450.00",
+    "price_currency": "USD",
+    "discount_price": "2295.00",
+    "min_age": 6,
+    "max_age": null,
+    "duration_days": 5,
+    "duration_nights": 4,
+    "min_group_size": 1,
+    "max_group_size": 12,
+    "meeting_point": "Pick-up from Jomo Kenyatta International Airport or Nairobi city hotel.",
+    "meeting_point_coordinates": {},
+    "departure_times": [
+      "07:30",
+      "14:00"
+    ],
+    "difficulty_level": "easy",
+    "physical_rating": 3,
+    "cultural_rating": 4,
+    "wildlife_rating": 5,
+    "adventure_rating": 4,
+    "available_from": "2026-04-01",
+    "available_to": "2026-12-20",
+    "booked_dates": [],
+    "view_count": 281,
+    "booking_count": 9,
+    "average_rating": "4.70",
+    "review_count": 11,
+    "meta_title": "Masai Mara Signature Migration Safari",
+    "meta_description": "A polished migration itinerary with prime game drives, strong guiding, and elegant tented comfort.",
+    "is_featured": true,
+    "is_active": true,
+    "is_trending": true,
+    "created_by": 1,
+    "created_at": "2026-03-19T11:54:48.937Z",
+    "updated_at": "2026-03-31T06:05:48.732Z",
+    "categories": [
+      1,
+      2,
+      6
+    ],
+    "tags": [
+      1,
+      2,
+      3,
+      9
+    ]
+  }
+},
+{
+  "model": "safarisite.tour",
+  "pk": 2,
+  "fields": {
+    "title": "Amboseli Sky and Elephant Explorer",
+    "slug": "amboseli-sky-and-elephant-explorer",
+    "destination": 2,
+    "overview": "An image-led safari built around elephant encounters and the clean silhouette of Kilimanjaro.",
+    "itinerary": [
+      "Day 1: Arrival and briefing for Amboseli Sky and Elephant Explorer.",
+      "Day 2: Signature experience in Amboseli.",
+      "Final day: Relaxed departure planning and transfer support."
+    ],
+    "inclusions": [
+      "Accommodation",
+      "Professional guide",
+      "Game drives or guided activities",
+      "Park fees",
+      "Ground transfers"
+    ],
+    "exclusions": [
+      "International flights",
+      "Travel insurance",
+      "Visa fees",
+      "Personal expenses"
+    ],
+    "packing_list": [
+      "Neutral clothing",
+      "Comfortable walking shoes",
+      "Sunscreen",
+      "Camera",
+      "Light jacket"
+    ],
+    "featured_image": "tours/pexels-crisbel-solano-1214111535-35701190.jpg",
+    "gallery_images": [],
+    "video_url": null,
+    "price_per_person": "1680.00",
+    "price_currency": "USD",
+    "discount_price": "1540.00",
+    "min_age": 6,
+    "max_age": null,
+    "duration_days": 4,
+    "duration_nights": 3,
+    "min_group_size": 1,
+    "max_group_size": 12,
+    "meeting_point": "Pick-up from Nairobi city hotel or Jomo Kenyatta International Airport.",
+    "meeting_point_coordinates": {},
+    "departure_times": [
+      "07:30",
+      "14:00"
+    ],
+    "difficulty_level": "easy",
+    "physical_rating": 3,
+    "cultural_rating": 4,
+    "wildlife_rating": 5,
+    "adventure_rating": 4,
+    "available_from": "2026-04-01",
+    "available_to": "2026-12-20",
+    "booked_dates": [],
+    "view_count": 322,
+    "booking_count": 10,
+    "average_rating": "4.70",
+    "review_count": 12,
+    "meta_title": "Amboseli Sky and Elephant Explorer",
+    "meta_description": "An image-led safari built around elephant encounters and the clean silhouette of Kilimanjaro.",
+    "is_featured": true,
+    "is_active": true,
+    "is_trending": false,
+    "created_by": 1,
+    "created_at": "2026-03-19T11:54:48.993Z",
+    "updated_at": "2026-03-31T06:04:27.634Z",
+    "categories": [
+      1,
+      6
+    ],
+    "tags": [
+      9,
+      10,
+      14
+    ]
+  }
+},
+{
+  "model": "safarisite.tour",
+  "pk": 3,
+  "fields": {
+    "title": "Serengeti Great Plains Fly-In",
+    "slug": "serengeti-great-plains-fly-in",
+    "destination": 3,
+    "overview": "A fly-in circuit for travelers who want maximum wildlife time and minimal transfer fatigue.",
+    "itinerary": [
+      "Day 1: Arrival and briefing for Serengeti Great Plains Fly-In.",
+      "Day 2: Signature experience in Serengeti.",
+      "Final day: Relaxed departure planning and transfer support."
+    ],
+    "inclusions": [
+      "Accommodation",
+      "Professional guide",
+      "Game drives or guided activities",
+      "Park fees",
+      "Ground transfers"
+    ],
+    "exclusions": [
+      "International flights",
+      "Travel insurance",
+      "Visa fees",
+      "Personal expenses"
+    ],
+    "packing_list": [
+      "Neutral clothing",
+      "Comfortable walking shoes",
+      "Sunscreen",
+      "Camera",
+      "Light jacket"
+    ],
+    "featured_image": "tours/pexels-lan-yao-324969-20847884.jpg",
+    "gallery_images": [],
+    "video_url": null,
+    "price_per_person": "3380.00",
+    "price_currency": "USD",
+    "discount_price": "3195.00",
+    "min_age": 6,
+    "max_age": null,
+    "duration_days": 6,
+    "duration_nights": 5,
+    "min_group_size": 1,
+    "max_group_size": 12,
+    "meeting_point": "Transfer from Arusha Airport for scheduled bush flight.",
+    "meeting_point_coordinates": {},
+    "departure_times": [
+      "07:30",
+      "14:00"
+    ],
+    "difficulty_level": "easy",
+    "physical_rating": 3,
+    "cultural_rating": 4,
+    "wildlife_rating": 5,
+    "adventure_rating": 4,
+    "available_from": "2026-04-01",
+    "available_to": "2026-12-20",
+    "booked_dates": [],
+    "view_count": 363,
+    "booking_count": 11,
+    "average_rating": "4.70",
+    "review_count": 13,
+    "meta_title": "Serengeti Great Plains Fly-In",
+    "meta_description": "A fly-in circuit for travelers who want maximum wildlife time and minimal transfer fatigue.",
+    "is_featured": true,
+    "is_active": true,
+    "is_trending": true,
+    "created_by": 1,
+    "created_at": "2026-03-19T11:54:49.042Z",
+    "updated_at": "2026-03-31T06:03:26.193Z",
+    "categories": [
+      1,
+      2
+    ],
+    "tags": [
+      2,
+      3,
+      15
+    ]
+  }
+},
+{
+  "model": "safarisite.tour",
+  "pk": 4,
+  "fields": {
+    "title": "Zanzibar Ocean and Stone Town Reset",
+    "slug": "zanzibar-ocean-and-stone-town-reset",
+    "destination": 4,
+    "overview": "A coastal extension that pairs historic Stone Town texture with relaxed Indian Ocean downtime.",
+    "itinerary": [
+      "Day 1: Arrival and briefing for Zanzibar Ocean and Stone Town Reset.",
+      "Day 2: Signature experience in Zanzibar.",
+      "Final day: Relaxed departure planning and transfer support."
+    ],
+    "inclusions": [
+      "Accommodation",
+      "Professional guide",
+      "Game drives or guided activities",
+      "Park fees",
+      "Ground transfers"
+    ],
+    "exclusions": [
+      "International flights",
+      "Travel insurance",
+      "Visa fees",
+      "Personal expenses"
+    ],
+    "packing_list": [
+      "Neutral clothing",
+      "Comfortable walking shoes",
+      "Sunscreen",
+      "Camera",
+      "Light jacket"
+    ],
+    "featured_image": "tours/pexels-nadialovessingle-6607184_pl7Qy4y.jpg",
+    "gallery_images": [],
+    "video_url": null,
+    "price_per_person": "1290.00",
+    "price_currency": "USD",
+    "discount_price": null,
+    "min_age": 6,
+    "max_age": null,
+    "duration_days": 4,
+    "duration_nights": 3,
+    "min_group_size": 1,
+    "max_group_size": 12,
+    "meeting_point": "Arrival at Abeid Amani Karume International Airport.",
+    "meeting_point_coordinates": {},
+    "departure_times": [
+      "07:30",
+      "14:00"
+    ],
+    "difficulty_level": "easy",
+    "physical_rating": 3,
+    "cultural_rating": 4,
+    "wildlife_rating": 5,
+    "adventure_rating": 4,
+    "available_from": "2026-04-01",
+    "available_to": "2026-12-20",
+    "booked_dates": [],
+    "view_count": 404,
+    "booking_count": 12,
+    "average_rating": "4.70",
+    "review_count": 14,
+    "meta_title": "Zanzibar Ocean and Stone Town Reset",
+    "meta_description": "A coastal extension that pairs historic Stone Town texture with relaxed Indian Ocean downtime.",
+    "is_featured": false,
+    "is_active": true,
+    "is_trending": true,
+    "created_by": 1,
+    "created_at": "2026-03-19T11:54:49.078Z",
+    "updated_at": "2026-03-31T06:06:43.445Z",
+    "categories": [
+      2,
+      4
+    ],
+    "tags": [
+      5,
+      11,
+      14
+    ]
+  }
+},
+{
+  "model": "safarisite.tour",
+  "pk": 5,
+  "fields": {
+    "title": "Volcanoes Gorilla Dawn Trek",
+    "slug": "volcanoes-gorilla-dawn-trek",
+    "destination": 5,
+    "overview": "A compact Rwanda itinerary focused on gorilla trekking, lodge calm, and mountain atmosphere.",
+    "itinerary": [
+      "Day 1: Arrival and briefing for Volcanoes Gorilla Dawn Trek.",
+      "Day 2: Signature experience in Volcanoes National Park.",
+      "Final day: Relaxed departure planning and transfer support."
+    ],
+    "inclusions": [
+      "Accommodation",
+      "Professional guide",
+      "Game drives or guided activities",
+      "Park fees",
+      "Ground transfers"
+    ],
+    "exclusions": [
+      "International flights",
+      "Travel insurance",
+      "Visa fees",
+      "Personal expenses"
+    ],
+    "packing_list": [
+      "Neutral clothing",
+      "Comfortable walking shoes",
+      "Sunscreen",
+      "Camera",
+      "Light jacket"
+    ],
+    "featured_image": "tours/pexels-inuetc-33014019.jpg",
+    "gallery_images": [],
+    "video_url": null,
+    "price_per_person": "4120.00",
+    "price_currency": "USD",
+    "discount_price": null,
+    "min_age": 6,
+    "max_age": null,
+    "duration_days": 3,
+    "duration_nights": 2,
+    "min_group_size": 1,
+    "max_group_size": 12,
+    "meeting_point": "Kigali hotel pick-up with overland transfer to Volcanoes National Park.",
+    "meeting_point_coordinates": {},
+    "departure_times": [
+      "07:30",
+      "14:00"
+    ],
+    "difficulty_level": "challenging",
+    "physical_rating": 4,
+    "cultural_rating": 4,
+    "wildlife_rating": 5,
+    "adventure_rating": 4,
+    "available_from": "2026-04-01",
+    "available_to": "2026-12-20",
+    "booked_dates": [],
+    "view_count": 445,
+    "booking_count": 13,
+    "average_rating": "4.70",
+    "review_count": 15,
+    "meta_title": "Volcanoes Gorilla Dawn Trek",
+    "meta_description": "A compact Rwanda itinerary focused on gorilla trekking, lodge calm, and mountain atmosphere.",
+    "is_featured": true,
+    "is_active": true,
+    "is_trending": true,
+    "created_by": 1,
+    "created_at": "2026-03-19T11:54:49.126Z",
+    "updated_at": "2026-03-31T06:01:38.669Z",
+    "categories": [
+      2,
+      3
+    ],
+    "tags": [
+      6,
+      8,
+      10
+    ]
+  }
+},
+{
+  "model": "safarisite.tour",
+  "pk": 6,
+  "fields": {
+    "title": "Namib Desert Dune and Silence Circuit",
+    "slug": "namib-desert-dune-and-silence-circuit",
+    "destination": 6,
+    "overview": "A design-forward desert journey for travelers who care about landscape composition and quiet.",
+    "itinerary": [
+      "Day 1: Arrival and briefing for Namib Desert Dune and Silence Circuit.",
+      "Day 2: Signature experience in Namib Desert.",
+      "Final day: Relaxed departure planning and transfer support."
+    ],
+    "inclusions": [
+      "Accommodation",
+      "Professional guide",
+      "Game drives or guided activities",
+      "Park fees",
+      "Ground transfers"
+    ],
+    "exclusions": [
+      "International flights",
+      "Travel insurance",
+      "Visa fees",
+      "Personal expenses"
+    ],
+    "packing_list": [
+      "Neutral clothing",
+      "Comfortable walking shoes",
+      "Sunscreen",
+      "Camera",
+      "Light jacket"
+    ],
+    "featured_image": "tours/pexels-wendy-r-137430417-10260009.jpg",
+    "gallery_images": [],
+    "video_url": null,
+    "price_per_person": "2760.00",
+    "price_currency": "USD",
+    "discount_price": "2590.00",
+    "min_age": 6,
+    "max_age": null,
+    "duration_days": 5,
+    "duration_nights": 4,
+    "min_group_size": 1,
+    "max_group_size": 12,
+    "meeting_point": "Welcome briefing in Windhoek with road transfer next morning.",
+    "meeting_point_coordinates": {},
+    "departure_times": [
+      "07:30",
+      "14:00"
+    ],
+    "difficulty_level": "moderate",
+    "physical_rating": 3,
+    "cultural_rating": 4,
+    "wildlife_rating": 5,
+    "adventure_rating": 4,
+    "available_from": "2026-04-01",
+    "available_to": "2026-12-20",
+    "booked_dates": [],
+    "view_count": 486,
+    "booking_count": 14,
+    "average_rating": "4.70",
+    "review_count": 16,
+    "meta_title": "Namib Desert Dune and Silence Circuit",
+    "meta_description": "A design-forward desert journey for travelers who care about landscape composition and quiet.",
+    "is_featured": true,
+    "is_active": true,
+    "is_trending": false,
+    "created_by": 1,
+    "created_at": "2026-03-19T11:54:49.190Z",
+    "updated_at": "2026-03-31T06:01:15.314Z",
+    "categories": [
+      3,
+      6
+    ],
+    "tags": [
+      3,
+      7,
+      9
+    ]
+  }
+},
+{
+  "model": "safarisite.tour",
+  "pk": 7,
+  "fields": {
+    "title": "Laikipia Private Conservancy Escape",
+    "slug": "laikipia-private-conservancy-escape",
+    "destination": 7,
+    "overview": "A quieter Kenyan safari with private conservancy access, horseback options, and refined camps.",
+    "itinerary": [
+      "Day 1: Arrival and briefing for Laikipia Private Conservancy Escape.",
+      "Day 2: Signature experience in Laikipia.",
+      "Final day: Relaxed departure planning and transfer support."
+    ],
+    "inclusions": [
+      "Accommodation",
+      "Professional guide",
+      "Game drives or guided activities",
+      "Park fees",
+      "Ground transfers"
+    ],
+    "exclusions": [
+      "International flights",
+      "Travel insurance",
+      "Visa fees",
+      "Personal expenses"
+    ],
+    "packing_list": [
+      "Neutral clothing",
+      "Comfortable walking shoes",
+      "Sunscreen",
+      "Camera",
+      "Light jacket"
+    ],
+    "featured_image": "tours/pexels-echo-zhang-1517320219-34401398.jpg",
+    "gallery_images": [],
+    "video_url": null,
+    "price_per_person": "2940.00",
+    "price_currency": "USD",
+    "discount_price": null,
+    "min_age": 6,
+    "max_age": null,
+    "duration_days": 5,
+    "duration_nights": 4,
+    "min_group_size": 1,
+    "max_group_size": 12,
+    "meeting_point": "Wilson Airport for scheduled safari flight.",
+    "meeting_point_coordinates": {},
+    "departure_times": [
+      "07:30",
+      "14:00"
+    ],
+    "difficulty_level": "moderate",
+    "physical_rating": 3,
+    "cultural_rating": 4,
+    "wildlife_rating": 5,
+    "adventure_rating": 4,
+    "available_from": "2026-04-01",
+    "available_to": "2026-12-20",
+    "booked_dates": [],
+    "view_count": 527,
+    "booking_count": 15,
+    "average_rating": "4.70",
+    "review_count": 17,
+    "meta_title": "Laikipia Private Conservancy Escape",
+    "meta_description": "A quieter Kenyan safari with private conservancy access, horseback options, and refined camps.",
+    "is_featured": true,
+    "is_active": true,
+    "is_trending": true,
+    "created_by": 1,
+    "created_at": "2026-03-19T11:54:49.236Z",
+    "updated_at": "2026-03-31T06:00:57.881Z",
+    "categories": [
+      2,
+      6
+    ],
+    "tags": [
+      3,
+      8,
+      10
+    ]
+  }
+},
+{
+  "model": "safarisite.tour",
+  "pk": 8,
+  "fields": {
+    "title": "Cape Town and Kruger Contrast Journey",
+    "slug": "cape-town-and-kruger-contrast-journey",
+    "destination": 8,
+    "overview": "A clean South Africa sequence balancing urban style, wine country texture, and classic safari.",
+    "itinerary": [
+      "Day 1: Arrival and briefing for Cape Town and Kruger Contrast Journey.",
+      "Day 2: Signature experience in Cape Town.",
+      "Final day: Relaxed departure planning and transfer support."
+    ],
+    "inclusions": [
+      "Accommodation",
+      "Professional guide",
+      "Game drives or guided activities",
+      "Park fees",
+      "Ground transfers"
+    ],
+    "exclusions": [
+      "International flights",
+      "Travel insurance",
+      "Visa fees",
+      "Personal expenses"
+    ],
+    "packing_list": [
+      "Neutral clothing",
+      "Comfortable walking shoes",
+      "Sunscreen",
+      "Camera",
+      "Light jacket"
+    ],
+    "featured_image": "tours/pexels-magda-ehlers-pexels-32585930.jpg",
+    "gallery_images": [],
+    "video_url": null,
+    "price_per_person": "3520.00",
+    "price_currency": "USD",
+    "discount_price": "3290.00",
+    "min_age": 6,
+    "max_age": null,
+    "duration_days": 7,
+    "duration_nights": 6,
+    "min_group_size": 1,
+    "max_group_size": 12,
+    "meeting_point": "Arrival at Cape Town International Airport.",
+    "meeting_point_coordinates": {},
+    "departure_times": [
+      "07:30",
+      "14:00"
+    ],
+    "difficulty_level": "easy",
+    "physical_rating": 3,
+    "cultural_rating": 4,
+    "wildlife_rating": 5,
+    "adventure_rating": 4,
+    "available_from": "2026-04-01",
+    "available_to": "2026-12-20",
+    "booked_dates": [],
+    "view_count": 568,
+    "booking_count": 16,
+    "average_rating": "4.70",
+    "review_count": 18,
+    "meta_title": "Cape Town and Kruger Contrast Journey",
+    "meta_description": "A clean South Africa sequence balancing urban style, wine country texture, and classic safari.",
+    "is_featured": true,
+    "is_active": true,
+    "is_trending": true,
+    "created_by": 1,
+    "created_at": "2026-03-19T11:54:49.337Z",
+    "updated_at": "2026-03-31T05:59:29.032Z",
+    "categories": [
+      2
+    ],
+    "tags": [
+      11,
+      12,
+      15
+    ]
+  }
+},
+{
+  "model": "safarisite.tour",
+  "pk": 9,
+  "fields": {
+    "title": "Masai Mara Family Bush Week",
+    "slug": "masai-mara-family-bush-week",
+    "destination": 1,
+    "overview": "A family-safe Mara rhythm with shorter drives, flexible timings, and strong child-friendly guiding.",
+    "itinerary": [
+      "Day 1: Arrival and briefing for Masai Mara Family Bush Week.",
+      "Day 2: Signature experience in Masai Mara.",
+      "Final day: Relaxed departure planning and transfer support."
+    ],
+    "inclusions": [
+      "Accommodation",
+      "Professional guide",
+      "Game drives or guided activities",
+      "Park fees",
+      "Ground transfers"
+    ],
+    "exclusions": [
+      "International flights",
+      "Travel insurance",
+      "Visa fees",
+      "Personal expenses"
+    ],
+    "packing_list": [
+      "Neutral clothing",
+      "Comfortable walking shoes",
+      "Sunscreen",
+      "Camera",
+      "Light jacket"
+    ],
+    "featured_image": "tours/pexels-mikeknibbs-17849765_nKhYxkn.jpg",
+    "gallery_images": [],
+    "video_url": null,
+    "price_per_person": "2190.00",
+    "price_currency": "USD",
+    "discount_price": "2050.00",
+    "min_age": 6,
+    "max_age": null,
+    "duration_days": 6,
+    "duration_nights": 5,
+    "min_group_size": 1,
+    "max_group_size": 12,
+    "meeting_point": "Nairobi hotel or airport arrival lounge.",
+    "meeting_point_coordinates": {},
+    "departure_times": [
+      "07:30",
+      "14:00"
+    ],
+    "difficulty_level": "easy",
+    "physical_rating": 3,
+    "cultural_rating": 4,
+    "wildlife_rating": 5,
+    "adventure_rating": 4,
+    "available_from": "2026-04-01",
+    "available_to": "2026-12-20",
+    "booked_dates": [],
+    "view_count": 609,
+    "booking_count": 17,
+    "average_rating": "4.70",
+    "review_count": 19,
+    "meta_title": "Masai Mara Family Bush Week",
+    "meta_description": "A family-safe Mara rhythm with shorter drives, flexible timings, and strong child-friendly guiding.",
+    "is_featured": false,
+    "is_active": true,
+    "is_trending": true,
+    "created_by": 1,
+    "created_at": "2026-03-19T11:54:49.400Z",
+    "updated_at": "2026-03-31T06:09:30.823Z",
+    "categories": [
+      1,
+      5
+    ],
+    "tags": [
+      1,
+      4
+    ]
+  }
+},
+{
+  "model": "safarisite.tour",
+  "pk": 10,
+  "fields": {
+    "title": "Serengeti and Zanzibar Honeymoon Arc",
+    "slug": "serengeti-and-zanzibar-honeymoon-arc",
+    "destination": 4,
+    "overview": "A strong romance itinerary built on high wildlife intensity followed by a softer coastal finish.",
+    "itinerary": [
+      "Day 1: Arrival and briefing for Serengeti and Zanzibar Honeymoon Arc.",
+      "Day 2: Signature experience in Zanzibar.",
+      "Final day: Relaxed departure planning and transfer support."
+    ],
+    "inclusions": [
+      "Accommodation",
+      "Professional guide",
+      "Game drives or guided activities",
+      "Park fees",
+      "Ground transfers"
+    ],
+    "exclusions": [
+      "International flights",
+      "Travel insurance",
+      "Visa fees",
+      "Personal expenses"
+    ],
+    "packing_list": [
+      "Neutral clothing",
+      "Comfortable walking shoes",
+      "Sunscreen",
+      "Camera",
+      "Light jacket"
+    ],
+    "featured_image": "tours/pexels-redrum-visuals-5819223.jpg",
+    "gallery_images": [],
+    "video_url": null,
+    "price_per_person": "4680.00",
+    "price_currency": "USD",
+    "discount_price": "4395.00",
+    "min_age": 6,
+    "max_age": null,
+    "duration_days": 8,
+    "duration_nights": 7,
+    "min_group_size": 1,
+    "max_group_size": 12,
+    "meeting_point": "Arusha arrival with onward bush flight coordination.",
+    "meeting_point_coordinates": {},
+    "departure_times": [
+      "07:30",
+      "14:00"
+    ],
+    "difficulty_level": "easy",
+    "physical_rating": 3,
+    "cultural_rating": 4,
+    "wildlife_rating": 5,
+    "adventure_rating": 4,
+    "available_from": "2026-04-01",
+    "available_to": "2026-12-20",
+    "booked_dates": [],
+    "view_count": 650,
+    "booking_count": 18,
+    "average_rating": "4.70",
+    "review_count": 20,
+    "meta_title": "Serengeti and Zanzibar Honeymoon Arc",
+    "meta_description": "A strong romance itinerary built on high wildlife intensity followed by a softer coastal finish.",
+    "is_featured": true,
+    "is_active": true,
+    "is_trending": true,
+    "created_by": 1,
+    "created_at": "2026-03-19T11:54:49.472Z",
+    "updated_at": "2026-03-31T05:58:26.993Z",
+    "categories": [
+      2,
+      4
+    ],
+    "tags": [
+      3,
+      5,
+      11
+    ]
+  }
+},
+{
+  "model": "safarisite.tour",
+  "pk": 11,
+  "fields": {
+    "title": "Amboseli and Laikipia Photographers Route",
+    "slug": "amboseli-and-laikipia-photographers-route",
+    "destination": 2,
+    "overview": "A route designed around long-light windows, hide access, and guides who understand framing.",
+    "itinerary": [
+      "Day 1: Arrival and briefing for Amboseli and Laikipia Photographers Route.",
+      "Day 2: Signature experience in Amboseli.",
+      "Final day: Relaxed departure planning and transfer support."
+    ],
+    "inclusions": [
+      "Accommodation",
+      "Professional guide",
+      "Game drives or guided activities",
+      "Park fees",
+      "Ground transfers"
+    ],
+    "exclusions": [
+      "International flights",
+      "Travel insurance",
+      "Visa fees",
+      "Personal expenses"
+    ],
+    "packing_list": [
+      "Neutral clothing",
+      "Comfortable walking shoes",
+      "Sunscreen",
+      "Camera",
+      "Light jacket"
+    ],
+    "featured_image": "tours/pexels-ornanvelazquez-14396370.jpg",
+    "gallery_images": [],
+    "video_url": null,
+    "price_per_person": "3180.00",
+    "price_currency": "USD",
+    "discount_price": null,
+    "min_age": 6,
+    "max_age": null,
+    "duration_days": 7,
+    "duration_nights": 6,
+    "min_group_size": 1,
+    "max_group_size": 12,
+    "meeting_point": "Nairobi arrival with overnight city start.",
+    "meeting_point_coordinates": {},
+    "departure_times": [
+      "07:30",
+      "14:00"
+    ],
+    "difficulty_level": "moderate",
+    "physical_rating": 3,
+    "cultural_rating": 4,
+    "wildlife_rating": 5,
+    "adventure_rating": 4,
+    "available_from": "2026-04-01",
+    "available_to": "2026-12-20",
+    "booked_dates": [],
+    "view_count": 691,
+    "booking_count": 19,
+    "average_rating": "4.70",
+    "review_count": 21,
+    "meta_title": "Amboseli and Laikipia Photographers Route",
+    "meta_description": "A route designed around long-light windows, hide access, and guides who understand framing.",
+    "is_featured": false,
+    "is_active": true,
+    "is_trending": false,
+    "created_by": 1,
+    "created_at": "2026-03-19T11:54:49.544Z",
+    "updated_at": "2026-03-31T06:06:22.431Z",
+    "categories": [
+      1,
+      6
+    ],
+    "tags": [
+      1,
+      9,
+      10
+    ]
+  }
+},
+{
+  "model": "safarisite.tour",
+  "pk": 12,
+  "fields": {
+    "title": "Rwanda and Zanzibar Contrast Escape",
+    "slug": "rwanda-and-zanzibar-contrast-escape",
+    "destination": 5,
+    "overview": "Mountain intensity first, then a coastal unwind, for travelers who want emotional contrast in one trip.",
+    "itinerary": [
+      "Day 1: Arrival and briefing for Rwanda and Zanzibar Contrast Escape.",
+      "Day 2: Signature experience in Volcanoes National Park.",
+      "Final day: Relaxed departure planning and transfer support."
+    ],
+    "inclusions": [
+      "Accommodation",
+      "Professional guide",
+      "Game drives or guided activities",
+      "Park fees",
+      "Ground transfers"
+    ],
+    "exclusions": [
+      "International flights",
+      "Travel insurance",
+      "Visa fees",
+      "Personal expenses"
+    ],
+    "packing_list": [
+      "Neutral clothing",
+      "Comfortable walking shoes",
+      "Sunscreen",
+      "Camera",
+      "Light jacket"
+    ],
+    "featured_image": "tours/pexels-nadialovessingle-6607184.jpg",
+    "gallery_images": [],
+    "video_url": null,
+    "price_per_person": "5250.00",
+    "price_currency": "USD",
+    "discount_price": "4980.00",
+    "min_age": 6,
+    "max_age": null,
+    "duration_days": 7,
+    "duration_nights": 6,
+    "min_group_size": 1,
+    "max_group_size": 12,
+    "meeting_point": "Arrival into Kigali with hosted airport transfer.",
+    "meeting_point_coordinates": {},
+    "departure_times": [
+      "07:30",
+      "14:00"
+    ],
+    "difficulty_level": "challenging",
+    "physical_rating": 4,
+    "cultural_rating": 4,
+    "wildlife_rating": 5,
+    "adventure_rating": 4,
+    "available_from": "2026-04-01",
+    "available_to": "2026-12-20",
+    "booked_dates": [],
+    "view_count": 732,
+    "booking_count": 20,
+    "average_rating": "4.70",
+    "review_count": 22,
+    "meta_title": "Rwanda and Zanzibar Contrast Escape",
+    "meta_description": "Mountain intensity first, then a coastal unwind, for travelers who want emotional contrast in one trip.",
+    "is_featured": true,
+    "is_active": true,
+    "is_trending": false,
+    "created_by": 1,
+    "created_at": "2026-03-19T11:54:49.605Z",
+    "updated_at": "2026-03-31T05:57:39.929Z",
+    "categories": [
+      2,
+      3,
+      4
+    ],
+    "tags": [
+      5,
+      6,
+      11
+    ]
+  }
+},
+{
+  "model": "safarisite.tourdate",
+  "pk": 1,
+  "fields": {
+    "tour": 2,
+    "start_date": "2026-04-14",
+    "end_date": "2026-04-17",
+    "available_spots": 8,
+    "total_spots": 12,
+    "is_active": true,
+    "special_price": "1540.00"
+  }
+},
+{
+  "model": "safarisite.tourdate",
+  "pk": 2,
+  "fields": {
+    "tour": 2,
+    "start_date": "2026-05-05",
+    "end_date": "2026-05-08",
+    "available_spots": 8,
+    "total_spots": 12,
+    "is_active": true,
+    "special_price": "1540.00"
+  }
+},
+{
+  "model": "safarisite.tourdate",
+  "pk": 3,
+  "fields": {
+    "tour": 2,
+    "start_date": "2026-06-02",
+    "end_date": "2026-06-05",
+    "available_spots": 8,
+    "total_spots": 12,
+    "is_active": true,
+    "special_price": "1540.00"
+  }
+},
+{
+  "model": "safarisite.tourdate",
+  "pk": 4,
+  "fields": {
+    "tour": 11,
+    "start_date": "2026-04-15",
+    "end_date": "2026-04-21",
+    "available_spots": 8,
+    "total_spots": 12,
+    "is_active": true,
+    "special_price": null
+  }
+},
+{
+  "model": "safarisite.tourdate",
+  "pk": 5,
+  "fields": {
+    "tour": 11,
+    "start_date": "2026-05-06",
+    "end_date": "2026-05-12",
+    "available_spots": 8,
+    "total_spots": 12,
+    "is_active": true,
+    "special_price": null
+  }
+},
+{
+  "model": "safarisite.tourdate",
+  "pk": 6,
+  "fields": {
+    "tour": 11,
+    "start_date": "2026-06-03",
+    "end_date": "2026-06-09",
+    "available_spots": 8,
+    "total_spots": 12,
+    "is_active": true,
+    "special_price": null
+  }
+},
+{
+  "model": "safarisite.tourdate",
+  "pk": 7,
+  "fields": {
+    "tour": 8,
+    "start_date": "2026-04-16",
+    "end_date": "2026-04-22",
+    "available_spots": 8,
+    "total_spots": 12,
+    "is_active": true,
+    "special_price": "3290.00"
+  }
+},
+{
+  "model": "safarisite.tourdate",
+  "pk": 8,
+  "fields": {
+    "tour": 8,
+    "start_date": "2026-05-07",
+    "end_date": "2026-05-13",
+    "available_spots": 8,
+    "total_spots": 12,
+    "is_active": true,
+    "special_price": "3290.00"
+  }
+},
+{
+  "model": "safarisite.tourdate",
+  "pk": 9,
+  "fields": {
+    "tour": 8,
+    "start_date": "2026-06-04",
+    "end_date": "2026-06-10",
+    "available_spots": 8,
+    "total_spots": 12,
+    "is_active": true,
+    "special_price": "3290.00"
+  }
+},
+{
+  "model": "safarisite.tourdate",
+  "pk": 10,
+  "fields": {
+    "tour": 7,
+    "start_date": "2026-04-17",
+    "end_date": "2026-04-21",
+    "available_spots": 8,
+    "total_spots": 12,
+    "is_active": true,
+    "special_price": null
+  }
+},
+{
+  "model": "safarisite.tourdate",
+  "pk": 11,
+  "fields": {
+    "tour": 7,
+    "start_date": "2026-05-08",
+    "end_date": "2026-05-12",
+    "available_spots": 8,
+    "total_spots": 12,
+    "is_active": true,
+    "special_price": null
+  }
+},
+{
+  "model": "safarisite.tourdate",
+  "pk": 12,
+  "fields": {
+    "tour": 7,
+    "start_date": "2026-06-05",
+    "end_date": "2026-06-09",
+    "available_spots": 8,
+    "total_spots": 12,
+    "is_active": true,
+    "special_price": null
+  }
+},
+{
+  "model": "safarisite.tourdate",
+  "pk": 13,
+  "fields": {
+    "tour": 9,
+    "start_date": "2026-04-18",
+    "end_date": "2026-04-23",
+    "available_spots": 8,
+    "total_spots": 12,
+    "is_active": true,
+    "special_price": "2050.00"
+  }
+},
+{
+  "model": "safarisite.tourdate",
+  "pk": 14,
+  "fields": {
+    "tour": 9,
+    "start_date": "2026-05-09",
+    "end_date": "2026-05-14",
+    "available_spots": 8,
+    "total_spots": 12,
+    "is_active": true,
+    "special_price": "2050.00"
+  }
+},
+{
+  "model": "safarisite.tourdate",
+  "pk": 15,
+  "fields": {
+    "tour": 9,
+    "start_date": "2026-06-06",
+    "end_date": "2026-06-11",
+    "available_spots": 8,
+    "total_spots": 12,
+    "is_active": true,
+    "special_price": "2050.00"
+  }
+},
+{
+  "model": "safarisite.tourdate",
+  "pk": 16,
+  "fields": {
+    "tour": 1,
+    "start_date": "2026-04-19",
+    "end_date": "2026-04-23",
+    "available_spots": 8,
+    "total_spots": 12,
+    "is_active": true,
+    "special_price": "2295.00"
+  }
+},
+{
+  "model": "safarisite.tourdate",
+  "pk": 17,
+  "fields": {
+    "tour": 1,
+    "start_date": "2026-05-10",
+    "end_date": "2026-05-14",
+    "available_spots": 8,
+    "total_spots": 12,
+    "is_active": true,
+    "special_price": "2295.00"
+  }
+},
+{
+  "model": "safarisite.tourdate",
+  "pk": 18,
+  "fields": {
+    "tour": 1,
+    "start_date": "2026-06-07",
+    "end_date": "2026-06-11",
+    "available_spots": 8,
+    "total_spots": 12,
+    "is_active": true,
+    "special_price": "2295.00"
+  }
+},
+{
+  "model": "safarisite.tourdate",
+  "pk": 19,
+  "fields": {
+    "tour": 6,
+    "start_date": "2026-04-20",
+    "end_date": "2026-04-24",
+    "available_spots": 8,
+    "total_spots": 12,
+    "is_active": true,
+    "special_price": "2590.00"
+  }
+},
+{
+  "model": "safarisite.tourdate",
+  "pk": 20,
+  "fields": {
+    "tour": 6,
+    "start_date": "2026-05-11",
+    "end_date": "2026-05-15",
+    "available_spots": 8,
+    "total_spots": 12,
+    "is_active": true,
+    "special_price": "2590.00"
+  }
+},
+{
+  "model": "safarisite.tourdate",
+  "pk": 21,
+  "fields": {
+    "tour": 6,
+    "start_date": "2026-06-08",
+    "end_date": "2026-06-12",
+    "available_spots": 8,
+    "total_spots": 12,
+    "is_active": true,
+    "special_price": "2590.00"
+  }
+},
+{
+  "model": "safarisite.tourdate",
+  "pk": 22,
+  "fields": {
+    "tour": 12,
+    "start_date": "2026-04-21",
+    "end_date": "2026-04-27",
+    "available_spots": 8,
+    "total_spots": 12,
+    "is_active": true,
+    "special_price": "4980.00"
+  }
+},
+{
+  "model": "safarisite.tourdate",
+  "pk": 23,
+  "fields": {
+    "tour": 12,
+    "start_date": "2026-05-12",
+    "end_date": "2026-05-18",
+    "available_spots": 8,
+    "total_spots": 12,
+    "is_active": true,
+    "special_price": "4980.00"
+  }
+},
+{
+  "model": "safarisite.tourdate",
+  "pk": 24,
+  "fields": {
+    "tour": 12,
+    "start_date": "2026-06-09",
+    "end_date": "2026-06-15",
+    "available_spots": 8,
+    "total_spots": 12,
+    "is_active": true,
+    "special_price": "4980.00"
+  }
+},
+{
+  "model": "safarisite.tourdate",
+  "pk": 25,
+  "fields": {
+    "tour": 3,
+    "start_date": "2026-04-22",
+    "end_date": "2026-04-27",
+    "available_spots": 8,
+    "total_spots": 12,
+    "is_active": true,
+    "special_price": "3195.00"
+  }
+},
+{
+  "model": "safarisite.tourdate",
+  "pk": 26,
+  "fields": {
+    "tour": 3,
+    "start_date": "2026-05-13",
+    "end_date": "2026-05-18",
+    "available_spots": 8,
+    "total_spots": 12,
+    "is_active": true,
+    "special_price": "3195.00"
+  }
+},
+{
+  "model": "safarisite.tourdate",
+  "pk": 27,
+  "fields": {
+    "tour": 3,
+    "start_date": "2026-06-10",
+    "end_date": "2026-06-15",
+    "available_spots": 8,
+    "total_spots": 12,
+    "is_active": true,
+    "special_price": "3195.00"
+  }
+},
+{
+  "model": "safarisite.tourdate",
+  "pk": 28,
+  "fields": {
+    "tour": 10,
+    "start_date": "2026-04-23",
+    "end_date": "2026-04-30",
+    "available_spots": 8,
+    "total_spots": 12,
+    "is_active": true,
+    "special_price": "4395.00"
+  }
+},
+{
+  "model": "safarisite.tourdate",
+  "pk": 29,
+  "fields": {
+    "tour": 10,
+    "start_date": "2026-05-14",
+    "end_date": "2026-05-21",
+    "available_spots": 8,
+    "total_spots": 12,
+    "is_active": true,
+    "special_price": "4395.00"
+  }
+},
+{
+  "model": "safarisite.tourdate",
+  "pk": 30,
+  "fields": {
+    "tour": 10,
+    "start_date": "2026-06-11",
+    "end_date": "2026-06-18",
+    "available_spots": 8,
+    "total_spots": 12,
+    "is_active": true,
+    "special_price": "4395.00"
+  }
+},
+{
+  "model": "safarisite.tourdate",
+  "pk": 31,
+  "fields": {
+    "tour": 5,
+    "start_date": "2026-04-24",
+    "end_date": "2026-04-26",
+    "available_spots": 8,
+    "total_spots": 12,
+    "is_active": true,
+    "special_price": null
+  }
+},
+{
+  "model": "safarisite.tourdate",
+  "pk": 32,
+  "fields": {
+    "tour": 5,
+    "start_date": "2026-05-15",
+    "end_date": "2026-05-17",
+    "available_spots": 8,
+    "total_spots": 12,
+    "is_active": true,
+    "special_price": null
+  }
+},
+{
+  "model": "safarisite.tourdate",
+  "pk": 33,
+  "fields": {
+    "tour": 5,
+    "start_date": "2026-06-12",
+    "end_date": "2026-06-14",
+    "available_spots": 8,
+    "total_spots": 12,
+    "is_active": true,
+    "special_price": null
+  }
+},
+{
+  "model": "safarisite.tourdate",
+  "pk": 34,
+  "fields": {
+    "tour": 4,
+    "start_date": "2026-04-25",
+    "end_date": "2026-04-28",
+    "available_spots": 8,
+    "total_spots": 12,
+    "is_active": true,
+    "special_price": null
+  }
+},
+{
+  "model": "safarisite.tourdate",
+  "pk": 35,
+  "fields": {
+    "tour": 4,
+    "start_date": "2026-05-16",
+    "end_date": "2026-05-19",
+    "available_spots": 8,
+    "total_spots": 12,
+    "is_active": true,
+    "special_price": null
+  }
+},
+{
+  "model": "safarisite.tourdate",
+  "pk": 36,
+  "fields": {
+    "tour": 4,
+    "start_date": "2026-06-13",
+    "end_date": "2026-06-16",
+    "available_spots": 8,
+    "total_spots": 12,
+    "is_active": true,
+    "special_price": null
+  }
+},
+{
+  "model": "safarisite.inquiry",
+  "pk": 1,
+  "fields": {
+    "user": 2,
+    "tour": 7,
+    "name": "adam square",
+    "email": "adamsquare64@gmail.com",
+    "phone": "+254720659798",
+    "inquiry_type": "booking",
+    "subject": "Booking request for Laikipia Private Conservancy Escape",
+    "message": "nothing for sure",
+    "preferred_date": "2026-03-25",
+    "number_of_people": 4,
+    "is_read": false,
+    "is_replied": false,
+    "replied_by": null,
+    "replied_at": null,
+    "created_at": "2026-03-31T06:31:25.551Z"
+  }
+},
+{
+  "model": "safarisite.inquiry",
+  "pk": 2,
+  "fields": {
+    "user": 2,
+    "tour": 3,
+    "name": "adam square",
+    "email": "adamsquare64@gmail.com",
+    "phone": "+254720659798",
+    "inquiry_type": "booking",
+    "subject": "Booking request for Serengeti Great Plains Fly-In",
+    "message": "second trip i want discount",
+    "preferred_date": "2026-03-25",
+    "number_of_people": 4,
+    "is_read": false,
+    "is_replied": false,
+    "replied_by": null,
+    "replied_at": null,
+    "created_at": "2026-03-31T06:44:01.161Z"
+  }
+},
+{
+  "model": "safarisite.inquiry",
+  "pk": 3,
+  "fields": {
+    "user": 2,
+    "tour": 8,
+    "name": "adam square",
+    "email": "adamsquare64@gmail.com",
+    "phone": "+254720659798",
+    "inquiry_type": "booking",
+    "subject": "Booking request for Cape Town and Kruger Contrast Journey",
+    "message": "third",
+    "preferred_date": "2026-04-02",
+    "number_of_people": 3,
+    "is_read": false,
+    "is_replied": false,
+    "replied_by": null,
+    "replied_at": null,
+    "created_at": "2026-03-31T06:56:13.955Z"
+  }
+},
+{
+  "model": "safarisite.blogpost",
+  "pk": 1,
+  "fields": {
+    "title": "Moonlit Drives Across the Mara",
+    "slug": "moonlit-drives-across-the-mara",
+    "author": 1,
+    "destination": 1,
+    "excerpt": "A cinematic guide to night safaris, lantern dinners, and the silence that makes every distant roar feel electric.",
+    "content": "Moonlit drives in the Mara are less about speed and more about attention. The landscape narrows into pockets of sound, the beam of light becomes part of the choreography, and every pause starts to matter. This piece explores how to plan a night game drive, what kind of wildlife movement to expect, and how camps turn the return journey into part of the atmosphere. It also looks at the emotional side of the experience, because darkness changes the psychology of the bush in ways daylight never can.",
+    "featured_image": "blog/pexels-image-noise-1227489162-23831844.jpg",
+    "gallery_images": [],
+    "view_count": 0,
+    "read_time_minutes": 6,
+    "meta_title": "Moonlit Drives Across the Mara",
+    "meta_description": "A cinematic guide to night safaris, lantern dinners, and the silence that makes every distant roar feel electric.",
+    "is_featured": true,
+    "is_published": true,
+    "published_at": "2026-03-15T11:40:53Z",
+    "created_at": "2026-03-19T11:40:53.813Z",
+    "updated_at": "2026-03-19T12:00:44.267Z",
+    "tours": []
+  }
+},
+{
+  "model": "safarisite.blogpost",
+  "pk": 2,
+  "fields": {
+    "title": "The Gold Hour Route Through Amboseli",
+    "slug": "the-gold-hour-route-through-amboseli",
+    "author": 1,
+    "destination": 2,
+    "excerpt": "Where to stand, when to leave camp, and how to frame elephants against the cold geometry of Kilimanjaro.",
+    "content": "Amboseli rewards timing more than almost anywhere else. The same stretch of land can look flat at midday and then completely transform at dawn or sunset. This article breaks down how to chase the clearest mountain views, where dust becomes visually useful instead of annoying, and how experienced guides read animal movement against the weather. It is practical, but it is also built around the idea that the best safari moments happen when composition and patience meet.",
+    "featured_image": "blog/The_Gold_Hour_Route_Through_Amboseli.jpg",
+    "gallery_images": [],
+    "view_count": 0,
+    "read_time_minutes": 5,
+    "meta_title": "The Gold Hour Route Through Amboseli",
+    "meta_description": "Where to stand, when to leave camp, and how to frame elephants against the cold geometry of Kilimanjaro.",
+    "is_featured": true,
+    "is_published": true,
+    "published_at": "2026-03-11T11:40:53Z",
+    "created_at": "2026-03-19T11:40:53.827Z",
+    "updated_at": "2026-03-19T11:48:50.167Z",
+    "tours": []
+  }
+},
+{
+  "model": "safarisite.blogpost",
+  "pk": 3,
+  "fields": {
+    "title": "Zanzibar After Safari",
+    "slug": "zanzibar-after-safari",
+    "author": 1,
+    "destination": 4,
+    "excerpt": "A softer second chapter built around ocean air, carved doors, spice markets, and slow coastal evenings.",
+    "content": "After several days on safari, Zanzibar works best when treated as a transition rather than an afterthought. This story maps out a calm sequence from Stone Town to the coast, balancing movement with stillness. It covers where to place cultural excursions, when to prioritize rest, and how the island gives a different rhythm to East African travel. The result is an itinerary that feels complete rather than split into unrelated parts.",
+    "featured_image": "blog/pexels-goodcitizen-3361818.jpg",
+    "gallery_images": [],
+    "view_count": 0,
+    "read_time_minutes": 4,
+    "meta_title": "Zanzibar After Safari",
+    "meta_description": "A softer second chapter built around ocean air, carved doors, spice markets, and slow coastal evenings.",
+    "is_featured": false,
+    "is_published": true,
+    "published_at": "2026-03-07T11:40:53Z",
+    "created_at": "2026-03-19T11:40:53.839Z",
+    "updated_at": "2026-03-19T11:53:40.552Z",
+    "tours": []
+  }
+},
+{
+  "model": "safarisite.blogpost",
+  "pk": 4,
+  "fields": {
+    "title": "Volcano Trails and Gorilla Dawn",
+    "slug": "volcano-trails-and-gorilla-dawn",
+    "author": 1,
+    "destination": 5,
+    "excerpt": "A field note on rhythm, altitude, and the emotional weight of encountering mountain gorillas at first light.",
+    "content": "Gorilla trekking is one of those experiences that resists reduction. The physical climb is real, but the deeper intensity begins once the forest quiets and the trackers change pace. This article focuses on preparation, pace, weather, and expectation management, then moves into the emotional structure of the encounter itself. The goal is to help travelers arrive informed without flattening the power of the moment.",
+    "featured_image": "blog/pexels-msuatgunerli-24247612.jpg",
+    "gallery_images": [],
+    "view_count": 1,
+    "read_time_minutes": 7,
+    "meta_title": "Volcano Trails and Gorilla Dawn",
+    "meta_description": "A field note on rhythm, altitude, and the emotional weight of encountering mountain gorillas at first light.",
+    "is_featured": true,
+    "is_published": true,
+    "published_at": "2026-03-03T11:40:53Z",
+    "created_at": "2026-03-19T11:40:53.852Z",
+    "updated_at": "2026-03-19T11:54:39.576Z",
+    "tours": []
+  }
+},
+{
+  "model": "safarisite.blogpost",
+  "pk": 5,
+  "fields": {
+    "title": "How to Pack for a Luxury Tent Safari",
+    "slug": "how-to-pack-for-a-luxury-tent-safari",
+    "author": 1,
+    "destination": 3,
+    "excerpt": "A practical edit of what matters, what does not, and how to pack light without looking underprepared.",
+    "content": "Luxury safari packing is usually overcomplicated. The best approach is a disciplined edit built around temperature swings, dust, comfort, and a few stronger clothing choices that still feel polished. This piece covers fabrics, colors, shoes, camera accessories, and the small mistakes that take up bag space without improving the trip. It is written to reduce friction, not add another massive checklist.",
+    "featured_image": "blog/pexels-nguyendesigner-27504178.jpg",
+    "gallery_images": [],
+    "view_count": 0,
+    "read_time_minutes": 5,
+    "meta_title": "How to Pack for a Luxury Tent Safari",
+    "meta_description": "A practical edit of what matters, what does not, and how to pack light without looking underprepared.",
+    "is_featured": false,
+    "is_published": true,
+    "published_at": "2026-02-27T11:40:53Z",
+    "created_at": "2026-03-19T11:40:53.872Z",
+    "updated_at": "2026-03-19T11:55:47.420Z",
+    "tours": []
+  }
+},
+{
+  "model": "safarisite.blogpost",
+  "pk": 6,
+  "fields": {
+    "title": "Three River Crossings Worth Waiting For",
+    "slug": "three-river-crossings-worth-waiting-for",
+    "author": 1,
+    "destination": 3,
+    "excerpt": "Patience, dust, camera discipline, and the exact reason some wildlife moments can never be scheduled.",
+    "content": "River crossings are often marketed as if they can be ordered on demand. In reality, they are a test of patience, positioning, and staying mentally sharp during long stretches when nothing seems to happen. This article explains how guides read herd energy, why some vantage points work better than others, and how to think about the waiting itself as part of the event. The story is as much about discipline as it is about spectacle.",
+    "featured_image": "blog/pexels-asep-abdulrahman-2556970-4151510.jpg",
+    "gallery_images": [],
+    "view_count": 1,
+    "read_time_minutes": 6,
+    "meta_title": "Three River Crossings Worth Waiting For",
+    "meta_description": "Patience, dust, camera discipline, and the exact reason some wildlife moments can never be scheduled.",
+    "is_featured": false,
+    "is_published": true,
+    "published_at": "2026-02-23T11:40:53Z",
+    "created_at": "2026-03-19T11:40:53.896Z",
+    "updated_at": "2026-03-19T11:57:15.144Z",
+    "tours": []
+  }
+},
+{
+  "model": "safarisite.blogpost",
+  "pk": 7,
+  "fields": {
+    "title": "A Design Lovers Guide to Safari Lodges",
+    "slug": "a-design-lovers-guide-to-safari-lodges",
+    "author": 1,
+    "destination": 7,
+    "excerpt": "Texture, light, handmade objects, and the lodge interiors that turn a stopover into part of the story.",
+    "content": "Some safari properties are remembered as strongly for their interiors as for their views. This article looks at the design language of standout lodges: the use of natural materials, the pacing of public and private spaces, and the details that make hospitality feel considered rather than expensive by default. It is a piece for travelers who notice rooms, objects, and atmosphere with the same intensity that they notice landscapes.",
+    "featured_image": "blog/pexels-jonathanborba-19737891.jpg",
+    "gallery_images": [],
+    "view_count": 1,
+    "read_time_minutes": 8,
+    "meta_title": "A Design Lovers Guide to Safari Lodges",
+    "meta_description": "Texture, light, handmade objects, and the lodge interiors that turn a stopover into part of the story.",
+    "is_featured": true,
+    "is_published": true,
+    "published_at": "2026-02-19T11:40:53Z",
+    "created_at": "2026-03-19T11:40:53.916Z",
+    "updated_at": "2026-03-19T11:58:38.846Z",
+    "tours": []
+  }
+},
+{
+  "model": "safarisite.blogpost",
+  "pk": 8,
+  "fields": {
+    "title": "Best Season for the Great Migration",
+    "slug": "best-season-for-the-great-migration",
+    "author": 1,
+    "destination": 3,
+    "excerpt": "The short answer is not enough. This breaks down movement, weather, crowds, and photographic tradeoffs month by month.",
+    "content": "There is no single best month for the migration once you factor in weather, route, herd position, calving, crossings, price, and traveler preference. This guide breaks the migration into phases and clarifies what each period offers. It is designed to help travelers choose based on experience type rather than internet mythology. The result should be a better match between expectation and season.",
+    "featured_image": "blog/pexels-veronika-andrews-2153322013-35301137.jpg",
+    "gallery_images": [],
+    "view_count": 0,
+    "read_time_minutes": 7,
+    "meta_title": "Best Season for the Great Migration",
+    "meta_description": "The short answer is not enough. This breaks down movement, weather, crowds, and photographic tradeoffs month by month.",
+    "is_featured": false,
+    "is_published": true,
+    "published_at": "2026-02-15T11:40:53Z",
+    "created_at": "2026-03-19T11:40:53.928Z",
+    "updated_at": "2026-03-19T12:02:56.500Z",
+    "tours": [
+      10,
+      3
+    ]
+  }
+},
+{
+  "model": "safarisite.blogpost",
+  "pk": 9,
+  "fields": {
+    "title": "Cape Town to Kruger in One Clean Itinerary",
+    "slug": "cape-town-to-kruger-in-one-clean-itinerary",
+    "author": 1,
+    "destination": 8,
+    "excerpt": "A sharp city-to-bush sequence for travelers who want contrast, pace, and just enough room to breathe.",
+    "content": "South Africa rewards itinerary structure. This article lays out a polished sequence that starts with the density of Cape Town and gradually moves into the slower focus of safari. It covers how long to stay in the city, where to place wine country or peninsula excursions, and how to avoid making the final bush segment feel rushed. The aim is to create tension and release, not just a list of stops.",
+    "featured_image": "blog/pexels-tiki-black-767003338-20032795.jpg",
+    "gallery_images": [],
+    "view_count": 0,
+    "read_time_minutes": 5,
+    "meta_title": "Cape Town to Kruger in One Clean Itinerary",
+    "meta_description": "A sharp city-to-bush sequence for travelers who want contrast, pace, and just enough room to breathe.",
+    "is_featured": false,
+    "is_published": true,
+    "published_at": "2026-02-11T11:40:53Z",
+    "created_at": "2026-03-19T11:40:53.941Z",
+    "updated_at": "2026-03-19T12:06:17.086Z",
+    "tours": []
+  }
+},
+{
+  "model": "safarisite.blogpost",
+  "pk": 10,
+  "fields": {
+    "title": "The Quiet Drama of Namibia",
+    "slug": "the-quiet-drama-of-namibia",
+    "author": 1,
+    "destination": 6,
+    "excerpt": "Why negative space, desert silence, and long horizons create one of the most visually disciplined trips in Africa.",
+    "content": "Namibia is a lesson in restraint. The drama is there, but it arrives through scale, emptiness, and careful light rather than constant movement. This story explores what makes the country so visually distinct, why photographers and designers tend to respond strongly to it, and how to build an itinerary that respects the slower visual language of the desert. It is travel written through atmosphere as much as activity.",
+    "featured_image": "blog/pexels-mandia-baard-2151181953-31545977.jpg",
+    "gallery_images": [],
+    "view_count": 0,
+    "read_time_minutes": 6,
+    "meta_title": "The Quiet Drama of Namibia",
+    "meta_description": "Why negative space, desert silence, and long horizons create one of the most visually disciplined trips in Africa.",
+    "is_featured": true,
+    "is_published": true,
+    "published_at": "2026-02-07T11:40:53Z",
+    "created_at": "2026-03-19T11:40:53.960Z",
+    "updated_at": "2026-03-19T12:07:26.357Z",
+    "tours": [
+      6
+    ]
+  }
+},
+{
+  "model": "safarisite.blogpost",
+  "pk": 11,
+  "fields": {
+    "title": "Family Safaris Without the Chaos",
+    "slug": "family-safaris-without-the-chaos",
+    "author": 1,
+    "destination": 1,
+    "excerpt": "How to structure travel days, age-appropriate activities, and lodge choices that keep both parents and children intact.",
+    "content": "Family safari planning usually breaks down when people try to force adult pacing onto children. This article looks at the practical structure that works better: shorter movement windows, flexible activities, stronger lodge selection, and realistic expectations around game drives. It is intended for families who want the trip to feel elevated without becoming fragile or exhausting.",
+    "featured_image": "blog/pexels-denon-studio-480815530-20734808.jpg",
+    "gallery_images": [],
+    "view_count": 0,
+    "read_time_minutes": 5,
+    "meta_title": "Family Safaris Without the Chaos",
+    "meta_description": "How to structure travel days, age-appropriate activities, and lodge choices that keep both parents and children intact.",
+    "is_featured": false,
+    "is_published": true,
+    "published_at": "2026-02-03T11:40:53Z",
+    "created_at": "2026-03-19T11:40:53.980Z",
+    "updated_at": "2026-03-19T12:08:32.023Z",
+    "tours": []
+  }
+},
+{
+  "model": "safarisite.blogpost",
+  "pk": 12,
+  "fields": {
+    "title": "Coffee, Craters, and Cool Air in Arusha",
+    "slug": "coffee-craters-and-cool-air-in-arusha",
+    "author": 1,
+    "destination": 3,
+    "excerpt": "The stop before the expedition deserves better writing than a transfer note. Here is the better version.",
+    "content": "Arusha is often reduced to an airport-adjacent handoff point, which misses its real value. This article reframes it as a place of decompression, garden calm, coffee culture, and strategic pacing before northern Tanzania opens up. For many itineraries, it is the right prelude because it lowers the noise level before the drama rises again on safari.",
+    "featured_image": "blog/pexels-ryutaro-5472275.jpg",
+    "gallery_images": [],
+    "view_count": 0,
+    "read_time_minutes": 4,
+    "meta_title": "Coffee, Craters, and Cool Air in Arusha",
+    "meta_description": "The stop before the expedition deserves better writing than a transfer note. Here is the better version.",
+    "is_featured": false,
+    "is_published": true,
+    "published_at": "2026-01-30T11:40:53Z",
+    "created_at": "2026-03-19T11:40:53.998Z",
+    "updated_at": "2026-03-19T12:23:46.903Z",
+    "tours": [
+      12
+    ]
+  }
+},
+{
+  "model": "safarisite.blogpost",
+  "pk": 13,
+  "fields": {
+    "title": "What Makes a Guide Truly Exceptional",
+    "slug": "what-makes-a-guide-truly-exceptional",
+    "author": 1,
+    "destination": 7,
+    "excerpt": "Tracking skill matters, but so do calm judgment, timing, and the ability to read what guests are not saying.",
+    "content": "Guiding is often described too narrowly, as if wildlife knowledge alone is enough. The best guides combine fieldcraft with rhythm, restraint, emotional intelligence, and a strong sense of when to push and when to stay still. This piece explains the less obvious traits that separate competent guiding from unforgettable guiding, drawing from the pace and trust that define the best safari days.",
+    "featured_image": "blog/pexels-cottonbro-6654002.jpg",
+    "gallery_images": [],
+    "view_count": 0,
+    "read_time_minutes": 6,
+    "meta_title": "What Makes a Guide Truly Exceptional",
+    "meta_description": "Tracking skill matters, but so do calm judgment, timing, and the ability to read what guests are not saying.",
+    "is_featured": false,
+    "is_published": true,
+    "published_at": "2026-01-26T11:40:53Z",
+    "created_at": "2026-03-19T11:40:54.016Z",
+    "updated_at": "2026-03-19T12:25:30.724Z",
+    "tours": []
+  }
+},
+{
+  "model": "safarisite.blogpost",
+  "pk": 14,
+  "fields": {
+    "title": "Romantic Safari Itineraries That Avoid Cliche",
+    "slug": "romantic-safari-itineraries-that-avoid-cliche",
+    "author": 1,
+    "destination": 4,
+    "excerpt": "Less rose-petal theater, more atmosphere, privacy, and sequences that actually feel intimate.",
+    "content": "Romance in travel is usually overdesigned. Better itineraries create it through pace, texture, privacy, and timing. This article builds a stronger blueprint for couples by combining immersive safari days with calm coastal recovery, then shaping the trip around space and mood rather than performance. The result is more elegant and much less predictable.",
+    "featured_image": "blog/pexels-arina-krasnikova-6012054.jpg",
+    "gallery_images": [],
+    "view_count": 0,
+    "read_time_minutes": 5,
+    "meta_title": "Romantic Safari Itineraries That Avoid Cliche",
+    "meta_description": "Less rose-petal theater, more atmosphere, privacy, and sequences that actually feel intimate.",
+    "is_featured": true,
+    "is_published": true,
+    "published_at": "2026-01-22T11:40:53Z",
+    "created_at": "2026-03-19T11:40:54.037Z",
+    "updated_at": "2026-03-19T12:27:57.396Z",
+    "tours": []
+  }
+},
+{
+  "model": "safarisite.blogpost",
+  "pk": 15,
+  "fields": {
+    "title": "The New Luxury Is Slower Travel",
+    "slug": "the-new-luxury-is-slower-travel",
+    "author": 1,
+    "destination": 2,
+    "excerpt": "Why fewer camps, longer stays, and better pacing create a far richer East African journey.",
+    "content": "The most refined itineraries are usually the least frantic. This piece makes the case for slower travel in East Africa by showing how longer stays improve wildlife outcomes, lodge enjoyment, and overall memory quality. It also challenges the common instinct to overfill a route with too many regions in too few days. A slower plan is not less ambitious. It is just better built.",
+    "featured_image": "blog/pexels-mikebirdy-4259350.jpg",
+    "gallery_images": [],
+    "view_count": 0,
+    "read_time_minutes": 6,
+    "meta_title": "The New Luxury Is Slower Travel",
+    "meta_description": "Why fewer camps, longer stays, and better pacing create a far richer East African journey.",
+    "is_featured": true,
+    "is_published": true,
+    "published_at": "2026-01-18T11:40:53Z",
+    "created_at": "2026-03-19T11:40:54.054Z",
+    "updated_at": "2026-03-19T12:31:08.107Z",
+    "tours": []
+  }
+},
+{
+  "model": "safarisite.blogpostview",
+  "pk": 3,
+  "fields": {
+    "post": 6,
+    "user": 1,
+    "viewer_token": "user:1",
+    "ip_address": "127.0.0.1",
+    "created_at": "2026-03-19T12:54:25.845Z"
+  }
+},
+{
+  "model": "safarisite.blogpostview",
+  "pk": 4,
+  "fields": {
+    "post": 4,
+    "user": 1,
+    "viewer_token": "user:1",
+    "ip_address": "127.0.0.1",
+    "created_at": "2026-03-23T09:18:35.916Z"
+  }
+},
+{
+  "model": "safarisite.blogpostview",
+  "pk": 5,
+  "fields": {
+    "post": 7,
+    "user": 1,
+    "viewer_token": "user:1",
+    "ip_address": "127.0.0.1",
+    "created_at": "2026-03-23T09:40:00.040Z"
+  }
+},
+{
+  "model": "safarisite.blogpostshare",
+  "pk": 1,
+  "fields": {
+    "post": 6,
+    "user": 1,
+    "actor_token": "user:1",
+    "channel": "facebook",
+    "created_at": "2026-03-19T12:54:35.163Z"
+  }
+},
+{
+  "model": "safarisite.blogpostshare",
+  "pk": 2,
+  "fields": {
+    "post": 6,
+    "user": 1,
+    "actor_token": "user:1",
+    "channel": "whatsapp",
+    "created_at": "2026-03-19T12:55:09.777Z"
+  }
+},
+{
+  "model": "safarisite.blogpostshare",
+  "pk": 3,
+  "fields": {
+    "post": 6,
+    "user": 1,
+    "actor_token": "user:1",
+    "channel": "email",
+    "created_at": "2026-03-19T12:55:19.721Z"
+  }
+},
+{
+  "model": "safarisite.blogpostshare",
+  "pk": 4,
+  "fields": {
+    "post": 2,
+    "user": 1,
+    "actor_token": "user:1",
+    "channel": "facebook",
+    "created_at": "2026-03-23T09:02:46.966Z"
+  }
+},
+{
+  "model": "safarisite.blogpostshare",
+  "pk": 5,
+  "fields": {
+    "post": 3,
+    "user": 1,
+    "actor_token": "user:1",
+    "channel": "email",
+    "created_at": "2026-03-23T09:18:03.115Z"
+  }
+},
+{
+  "model": "safarisite.blogpostshare",
+  "pk": 6,
+  "fields": {
+    "post": 3,
+    "user": 1,
+    "actor_token": "user:1",
+    "channel": "whatsapp",
+    "created_at": "2026-03-23T09:18:10.169Z"
+  }
+},
+{
+  "model": "safarisite.blogpostreaction",
+  "pk": 2,
+  "fields": {
+    "post": 2,
+    "user": 1,
+    "actor_token": "user:1",
+    "reaction_type": "like",
+    "created_at": "2026-03-23T09:02:38.375Z"
+  }
+},
+{
+  "model": "safarisite.blogpostreaction",
+  "pk": 3,
+  "fields": {
+    "post": 4,
+    "user": 1,
+    "actor_token": "user:1",
+    "reaction_type": "like",
+    "created_at": "2026-03-23T09:02:57.999Z"
+  }
+},
+{
+  "model": "safarisite.blogpostreaction",
+  "pk": 4,
+  "fields": {
+    "post": 6,
+    "user": 1,
+    "actor_token": "user:1",
+    "reaction_type": "like",
+    "created_at": "2026-03-23T09:12:17.521Z"
+  }
+},
+{
+  "model": "safarisite.blogcomment",
+  "pk": 1,
+  "fields": {
+    "post": 6,
+    "user": 1,
+    "guest_name": "",
+    "owner_token": "user:1",
+    "parent": null,
+    "content": "",
+    "is_deleted": true,
+    "created_at": "2026-03-19T12:55:33.516Z",
+    "updated_at": "2026-03-19T13:01:04.811Z"
+  }
+},
+{
+  "model": "safarisite.blogcomment",
+  "pk": 2,
+  "fields": {
+    "post": 6,
+    "user": 1,
+    "guest_name": "",
+    "owner_token": "user:1",
+    "parent": 1,
+    "content": "dve",
+    "is_deleted": false,
+    "created_at": "2026-03-19T13:01:01.731Z",
+    "updated_at": "2026-03-19T13:01:01.731Z"
+  }
+},
+{
+  "model": "safarisite.blogcommentreaction",
+  "pk": 1,
+  "fields": {
+    "comment": 1,
+    "user": 1,
+    "actor_token": "user:1",
+    "reaction_type": "like",
+    "created_at": "2026-03-19T12:56:05.788Z"
+  }
+}
+]
