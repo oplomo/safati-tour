@@ -1,0 +1,44 @@
+{% extends 'safarisite/dashboard/base.html' %}
+
+{% block title %}{{ page_title }} | Safari Tour{% endblock %}
+
+{% block dashboard_content %}
+<section class="content-grid">
+    <article class="content-panel">
+        <div class="section-head">
+            <div>
+                <h3>{{ page_title }}</h3>
+                <p>{{ page_subtitle }}</p>
+            </div>
+        </div>
+        <div class="checklist">
+            {% for item in section_checklist %}
+            <div class="checklist-item">{{ item }}</div>
+            {% endfor %}
+        </div>
+        <p class="muted-note">This page is intentionally set up as a styled dashboard shell first. We can now come back and implement the real CRUD and workflow behavior here.</p>
+    </article>
+
+    <article class="quick-card">
+        <div class="section-head">
+            <div>
+                <h3>Recent bookings</h3>
+                <p>Live context from the current database.</p>
+            </div>
+        </div>
+        <div class="table-stack">
+            {% for booking in recent_bookings %}
+            <div class="table-row">
+                <strong>{{ booking.name }}</strong>
+                <span>{% if booking.tour %}{{ booking.tour.title }}{% else %}No tour linked{% endif %} · {{ booking.email }}</span>
+            </div>
+            {% empty %}
+            <div class="table-row">
+                <strong>No bookings yet</strong>
+                <span>Booking requests will appear here once they exist.</span>
+            </div>
+            {% endfor %}
+        </div>
+    </article>
+</section>
+{% endblock %}

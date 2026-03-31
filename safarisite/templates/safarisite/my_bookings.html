@@ -1,0 +1,518 @@
+{% extends 'base.html' %}
+
+{% block title %}My Bookings | Safari Tour{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        background:
+            radial-gradient(circle at top left, rgba(244, 163, 0, 0.14), transparent 28%),
+            radial-gradient(circle at right, rgba(18, 53, 36, 0.12), transparent 24%),
+            linear-gradient(135deg, #f8f1e4 0%, #ede1c8 55%, #f8f5ef 100%);
+        color: #111;
+    }
+
+    .bookings-shell {
+        width: min(1180px, calc(100% - 2rem));
+        margin: 3rem auto 4rem;
+        display: grid;
+        gap: 1.5rem;
+    }
+
+    .hero {
+        position: relative;
+        overflow: hidden;
+        border-radius: 34px;
+        min-height: 360px;
+        display: flex;
+        align-items: end;
+        background:
+            linear-gradient(180deg, rgba(6, 14, 11, 0.12), rgba(6, 14, 11, 0.78)),
+            linear-gradient(140deg, rgba(16, 47, 36, 0.96), rgba(8, 22, 16, 0.95));
+        box-shadow: 0 26px 80px rgba(17, 17, 17, 0.18);
+    }
+
+    .hero.real-image {
+        background:
+            linear-gradient(180deg, rgba(6, 14, 11, 0.14), rgba(6, 14, 11, 0.82)),
+            var(--hero-image);
+        background-size: cover;
+        background-position: center;
+    }
+
+    .hero-copy {
+        position: relative;
+        z-index: 1;
+        padding: 2.2rem;
+        color: #fff7ee;
+        width: min(760px, 100%);
+    }
+
+    .hero-kicker {
+        display: inline-flex;
+        padding: 0.45rem 0.8rem;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: rgba(255, 255, 255, 0.08);
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        font-size: 0.72rem;
+    }
+
+    .hero h1 {
+        margin: 1rem 0 0.7rem;
+        font-size: clamp(2.8rem, 6vw, 5.2rem);
+        line-height: 0.94;
+        text-transform: uppercase;
+        max-width: 11ch;
+    }
+
+    .hero p {
+        margin: 0;
+        line-height: 1.8;
+        color: rgba(255, 247, 238, 0.88);
+        max-width: 42rem;
+    }
+
+    .hero-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.7rem;
+        margin-top: 1.2rem;
+    }
+
+    .hero-pill {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.52rem 0.8rem;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        color: #fff8ef;
+        font-size: 0.76rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        backdrop-filter: blur(8px);
+    }
+
+    .content-grid {
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 1.3rem;
+    }
+
+    .panel,
+    .trip-card {
+        border-radius: 28px;
+        background: rgba(255, 249, 240, 0.84);
+        border: 1px solid rgba(17, 17, 17, 0.08);
+        box-shadow: 0 20px 60px rgba(17, 17, 17, 0.12);
+    }
+
+    .panel {
+        padding: 1.35rem;
+        display: grid;
+        gap: 1rem;
+    }
+
+    .section-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 1rem;
+    }
+
+    .section-head h2 {
+        margin: 0;
+        font-size: clamp(1.7rem, 4vw, 2.5rem);
+        line-height: 0.95;
+        text-transform: uppercase;
+    }
+
+    .section-head p {
+        margin: 0;
+        line-height: 1.7;
+        color: rgba(17, 17, 17, 0.68);
+    }
+
+    .trip-card {
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .trip-image {
+        min-height: 220px;
+        background:
+            linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.46)),
+            linear-gradient(135deg, rgba(18, 53, 36, 0.94), rgba(200, 76, 36, 0.82));
+        background-size: cover;
+        background-position: center;
+        position: relative;
+    }
+
+    .trip-image.real-image {
+        background:
+            linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.46)),
+            var(--trip-image);
+        background-size: cover;
+        background-position: center;
+    }
+
+    .trip-badge {
+        position: absolute;
+        left: 1rem;
+        bottom: 1rem;
+        display: inline-flex;
+        padding: 0.45rem 0.75rem;
+        border-radius: 999px;
+        background: rgba(12, 12, 12, 0.34);
+        color: #fff7ed;
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        backdrop-filter: blur(8px);
+    }
+
+    .trip-body {
+        padding: 1.15rem;
+        display: grid;
+        gap: 0.9rem;
+        flex: 1;
+    }
+
+    .trip-body h3 {
+        margin: 0;
+        font-size: 1.45rem;
+        line-height: 1.04;
+        text-transform: uppercase;
+    }
+
+    .trip-body p {
+        margin: 0;
+        line-height: 1.75;
+        color: rgba(17, 17, 17, 0.72);
+    }
+
+    .detail-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.7rem;
+    }
+
+    .detail-card {
+        padding: 0.9rem;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.58);
+        border: 1px solid rgba(17, 17, 17, 0.06);
+    }
+
+    .detail-card span {
+        display: block;
+        margin-bottom: 0.28rem;
+        font-size: 0.72rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(17, 17, 17, 0.5);
+    }
+
+    .detail-card strong {
+        font-size: 1rem;
+    }
+
+    .history-list,
+    .suggestion-grid {
+        display: grid;
+        gap: 0.85rem;
+    }
+
+    .history-item {
+        padding: 1rem;
+        border-radius: 20px;
+        background: rgba(17, 17, 17, 0.04);
+        border: 1px solid rgba(17, 17, 17, 0.05);
+    }
+
+    .history-item strong {
+        display: block;
+        margin-bottom: 0.25rem;
+        font-size: 1rem;
+    }
+
+    .history-item span {
+        display: block;
+        color: rgba(17, 17, 17, 0.68);
+        line-height: 1.65;
+    }
+
+    .suggestion-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .action-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-top: auto;
+    }
+
+    .action-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 48px;
+        padding: 0 1rem;
+        border-radius: 999px;
+        text-decoration: none;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .action-link.primary {
+        background: linear-gradient(135deg, #123524, #24513c);
+        color: #fff;
+    }
+
+    .action-link.secondary {
+        background: rgba(17, 17, 17, 0.05);
+        color: #123524;
+    }
+
+    .empty-panel {
+        padding: 1.3rem;
+        border-radius: 24px;
+        background: rgba(255, 249, 240, 0.84);
+        border: 1px solid rgba(17, 17, 17, 0.08);
+        box-shadow: 0 20px 60px rgba(17, 17, 17, 0.12);
+        line-height: 1.8;
+        color: rgba(17, 17, 17, 0.72);
+    }
+
+    @media (max-width: 980px) {
+        .content-grid,
+        .suggestion-grid,
+        .detail-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 680px) {
+        .hero,
+        .panel,
+        .trip-card,
+        .empty-panel {
+            border-radius: 22px;
+        }
+
+        .hero-copy {
+            padding: 1.5rem 1.25rem;
+        }
+    }
+
+    @media (max-width: 860px) {
+        .section-head {
+            flex-direction: column;
+            align-items: start;
+        }
+    }
+</style>
+
+<section class="bookings-shell">
+    <section class="hero{% if hero_trip and hero_trip.tour and hero_trip.tour.featured_image and 'replace-me' not in hero_trip.tour.featured_image.name %} real-image{% endif %}"{% if hero_trip and hero_trip.tour and hero_trip.tour.featured_image and 'replace-me' not in hero_trip.tour.featured_image.name %} style="--hero-image: url('{{ hero_trip.tour.featured_image.url }}');"{% endif %}>
+        <div class="hero-copy">
+            {% if hero_mode == 'active' %}
+            <span class="hero-kicker">Active Journey</span>
+            <h1>{{ active_trip.tour.title }}</h1>
+            <p>
+                Your next adventure is already in motion. Here is the journey currently at the heart of your plans,
+                with the key details ready whenever you want to revisit them.
+            </p>
+            <div class="hero-meta">
+                <span class="hero-pill">{{ active_trip.tour.destination.name }}</span>
+                <span class="hero-pill">{% if active_trip.preferred_date %}{{ active_trip.preferred_date|date:"M d, Y" }}{% else %}Date flexible{% endif %}</span>
+                <span class="hero-pill">{{ active_trip.number_of_people|default:"1" }} travelers</span>
+            </div>
+            {% elif hero_mode == 'recent' %}
+            <span class="hero-kicker">Past Journey</span>
+            <h1>How was {{ recent_trip.tour.title }}?</h1>
+            <p>
+                Your latest journey still carries its own story. Revisit the trip details, reflect on the experience,
+                and start thinking about where the next chapter could take you.
+            </p>
+            <div class="hero-meta">
+                <span class="hero-pill">{{ recent_trip.tour.destination.name }}</span>
+                <span class="hero-pill">{% if recent_trip.preferred_date %}{{ recent_trip.preferred_date|date:"M d, Y" }}{% else %}Travel completed{% endif %}</span>
+                <span class="hero-pill">Ready for the next escape</span>
+            </div>
+            {% else %}
+            <span class="hero-kicker">Travel Journal</span>
+            <h1>Your journeys will live here</h1>
+            <p>
+                Once you confirm a trip, this is where you will keep track of what is coming up,
+                what you have already experienced, and where you may want to go next.
+            </p>
+            <div class="hero-meta">
+                <span class="hero-pill">Start with a tour</span>
+                <span class="hero-pill">Choose your dates</span>
+                <span class="hero-pill">Confirm the journey</span>
+            </div>
+            {% endif %}
+        </div>
+    </section>
+
+    {% if active_trip or recent_trip %}
+    <section class="content-grid">
+        <div class="panel">
+            {% if active_trip %}
+            <div class="section-head">
+                <div>
+                    <h2>My active trip</h2>
+                    <p>Your current travel plan, gathered in one welcoming place.</p>
+                </div>
+            </div>
+            <article class="trip-card">
+                <div class="trip-image{% if active_trip.tour.featured_image and 'replace-me' not in active_trip.tour.featured_image.name %} real-image{% endif %}"{% if active_trip.tour.featured_image and 'replace-me' not in active_trip.tour.featured_image.name %} style="--trip-image: url('{{ active_trip.tour.featured_image.url }}');"{% endif %}>
+                    <span class="trip-badge">{{ active_trip.tour.destination.name }}</span>
+                </div>
+                <div class="trip-body">
+                    <h3>{{ active_trip.tour.title }}</h3>
+                    <p>{{ active_trip.tour.overview|truncatechars:190 }}</p>
+                    <div class="detail-grid">
+                        <div class="detail-card">
+                            <span>Date</span>
+                            <strong>{% if active_trip.preferred_date %}{{ active_trip.preferred_date|date:"M d, Y" }}{% else %}Flexible{% endif %}</strong>
+                        </div>
+                        <div class="detail-card">
+                            <span>Travelers</span>
+                            <strong>{{ active_trip.number_of_people|default:"1" }}</strong>
+                        </div>
+                        <div class="detail-card">
+                            <span>Duration</span>
+                            <strong>{{ active_trip.tour.duration_days }} days</strong>
+                        </div>
+                    </div>
+                    <div class="action-row">
+                        <a href="{% url 'safarisite:contact' %}" class="action-link primary">Refine This Trip</a>
+                        <a href="{% url 'safarisite:tours' %}" class="action-link secondary">View More Tours</a>
+                    </div>
+                </div>
+            </article>
+            {% else %}
+            <div class="section-head">
+                <div>
+                    <h2>Recent journey</h2>
+                    <p>Your latest trip remains close, even after the journey ends.</p>
+                </div>
+            </div>
+            <article class="trip-card">
+                <div class="trip-image{% if recent_trip.tour.featured_image and 'replace-me' not in recent_trip.tour.featured_image.name %} real-image{% endif %}"{% if recent_trip.tour.featured_image and 'replace-me' not in recent_trip.tour.featured_image.name %} style="--trip-image: url('{{ recent_trip.tour.featured_image.url }}');"{% endif %}>
+                    <span class="trip-badge">{{ recent_trip.tour.destination.name }}</span>
+                </div>
+                <div class="trip-body">
+                    <h3>{{ recent_trip.tour.title }}</h3>
+                    <p>{{ recent_trip.tour.overview|truncatechars:190 }}</p>
+                    <div class="detail-grid">
+                        <div class="detail-card">
+                            <span>Travel date</span>
+                            <strong>{% if recent_trip.preferred_date %}{{ recent_trip.preferred_date|date:"M d, Y" }}{% else %}Completed{% endif %}</strong>
+                        </div>
+                        <div class="detail-card">
+                            <span>Travelers</span>
+                            <strong>{{ recent_trip.number_of_people|default:"1" }}</strong>
+                        </div>
+                        <div class="detail-card">
+                            <span>Destination</span>
+                            <strong>{{ recent_trip.tour.destination.name }}</strong>
+                        </div>
+                    </div>
+                    <div class="action-row">
+                        <a href="{% url 'safarisite:booking' %}?tour={{ recent_trip.tour.slug }}" class="action-link primary">Book Again</a>
+                        <a href="{% url 'safarisite:blogs' %}" class="action-link secondary">Read Travel Stories</a>
+                    </div>
+                </div>
+            </article>
+            {% endif %}
+        </div>
+
+        <div class="panel">
+            {% if recent_trip %}
+            <div class="section-head">
+                <div>
+                    <h2>Recent trip</h2>
+                    <p>A quick look back at the latest completed chapter of your travels.</p>
+                </div>
+            </div>
+            <div class="history-item">
+                <strong>{{ recent_trip.tour.title }}</strong>
+                <span>{{ recent_trip.tour.destination.name }}{% if recent_trip.preferred_date %} · {{ recent_trip.preferred_date|date:"M d, Y" }}{% endif %}</span>
+                <span>{{ recent_trip.tour.overview|truncatechars:140 }}</span>
+            </div>
+            {% endif %}
+
+            <div class="section-head" style="margin-top:{% if recent_trip %}0.5rem{% else %}0{% endif %};">
+                <div>
+                    <h2>Booking history</h2>
+                    <p>Your recent travel requests and confirmed plans.</p>
+                </div>
+            </div>
+            <div class="history-list">
+                {% for booking in booking_history %}
+                <div class="history-item">
+                    <strong>{% if booking.tour %}{{ booking.tour.title }}{% else %}Custom journey{% endif %}</strong>
+                    <span>{% if booking.tour %}{{ booking.tour.destination.name }}{% endif %}{% if booking.preferred_date %} · {{ booking.preferred_date|date:"M d, Y" }}{% endif %}</span>
+                    <span>{{ booking.number_of_people|default:"1" }} travelers · {{ booking.created_at|date:"M d, Y" }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% else %}
+    <div class="empty-panel">
+        Your bookings page is ready for the journeys ahead. Once you confirm your first trip,
+        you will see the active plan here, your recent travel history, and thoughtful ideas for where to go next.
+    </div>
+    {% endif %}
+
+    <section class="panel">
+        <div class="section-head">
+            <div>
+                <h2>Where to next?</h2>
+                <p>A few suggested journeys based on the spirit of your travel history and the region’s standout routes.</p>
+            </div>
+        </div>
+        <div class="suggestion-grid">
+            {% for tour in next_trips %}
+            <article class="trip-card">
+                <div class="trip-image{% if tour.featured_image and 'replace-me' not in tour.featured_image.name %} real-image{% endif %}"{% if tour.featured_image and 'replace-me' not in tour.featured_image.name %} style="--trip-image: url('{{ tour.featured_image.url }}');"{% endif %}>
+                    <span class="trip-badge">{{ tour.destination.name }}</span>
+                </div>
+                <div class="trip-body">
+                    <h3>{{ tour.title }}</h3>
+                    <p>{{ tour.overview|truncatechars:150 }}</p>
+                    <div class="detail-grid">
+                        <div class="detail-card">
+                            <span>Duration</span>
+                            <strong>{{ tour.duration_days }} days</strong>
+                        </div>
+                        <div class="detail-card">
+                            <span>Price</span>
+                            <strong>KSh {{ tour.final_price }}</strong>
+                        </div>
+                        <div class="detail-card">
+                            <span>Style</span>
+                            <strong>{{ tour.get_difficulty_level_display }}</strong>
+                        </div>
+                    </div>
+                    <div class="action-row">
+                        <a href="{% url 'safarisite:booking' %}?tour={{ tour.slug }}" class="action-link primary">Book This Trip</a>
+                    </div>
+                </div>
+            </article>
+            {% empty %}
+            <div class="empty-panel">New journey ideas will appear here soon.</div>
+            {% endfor %}
+        </div>
+    </section>
+</section>
+{% endblock %}

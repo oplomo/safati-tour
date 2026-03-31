@@ -1,0 +1,317 @@
+{% extends 'base.html' %}
+
+{% block title %}Login | Safari Tour{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        background:
+            radial-gradient(circle at top right, rgba(244, 163, 0, 0.15), transparent 26%),
+            radial-gradient(circle at left, rgba(18, 53, 36, 0.14), transparent 28%),
+            linear-gradient(135deg, #f8f2e6 0%, #ede1c8 54%, #f8f5ef 100%);
+        color: #111;
+    }
+
+    .auth-shell {
+        width: min(1120px, calc(100% - 2rem));
+        margin: 3rem auto 4rem;
+        display: grid;
+        grid-template-columns: 0.95fr 1.05fr;
+        gap: 1rem;
+    }
+
+    .auth-panel,
+    .auth-form-card {
+        border-radius: 32px;
+        overflow: hidden;
+        background: rgba(255, 249, 241, 0.84);
+        border: 1px solid rgba(17, 17, 17, 0.08);
+        box-shadow: 0 22px 70px rgba(17, 17, 17, 0.12);
+    }
+
+    .auth-panel {
+        padding: 2.2rem;
+        background:
+            linear-gradient(145deg, rgba(15, 43, 33, 0.98), rgba(8, 22, 16, 0.95)),
+            linear-gradient(120deg, rgba(244, 163, 0, 0.14), transparent);
+        color: #fff6ea;
+        position: relative;
+    }
+
+    .auth-panel::after {
+        content: "";
+        position: absolute;
+        width: 240px;
+        height: 240px;
+        right: -70px;
+        bottom: -90px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(244, 163, 0, 0.2), transparent 68%);
+        filter: blur(8px);
+    }
+
+    .panel-kicker {
+        display: inline-flex;
+        padding: 0.45rem 0.8rem;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: rgba(255, 255, 255, 0.08);
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        font-size: 0.72rem;
+    }
+
+    .auth-panel h1 {
+        margin: 1rem 0 0.8rem;
+        font-size: clamp(2.8rem, 5.8vw, 4.8rem);
+        line-height: 0.92;
+        text-transform: uppercase;
+        max-width: 9ch;
+    }
+
+    .auth-panel p {
+        margin: 0;
+        line-height: 1.8;
+        color: rgba(255, 246, 234, 0.84);
+    }
+
+    .panel-list {
+        display: grid;
+        gap: 0.85rem;
+        margin-top: 1.5rem;
+    }
+
+    .panel-item {
+        padding: 0.95rem 1rem;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .panel-item strong {
+        display: block;
+        margin-bottom: 0.25rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-size: 0.82rem;
+    }
+
+    .auth-form-card {
+        padding: 2rem;
+    }
+
+    .auth-form-card h2 {
+        margin-top: 0;
+        margin-bottom: 0.65rem;
+        font-size: clamp(2rem, 4vw, 3rem);
+        line-height: 0.95;
+        text-transform: uppercase;
+    }
+
+    .auth-form-card p {
+        margin: 0;
+        line-height: 1.75;
+        color: rgba(17, 17, 17, 0.7);
+    }
+
+    .form-grid {
+        display: grid;
+        gap: 1rem;
+        margin-top: 1.35rem;
+    }
+
+    .form-group {
+        display: grid;
+        gap: 0.45rem;
+    }
+
+    .form-group label {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: rgba(17, 17, 17, 0.6);
+    }
+
+    .form-group input {
+        width: 100%;
+        border: 1px solid rgba(17, 17, 17, 0.1);
+        border-radius: 18px;
+        padding: 0.95rem 1rem;
+        background: rgba(255, 255, 255, 0.88);
+        color: #111;
+        font: inherit;
+        box-sizing: border-box;
+        outline: none;
+    }
+
+    .form-group input:focus {
+        border-color: rgba(18, 53, 36, 0.35);
+        box-shadow: 0 0 0 4px rgba(18, 53, 36, 0.08);
+    }
+
+    .form-errors,
+    .form-non-field {
+        color: #9f2f21;
+        font-size: 0.9rem;
+    }
+
+    .submit-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-top: 1.2rem;
+        align-items: center;
+    }
+
+    .submit-button,
+    .text-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 48px;
+        padding: 0 1rem;
+        border-radius: 999px;
+        text-decoration: none;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .submit-button {
+        border: none;
+        cursor: pointer;
+        background: linear-gradient(135deg, #123524, #24513c);
+        color: #fff;
+    }
+
+    .text-link {
+        background: rgba(17, 17, 17, 0.05);
+        color: #123524;
+    }
+
+    .auth-note {
+        margin-top: 1rem;
+        padding: 0.95rem 1rem;
+        border-radius: 18px;
+        background: rgba(17, 17, 17, 0.04);
+        color: rgba(17, 17, 17, 0.7);
+        line-height: 1.7;
+    }
+
+    .social-divider {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin: 1.2rem 0 0.9rem;
+        color: rgba(17, 17, 17, 0.52);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-size: 0.75rem;
+    }
+
+    .social-divider::before,
+    .social-divider::after {
+        content: "";
+        height: 1px;
+        flex: 1;
+        background: rgba(17, 17, 17, 0.12);
+    }
+
+    .google-auth-wrap {
+        display: flex;
+        justify-content: center;
+        padding: 0.25rem 0 0.35rem;
+    }
+
+    .google-auth-error {
+        color: #9f2f21;
+        font-size: 0.9rem;
+        min-height: 1.2rem;
+        margin-top: 0.65rem;
+    }
+
+    @media (max-width: 920px) {
+        .auth-shell {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 680px) {
+        .auth-panel,
+        .auth-form-card {
+            border-radius: 22px;
+        }
+
+        .auth-panel,
+        .auth-form-card {
+            padding: 1.5rem 1.2rem;
+        }
+    }
+
+    @media (max-width: 520px) {
+        .submit-row {
+            flex-direction: column;
+            align-items: stretch;
+        }
+    }
+</style>
+
+<section class="auth-shell">
+    <article class="auth-panel">
+        <span class="panel-kicker">Account Access</span>
+        <h1>Welcome back to the route</h1>
+        <p>
+            Sign in to continue planning, manage your travel activity, and keep your journey details close at hand.
+        </p>
+        <div class="panel-list">
+            <div class="panel-item">
+                <strong>Stored activity</strong>
+                Keep your trip actions tied to your account instead of only the browser session.
+            </div>
+            <div class="panel-item">
+                <strong>Faster booking flow</strong>
+                Signing in makes it easier to continue through the site with your account in place.
+            </div>
+            <div class="panel-item">
+                <strong>No password reset yet</strong>
+                If you need account help, contact us and we will guide you.
+            </div>
+        </div>
+    </article>
+
+    <article class="auth-form-card">
+        <h2>Login</h2>
+        <p>Enter your account details to continue.</p>
+
+        {% if form.non_field_errors %}
+        <div class="form-non-field">{{ form.non_field_errors|join:", " }}</div>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ next_url }}">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="{{ form.username.id_for_label }}">Username</label>
+                    {{ form.username }}
+                    {% if form.username.errors %}<div class="form-errors">{{ form.username.errors|join:", " }}</div>{% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.password.id_for_label }}">Password</label>
+                    {{ form.password }}
+                    {% if form.password.errors %}<div class="form-errors">{{ form.password.errors|join:", " }}</div>{% endif %}
+                </div>
+            </div>
+            <div class="submit-row">
+                <button type="submit" class="submit-button">Sign In</button>
+                <a class="text-link" href="{% url 'safarisite:register' %}">Create Account</a>
+            </div>
+        </form>
+
+        {% include 'safarisite/auth/_google_auth.html' %}
+        <div id="google-auth-error" class="google-auth-error"></div>
+
+        
+    </article>
+</section>
+{% endblock %}

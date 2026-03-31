@@ -1,0 +1,138 @@
+{% extends 'safarisite/dashboard/base.html' %}
+
+{% block title %}Admin Overview | Safari Tour{% endblock %}
+
+{% block dashboard_content %}
+<section class="content-grid">
+    <article class="content-panel">
+        <div class="section-head">
+            <div>
+                <h3>What this dashboard is for</h3>
+                <p>The internal side is ready. We can now visit each page and wire in the actual management functionality one section at a time.</p>
+            </div>
+        </div>
+        <div class="mini-grid">
+            <div class="mini-item">
+                <strong>Different theme by design</strong>
+                <span>This uses a darker operations-style interface so it clearly feels separate from the public site.</span>
+            </div>
+            <div class="mini-item">
+                <strong>Real admin access control</strong>
+                <span>Only staff users and users with the `admin` or `operator` role can enter this area.</span>
+            </div>
+            <div class="mini-item">
+                <strong>Built for phased expansion</strong>
+                <span>The section pages are ready, so we can now turn them into functional management screens in sequence.</span>
+            </div>
+        </div>
+    </article>
+
+    <article class="quick-card">
+        <div class="section-head">
+            <div>
+                <h3>Next build order</h3>
+                <p>A practical sequence for wiring the real capabilities.</p>
+            </div>
+        </div>
+        <div class="checklist">
+            <div class="checklist-item">Tours and departures</div>
+            <div class="checklist-item">Destinations and media</div>
+            <div class="checklist-item">Bookings and inquiries</div>
+            <div class="checklist-item">Blogs and comments</div>
+            <div class="checklist-item">Users and settings</div>
+        </div>
+    </article>
+</section>
+
+<section class="content-grid">
+    <article class="table-card">
+        <div class="section-head">
+            <div>
+                <h3>Recent bookings</h3>
+                <p>Latest booking-shaped inquiries already coming through the site.</p>
+            </div>
+        </div>
+        <div class="table-stack">
+            {% for booking in recent_bookings %}
+            <div class="table-row">
+                <strong>{{ booking.name }}{% if booking.tour %} · {{ booking.tour.title }}{% endif %}</strong>
+                <span>{{ booking.email }}{% if booking.preferred_date %} · {{ booking.preferred_date }}{% endif %}{% if booking.number_of_people %} · {{ booking.number_of_people }} travelers{% endif %}</span>
+            </div>
+            {% empty %}
+            <div class="table-row">
+                <strong>No bookings yet</strong>
+                <span>Once booking requests come in, they will appear here.</span>
+            </div>
+            {% endfor %}
+        </div>
+    </article>
+
+    <article class="table-card">
+        <div class="section-head">
+            <div>
+                <h3>Upcoming departures</h3>
+                <p>Live tour dates already in the system.</p>
+            </div>
+        </div>
+        <div class="table-stack">
+            {% for departure in featured_departures %}
+            <div class="table-row">
+                <strong>{{ departure.tour.title }}</strong>
+                <span>{{ departure.start_date }} to {{ departure.end_date }} · {{ departure.available_spots }} spots available</span>
+            </div>
+            {% empty %}
+            <div class="table-row">
+                <strong>No active departures yet</strong>
+                <span>Once tour dates are active, they will appear here.</span>
+            </div>
+            {% endfor %}
+        </div>
+    </article>
+</section>
+
+<section class="content-grid">
+    <article class="table-card">
+        <div class="section-head">
+            <div>
+                <h3>Recent inquiries</h3>
+                <p>General and custom requests from the contact side of the platform.</p>
+            </div>
+        </div>
+        <div class="table-stack">
+            {% for inquiry in recent_inquiries %}
+            <div class="table-row">
+                <strong>{{ inquiry.name }} · {{ inquiry.subject }}</strong>
+                <span>{{ inquiry.get_inquiry_type_display }} · {{ inquiry.email }}</span>
+            </div>
+            {% empty %}
+            <div class="table-row">
+                <strong>No inquiries yet</strong>
+                <span>General messages will show here once they start coming in.</span>
+            </div>
+            {% endfor %}
+        </div>
+    </article>
+
+    <article class="table-card">
+        <div class="section-head">
+            <div>
+                <h3>Latest blog activity</h3>
+                <p>The most recent story records in the database.</p>
+            </div>
+        </div>
+        <div class="table-stack">
+            {% for post in recent_posts %}
+            <div class="table-row">
+                <strong>{{ post.title }}</strong>
+                <span>{% if post.is_published %}Published{% else %}Draft{% endif %} · {{ post.created_at|date:"M d, Y" }}</span>
+            </div>
+            {% empty %}
+            <div class="table-row">
+                <strong>No posts yet</strong>
+                <span>Blog records will show here once they exist.</span>
+            </div>
+            {% endfor %}
+        </div>
+    </article>
+</section>
+{% endblock %}

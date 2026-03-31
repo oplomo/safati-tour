@@ -1,0 +1,702 @@
+{% extends 'base.html' %}
+
+{% block title %}Safari Journal | Blogs{% endblock %}
+
+{% block content %}
+<style>
+    :root {
+        --sand: #efe6d3;
+        --ink: #111111;
+        --amber: #f4a300;
+        --rust: #c84c24;
+        --forest: #123524;
+        --mist: #f8f4ec;
+        --panel: rgba(255, 248, 237, 0.78);
+        --line: rgba(17, 17, 17, 0.1);
+        --shadow: 0 24px 80px rgba(17, 17, 17, 0.18);
+    }
+
+    body {
+        background:
+            radial-gradient(circle at top left, rgba(244, 163, 0, 0.22), transparent 28%),
+            radial-gradient(circle at 85% 15%, rgba(200, 76, 36, 0.24), transparent 24%),
+            linear-gradient(135deg, #f8f0de 0%, #e8dcc3 55%, #f4ede1 100%);
+        color: var(--ink);
+    }
+
+    header {
+        background: transparent;
+        position: relative;
+        z-index: 2;
+    }
+
+    header nav {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        padding: 1.2rem 0;
+        width: min(1180px, calc(100% - 2rem));
+        margin: 0 auto;
+    }
+
+    header nav a {
+        color: var(--ink);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+    }
+
+    main {
+        padding: 0 0 4rem;
+    }
+
+    .journal-shell {
+        width: min(1180px, calc(100% - 2rem));
+        margin: 0 auto;
+    }
+
+    .hero {
+        display: block;
+        margin: 1rem;
+        width:100%;
+        
+    }
+
+    .hero-copy {
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        position: relative;
+        margin: 0 auto;
+    }
+
+    .hero-copy {
+        
+        padding:20px;
+        background:
+            linear-gradient(145deg, rgba(18, 53, 36, 0.96), rgba(8, 21, 16, 0.96)),
+            linear-gradient(120deg, rgba(244, 163, 0, 0.2), transparent);
+        color: #f8f4ec;
+    }
+
+    .hero-copy::after {
+        content: "";
+        position: absolute;
+        inset: auto -60px -60px auto;
+        width: 230px;
+        height: 230px;
+        background: radial-gradient(circle, rgba(244, 163, 0, 0.34), transparent 65%);
+        filter: blur(8px);
+    }
+
+    .kicker {
+        display: inline-flex;
+        padding: 0.45rem 0.8rem;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 999px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        font-size: 0.72rem;
+        margin-bottom: 1.1rem;
+        background: rgba(255, 255, 255, 0.08);
+    }
+
+    .hero h1 {
+        margin: 0;
+        font-size: clamp(2.8rem, 5.2vw, 5.2rem);
+        line-height: 0.92;
+        text-transform: uppercase;
+    }
+
+    .hero p {
+        max-width: 46rem;
+        font-size: 1rem;
+        line-height: 1.75;
+        color: rgba(248, 244, 236, 0.84);
+    }
+
+    .section-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        align-items: end;
+        margin: 2.5rem 0 1rem;
+    }
+
+    .section-head h2 {
+        margin: 0;
+        font-size: clamp(2rem, 4vw, 3.4rem);
+        line-height: 0.96;
+        text-transform: uppercase;
+    }
+
+    .section-head p {
+        max-width: 32rem;
+        margin: 0;
+        color: rgba(17, 17, 17, 0.68);
+        line-height: 1.7;
+    }
+
+    .blog-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1.2rem;
+    }
+
+    .blog-card {
+        background: var(--panel);
+        backdrop-filter: blur(14px);
+        border: 1px solid rgba(255, 255, 255, 0.65);
+        border-radius: 24px;
+        padding: 1.25rem;
+        box-shadow: var(--shadow);
+        position: relative;
+        overflow: visible;
+        min-height: 290px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        isolation: isolate;
+    }
+
+    .blog-image {
+        display: block;
+        width: 100%;
+        min-height: 190px;
+        border-radius: 18px;
+        margin-bottom: 1rem;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+
+    .blog-image::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+            linear-gradient(180deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.42)),
+            radial-gradient(circle at top right, rgba(244, 163, 0, 0.3), transparent 36%);
+    }
+
+    .blog-image--fallback {
+        background:
+            linear-gradient(135deg, rgba(18, 53, 36, 0.92), rgba(200, 76, 36, 0.82)),
+            linear-gradient(120deg, rgba(244, 163, 0, 0.2), transparent);
+    }
+
+    .blog-card:nth-child(1),
+    .blog-card:nth-child(6) {
+        grid-column: span 2;
+    }
+
+    .blog-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+            radial-gradient(circle at top right, rgba(244, 163, 0, 0.3), transparent 30%),
+            linear-gradient(135deg, rgba(255, 255, 255, 0.16), transparent 60%);
+        z-index: -1;
+    }
+
+    .blog-card:nth-child(2n)::before {
+        background:
+            radial-gradient(circle at 20% 20%, rgba(200, 76, 36, 0.26), transparent 28%),
+            linear-gradient(135deg, rgba(18, 53, 36, 0.08), transparent 62%);
+    }
+
+    .meta-row,
+    .card-footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 0.8rem;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.45rem 0.75rem;
+        border-radius: 999px;
+        background: rgba(17, 17, 17, 0.06);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-size: 0.7rem;
+    }
+
+    .engagement-row {
+        display: flex;
+        gap: 0.55rem;
+        flex-wrap: wrap;
+        margin-top: 1rem;
+    }
+
+    .engagement-item {
+        position: relative;
+        z-index: 6;
+    }
+
+    .engagement-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.45rem 0.7rem;
+        border-radius: 999px;
+        background: rgba(17, 17, 17, 0.05);
+        font-size: 0.74rem;
+        color: rgba(17, 17, 17, 0.72);
+        text-decoration: none;
+        border: 0;
+        cursor: pointer;
+        font: inherit;
+    }
+
+    .engagement-pop {
+        position: absolute;
+        left: 0;
+        bottom: calc(100% + 0.7rem);
+        min-width: 220px;
+        max-width: 280px;
+        padding: 0.8rem;
+        border-radius: 18px;
+        background: rgba(17, 17, 17, 0.92);
+        color: #fff;
+        box-shadow: 0 18px 40px rgba(17, 17, 17, 0.22);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(8px);
+        transition: 160ms ease;
+        pointer-events: none;
+        z-index: 4;
+    }
+
+    .share-menu {
+        position: absolute;
+        left: 0;
+        top: calc(100% + 0.55rem);
+        min-width: 0;
+        padding: 0.8rem;
+        border-radius: 22px;
+        background: linear-gradient(180deg, rgba(255, 251, 244, 0.99), rgba(245, 235, 216, 0.98));
+        border: 1px solid rgba(17, 17, 17, 0.08);
+        box-shadow: 0 22px 48px rgba(17, 17, 17, 0.2);
+        display: none;
+        z-index: 5;
+    }
+
+    .share-menu.open {
+        display: flex;
+        gap: 0.55rem;
+        align-items: center;
+    }
+
+    .share-menu::before {
+        content: none;
+    }
+
+    .share-option {
+        border: 0;
+        width: 46px;
+        height: 46px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        padding: 0;
+        font: inherit;
+        cursor: pointer;
+        background: rgba(17, 17, 17, 0.05);
+        color: var(--ink);
+        font-weight: 600;
+        transition: transform 140ms ease, background 140ms ease, color 140ms ease;
+        font-size: 1.05rem;
+    }
+
+    .share-option:hover {
+        transform: translateY(-1px);
+        background: linear-gradient(135deg, rgba(18, 53, 36, 0.95), rgba(200, 76, 36, 0.88));
+        color: #fff;
+    }
+
+    .share-option.facebook { background: #1877f2; color: #fff; }
+    .share-option.whatsapp { background: #25d366; color: #072d1f; }
+    .share-option.x { background: #111111; color: #fff; }
+    .share-option.linkedin { background: #0a66c2; color: #fff; }
+    .share-option.telegram { background: #229ed9; color: #fff; }
+    .share-option.email { background: linear-gradient(135deg, var(--clay), #8d3f20); color: #fff; }
+
+    .share-option-label {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+
+    .engagement-pill.is-active {
+        background: linear-gradient(135deg, rgba(18, 53, 36, 0.94), rgba(30, 85, 62, 0.92));
+        color: #fff;
+    }
+
+    .engagement-item:hover .engagement-pop {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .engagement-pop strong {
+        display: block;
+        margin-bottom: 0.45rem;
+        font-size: 0.74rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.72);
+    }
+
+    .engagement-pop span {
+        display: block;
+        line-height: 1.6;
+        font-size: 0.86rem;
+    }
+
+    .blog-card h3 {
+        margin: 1rem 0 0.65rem;
+        font-size: clamp(1.5rem, 3vw, 2.45rem);
+        line-height: 0.96;
+        text-transform: uppercase;
+    }
+
+    .blog-card p {
+        margin: 0;
+        color: rgba(17, 17, 17, 0.75);
+        line-height: 1.7;
+        max-width: 36rem;
+    }
+
+    .card-footer {
+        padding-top: 1rem;
+        border-top: 1px solid rgba(17, 17, 17, 0.08);
+        margin-top: 1.3rem;
+        font-size: 0.86rem;
+        color: rgba(17, 17, 17, 0.66);
+    }
+
+    .read-link {
+        color: var(--forest);
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-weight: 700;
+    }
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+        margin-top: 2rem;
+    }
+
+    .pagination a,
+    .pagination span {
+        min-width: 48px;
+        height: 48px;
+        border-radius: 999px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        border: 1px solid rgba(17, 17, 17, 0.08);
+        background: rgba(255, 248, 237, 0.82);
+        color: var(--ink);
+        box-shadow: 0 14px 36px rgba(17, 17, 17, 0.09);
+    }
+
+    .pagination .current {
+        background: linear-gradient(135deg, var(--forest), #214d39);
+        color: #fff;
+        border-color: transparent;
+    }
+
+    @media (max-width: 980px) {
+        .blog-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .blog-card,
+        .blog-card:nth-child(1),
+        .blog-card:nth-child(5) {
+            grid-column: auto;
+        }
+    }
+
+    @media (max-width: 860px) {
+        .section-head {
+            align-items: start;
+            flex-direction: column;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .hero-copy,
+        .blog-card {
+            border-radius: 20px;
+        }
+
+        .hero-copy {
+            width: 100%;
+            padding: 2.2rem 1.3rem;
+            min-height: auto;
+        }
+
+        .engagement-pop {
+            left: 50%;
+            width: min(240px, calc(100vw - 3rem));
+            max-width: none;
+            transform: translate(-50%, 0.6rem);
+        }
+
+        .engagement-item:hover .engagement-pop {
+            transform: translate(-50%, 0);
+        }
+    }
+</style>
+
+
+    <section class="hero">
+        <div class="hero-copy">
+            <span class="kicker">Editorial Escape</span>
+            <h1>Safari Journal</h1>
+            <p>
+                Not a plain blog wall. This is built like a travel magazine cover:
+                dramatic panels, layered cards, strong typography, and a reading flow
+                that feels curated instead of generic.
+            </p>
+        </div>
+    </section>
+
+<section class="journal-shell">
+
+    <section>
+       
+
+        <div class="blog-grid">
+            {% for post in page_obj %}
+            <article class="blog-card">
+                <div>
+                    {% if post.featured_image and 'replace-me' not in post.featured_image.name %}
+                    <a class="blog-image" href="{% url 'safarisite:blog_detail' post.slug %}" style="background-image: url('{{ post.featured_image.url }}');"></a>
+                    {% else %}
+                    <a class="blog-image blog-image--fallback" href="{% url 'safarisite:blog_detail' post.slug %}"></a>
+                    {% endif %}
+
+                    <div class="meta-row">
+                        <span class="pill">{{ post.destination.name|default:"Safari Story" }}</span>
+                        {% if post.is_featured %}
+                        <span class="pill">Featured</span>
+                        {% endif %}
+                    </div>
+
+                    <h3>{{ post.title }}</h3>
+                    <p>{{ post.excerpt }}</p>
+
+                    <div class="engagement-row">
+                        <div class="engagement-item" data-share-item>
+                            <button class="engagement-pill" type="button" data-share-trigger data-post-slug="{{ post.slug }}">&#8599; <span data-share-count>{{ post.share_total|default:0 }}</span></button>
+                            <div class="engagement-pop">
+                                <strong>Shared by</strong>
+                                <div data-share-actors>
+                                {% for name in post.share_actor_names %}
+                                <span>{{ name }}</span>
+                                {% empty %}
+                                <span>No shares yet.</span>
+                                {% endfor %}
+                                </div>
+                            </div>
+                            <div class="share-menu" data-share-menu>
+                                <button class="share-option facebook" type="button" data-share-channel="facebook" title="Facebook">
+                                    <span aria-hidden="true">f</span>
+                                    <span class="share-option-label">Facebook</span>
+                                </button>
+                                <button class="share-option whatsapp" type="button" data-share-channel="whatsapp" title="WhatsApp">
+                                    <span aria-hidden="true">W</span>
+                                    <span class="share-option-label">WhatsApp</span>
+                                </button>
+                                <button class="share-option x" type="button" data-share-channel="x" title="X">
+                                    <span aria-hidden="true">X</span>
+                                    <span class="share-option-label">X</span>
+                                </button>
+                                <button class="share-option linkedin" type="button" data-share-channel="linkedin" title="LinkedIn">
+                                    <span aria-hidden="true">in</span>
+                                    <span class="share-option-label">LinkedIn</span>
+                                </button>
+                                <button class="share-option telegram" type="button" data-share-channel="telegram" title="Telegram">
+                                    <span aria-hidden="true">T</span>
+                                    <span class="share-option-label">Telegram</span>
+                                </button>
+                                <button class="share-option email" type="button" data-share-channel="email" title="Email">
+                                    <span aria-hidden="true">@</span>
+                                    <span class="share-option-label">Email</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="engagement-item">
+                            <a class="engagement-pill" href="{% url 'safarisite:blog_detail' post.slug %}#comments">💬 {{ post.comment_total|default:0 }}</a>
+                            <div class="engagement-pop">
+                                <strong>Commented by</strong>
+                                {% for name in post.comment_actor_names %}
+                                <span>{{ name }}</span>
+                                {% empty %}
+                                <span>No comments yet.</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="engagement-item">
+                            <button class="engagement-pill" type="button" data-react-trigger data-post-slug="{{ post.slug }}">&#128077; <span data-reaction-count>{{ post.reaction_total|default:0 }}</span></button>
+                            <div class="engagement-pop">
+                                <strong>Reacted by</strong>
+                                <div data-reaction-actors>
+                                {% for name in post.reaction_actor_names %}
+                                <span>{{ name }}</span>
+                                {% empty %}
+                                <span>No reactions yet.</span>
+                                {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <span>{{ post.published_at|date:"M d, Y" }}</span>
+                    <span>{{ post.read_time_minutes }} min read</span>
+                    <a class="read-link" href="{% url 'safarisite:blog_detail' post.slug %}">Read Story</a>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+
+        <nav class="pagination" aria-label="Blog pagination">
+            {% if page_obj.has_previous %}
+            <a href="?page=1">1</a>
+            <a href="?page={{ page_obj.previous_page_number }}">Prev</a>
+            {% endif %}
+
+            <span class="current">{{ page_obj.number }}</span>
+
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">Next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+            {% endif %}
+        </nav>
+    </section>
+</section>
+<script>
+    (() => {
+        const getCookie = (name) => {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) {
+                return parts.pop().split(';').shift();
+            }
+            return '';
+        };
+
+        const csrfToken = getCookie('csrftoken');
+
+        const renderActorList = (container, names, emptyText) => {
+            container.innerHTML = '';
+            if (!names.length) {
+                const span = document.createElement('span');
+                span.textContent = emptyText;
+                container.appendChild(span);
+                return;
+            }
+            names.forEach((name) => {
+                const span = document.createElement('span');
+                span.textContent = name;
+                container.appendChild(span);
+            });
+        };
+
+        document.querySelectorAll('[data-react-trigger]').forEach((button) => {
+            button.addEventListener('click', async () => {
+                const slug = button.dataset.postSlug;
+                const response = await fetch(`/blogs/${slug}/react/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': csrfToken,
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams({ reaction_type: 'like' }),
+                });
+                if (!response.ok) {
+                    return;
+                }
+                const data = await response.json();
+                button.querySelector('[data-reaction-count]').textContent = data.reaction_total;
+                button.classList.toggle('is-active', data.active);
+                const actors = button.parentElement.querySelector('[data-reaction-actors]');
+                renderActorList(actors, data.actor_names || [], 'No reactions yet.');
+            });
+        });
+
+        document.querySelectorAll('[data-share-item]').forEach((item) => {
+            const trigger = item.querySelector('[data-share-trigger]');
+            const menu = item.querySelector('[data-share-menu]');
+
+            trigger.addEventListener('click', (event) => {
+                event.stopPropagation();
+                document.querySelectorAll('[data-share-menu].open').forEach((openMenu) => {
+                    if (openMenu !== menu) {
+                        openMenu.classList.remove('open');
+                    }
+                });
+                menu.classList.toggle('open');
+            });
+
+            menu.querySelectorAll('[data-share-channel]').forEach((option) => {
+                option.addEventListener('click', async () => {
+                    const slug = trigger.dataset.postSlug;
+                    const channel = option.dataset.shareChannel;
+                    const response = await fetch(`/blogs/${slug}/share/${channel}/`, {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRFToken': csrfToken,
+                            'X-Requested-With': 'XMLHttpRequest',
+                        },
+                    });
+                    if (!response.ok) {
+                        return;
+                    }
+                    const data = await response.json();
+                    trigger.querySelector('[data-share-count]').textContent = data.share_total;
+                    const actors = item.querySelector('[data-share-actors]');
+                    renderActorList(actors, data.actor_names || [], 'No shares yet.');
+                    menu.classList.remove('open');
+                    window.open(data.redirect_url, '_blank', 'noopener,noreferrer');
+                });
+            });
+        });
+
+        document.addEventListener('click', () => {
+            document.querySelectorAll('[data-share-menu].open').forEach((menu) => {
+                menu.classList.remove('open');
+            });
+        });
+    })();
+</script>
+{% endblock %}

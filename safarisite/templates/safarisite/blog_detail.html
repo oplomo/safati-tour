@@ -1,0 +1,886 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ post.title }} | Safari Journal{% endblock %}
+
+{% block content %}
+<style>
+    :root {
+        --ink: #111111;
+        --mist: #f7f0e2;
+        --forest: #102f24;
+        --amber: #f2a317;
+        --clay: #bf5a30;
+        --gold: #f7c85e;
+        --panel: rgba(255, 248, 237, 0.84);
+        --panel-strong: rgba(255, 252, 246, 0.92);
+        --line: rgba(17, 17, 17, 0.1);
+        --shadow: 0 24px 80px rgba(17, 17, 17, 0.18);
+    }
+
+    body {
+        background:
+            radial-gradient(circle at top left, rgba(242, 163, 23, 0.22), transparent 30%),
+            radial-gradient(circle at right, rgba(191, 90, 48, 0.22), transparent 28%),
+            linear-gradient(135deg, #f9f3e7 0%, #eadfc9 58%, #f6f0e8 100%);
+        color: var(--ink);
+    }
+
+    header {
+        background: transparent;
+    }
+
+    header nav {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        padding: 1.2rem 0;
+        width: min(1180px, calc(100% - 2rem));
+        margin: 0 auto;
+    }
+
+    header nav a {
+        color: var(--ink);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+    }
+
+    main {
+        padding: 0 0 4rem;
+    }
+
+    .story-shell {
+        width: min(1180px, calc(100% - 2rem));
+        margin: 0 auto;
+    }
+
+    .hero {
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 1.4rem;
+        align-items: stretch;
+        margin-top: 0.75rem;
+    }
+
+    .hero-copy,
+    .hero-visual {
+        border-radius: 28px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        border: 1px solid var(--line);
+    }
+
+    .hero-copy {
+        background:
+            linear-gradient(145deg, rgba(16, 47, 36, 0.96), rgba(7, 19, 15, 0.96)),
+            linear-gradient(120deg, rgba(242, 163, 23, 0.14), transparent);
+        color: #fff8ed;
+        padding: 3rem;
+        position: relative;
+    }
+
+    .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.45rem 0.8rem;
+        border-radius: 999px;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        font-size: 0.72rem;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: rgba(255, 255, 255, 0.08);
+    }
+
+    .hero-copy h1 {
+        margin: 1rem 0;
+        font-size: clamp(2.6rem, 5vw, 5.4rem);
+        line-height: 0.95;
+        text-transform: uppercase;
+    }
+
+    .hero-copy p {
+        margin: 0 0 1.5rem;
+        line-height: 1.8;
+        color: rgba(255, 248, 237, 0.84);
+        max-width: 40rem;
+    }
+
+    .hero-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.7rem;
+    }
+
+    .hero-visual {
+        min-height: 520px;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        background-image:
+            linear-gradient(180deg, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.35)),
+            linear-gradient(135deg, rgba(16, 47, 36, 0.92), rgba(191, 90, 48, 0.8));
+    }
+
+    .hero-visual.has-image {
+        background-image:
+            linear-gradient(180deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.4)),
+            url('{{ post.featured_image.url }}');
+    }
+
+    .hero-visual::after {
+        content: "";
+        position: absolute;
+        inset: auto 1.3rem 1.3rem auto;
+        width: 190px;
+        height: 190px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(242, 163, 23, 0.36), transparent 66%);
+        filter: blur(8px);
+    }
+
+    .story-grid {
+        display: grid;
+        grid-template-columns: 1fr 320px;
+        gap: 1.4rem;
+        align-items: start;
+        margin-top: 1.5rem;
+    }
+
+    .story-body,
+    .story-sidebar,
+    .comments-shell {
+        border-radius: 28px;
+        border: 1px solid var(--line);
+        background: var(--panel);
+        backdrop-filter: blur(14px);
+        box-shadow: var(--shadow);
+    }
+
+    .story-body {
+        padding: 2rem;
+    }
+
+    .story-sidebar {
+        padding: 1.4rem;
+        position: sticky;
+        top: 1rem;
+    }
+
+    .story-body p {
+        margin: 0 0 1.25rem;
+        font-size: 1.02rem;
+        line-height: 1.95;
+        color: rgba(17, 17, 17, 0.82);
+    }
+
+    .section-title {
+        margin: 0 0 1rem;
+        font-size: 1rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+    }
+
+    .story-facts {
+        display: grid;
+        gap: 0.9rem;
+    }
+
+    .fact {
+        padding-bottom: 0.9rem;
+        border-bottom: 1px dashed rgba(17, 17, 17, 0.14);
+    }
+
+    .fact span {
+        display: block;
+        font-size: 0.78rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(17, 17, 17, 0.46);
+        margin-bottom: 0.3rem;
+    }
+
+    .related-list {
+        display: grid;
+        gap: 0.8rem;
+        margin-top: 1.5rem;
+    }
+
+    .related-card {
+        display: block;
+        text-decoration: none;
+        color: var(--ink);
+        border-radius: 22px;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.5);
+        border: 1px solid rgba(17, 17, 17, 0.06);
+    }
+
+    .related-card strong {
+        display: block;
+        margin-bottom: 0.4rem;
+        line-height: 1.2;
+        text-transform: uppercase;
+    }
+
+    .engagement-strip {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+        margin: 1.5rem 0 0;
+    }
+
+    .engagement-tile {
+        background: var(--panel-strong);
+        border: 1px solid rgba(17, 17, 17, 0.08);
+        border-radius: 22px;
+        padding: 1rem;
+    }
+
+    .engagement-tile span {
+        display: block;
+        font-size: 0.78rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(17, 17, 17, 0.48);
+        margin-bottom: 0.45rem;
+    }
+
+    .engagement-tile strong {
+        font-size: 1.8rem;
+        line-height: 1;
+    }
+
+    .share-rail {
+        margin-top: 1.5rem;
+        display: grid;
+        gap: 0.8rem;
+    }
+
+    .post-reaction-rail {
+        margin-top: 1.25rem;
+        display: grid;
+        gap: 0.8rem;
+    }
+
+    .share-rail h3 {
+        margin: 0;
+        font-size: 0.95rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+    }
+
+    .share-buttons {
+        display: flex;
+        gap: 0.7rem;
+        flex-wrap: wrap;
+    }
+
+    .share-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 48px;
+        padding: 0 1rem;
+        border-radius: 999px;
+        text-decoration: none;
+        color: #fff;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-size: 0.72rem;
+        font-weight: 700;
+        box-shadow: 0 14px 36px rgba(17, 17, 17, 0.12);
+    }
+
+    .share-link.facebook { background: #1877f2; }
+    .share-link.whatsapp { background: #25d366; color: #082c1f; }
+    .share-link.x { background: #111111; }
+    .share-link.linkedin { background: #0a66c2; }
+    .share-link.telegram { background: #229ed9; }
+    .share-link.email { background: linear-gradient(135deg, var(--clay), #8d3f20); }
+
+    .emoji-row {
+        display: flex;
+        gap: 0.65rem;
+        flex-wrap: wrap;
+    }
+
+    .emoji-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        min-height: 48px;
+        padding: 0 0.95rem;
+        border-radius: 999px;
+        border: 0;
+        cursor: pointer;
+        background: rgba(17, 17, 17, 0.05);
+        color: var(--ink);
+        font: inherit;
+        box-shadow: 0 10px 28px rgba(17, 17, 17, 0.08);
+    }
+
+    .emoji-button.active {
+        background: linear-gradient(135deg, rgba(16, 47, 36, 0.94), rgba(191, 90, 48, 0.9));
+        color: #fff;
+    }
+
+    .emoji-icon {
+        font-size: 1.05rem;
+        line-height: 1;
+    }
+
+    .emoji-count {
+        min-width: 18px;
+        text-align: center;
+        font-size: 0.8rem;
+        font-weight: 700;
+    }
+
+    .comments-shell {
+        margin-top: 1.5rem;
+        padding: 1.5rem;
+    }
+
+    .comments-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        align-items: end;
+        margin-bottom: 1rem;
+    }
+
+    .comments-head h2 {
+        margin: 0;
+        font-size: clamp(2rem, 4vw, 3rem);
+        line-height: 0.96;
+        text-transform: uppercase;
+    }
+
+    .comments-head p {
+        margin: 0;
+        max-width: 32rem;
+        line-height: 1.7;
+        color: rgba(17, 17, 17, 0.68);
+    }
+
+    .composer,
+    .reply-form {
+        background: var(--panel-strong);
+        border: 1px solid rgba(17, 17, 17, 0.07);
+        border-radius: 24px;
+        padding: 1rem;
+    }
+
+    .composer-grid {
+        display: grid;
+        grid-template-columns: 180px 1fr auto;
+        gap: 0.9rem;
+        align-items: start;
+    }
+
+    .field input,
+    .field textarea {
+        width: 100%;
+        border: 1px solid rgba(17, 17, 17, 0.1);
+        border-radius: 18px;
+        background: #fffdf8;
+        padding: 0.95rem 1rem;
+        font: inherit;
+        color: var(--ink);
+        box-sizing: border-box;
+    }
+
+    .field textarea {
+        min-height: 120px;
+        resize: vertical;
+    }
+
+    .submit-button,
+    .reply-button,
+    .delete-button,
+    .reaction-button {
+        border: 0;
+        cursor: pointer;
+        font: inherit;
+    }
+
+    .submit-button {
+        min-height: 56px;
+        padding: 0 1.25rem;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--forest), #1a4a37);
+        color: #fff;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font-weight: 700;
+    }
+
+    .comment-stream {
+        display: grid;
+        gap: 1rem;
+        margin-top: 1.2rem;
+    }
+
+    .comment-card {
+        background: rgba(255, 255, 255, 0.55);
+        border: 1px solid rgba(17, 17, 17, 0.06);
+        border-radius: 24px;
+        padding: 1rem;
+    }
+
+    .comment-card.reply {
+        margin-left: 2rem;
+        background: rgba(250, 245, 236, 0.94);
+    }
+
+    .comment-meta {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        align-items: start;
+        margin-bottom: 0.7rem;
+    }
+
+    .comment-author {
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-size: 0.82rem;
+    }
+
+    .comment-time {
+        color: rgba(17, 17, 17, 0.48);
+        font-size: 0.82rem;
+    }
+
+    .comment-body {
+        line-height: 1.8;
+        color: rgba(17, 17, 17, 0.78);
+    }
+
+    .comment-body.deleted {
+        color: rgba(17, 17, 17, 0.46);
+        font-style: italic;
+    }
+
+    .reaction-row,
+    .comment-actions {
+        display: flex;
+        gap: 0.55rem;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-top: 0.9rem;
+    }
+
+    .reaction-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.55rem 0.8rem;
+        border-radius: 999px;
+        background: rgba(17, 17, 17, 0.05);
+        color: var(--ink);
+        font-size: 0.9rem;
+    }
+
+    .reaction-button.active {
+        background: linear-gradient(135deg, rgba(16, 47, 36, 0.94), rgba(191, 90, 48, 0.9));
+        color: #fff;
+    }
+
+    .reaction-count {
+        display: inline-flex;
+        min-width: 18px;
+        justify-content: center;
+    }
+
+    details.reply-wrap {
+        margin-top: 0.9rem;
+    }
+
+    details.reply-wrap summary {
+        cursor: pointer;
+        list-style: none;
+        display: inline-flex;
+        padding: 0.55rem 0.9rem;
+        border-radius: 999px;
+        background: rgba(17, 17, 17, 0.05);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-size: 0.72rem;
+    }
+
+    details.reply-wrap summary::-webkit-details-marker {
+        display: none;
+    }
+
+    .reply-form {
+        margin-top: 0.8rem;
+    }
+
+    .reply-grid {
+        display: grid;
+        grid-template-columns: 180px 1fr auto;
+        gap: 0.8rem;
+        align-items: start;
+    }
+
+    .reply-button {
+        min-height: 52px;
+        padding: 0 1rem;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--clay), #8d3f20);
+        color: #fff;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-weight: 700;
+    }
+
+    .delete-button {
+        padding: 0.55rem 0.9rem;
+        border-radius: 999px;
+        background: rgba(191, 90, 48, 0.12);
+        color: #7a3117;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-size: 0.72rem;
+    }
+
+    .empty-state {
+        margin-top: 1rem;
+        border-radius: 24px;
+        padding: 1.4rem;
+        background: rgba(255, 255, 255, 0.45);
+        border: 1px dashed rgba(17, 17, 17, 0.14);
+        line-height: 1.8;
+        color: rgba(17, 17, 17, 0.68);
+    }
+
+    .back-link {
+        display: inline-flex;
+        margin-top: 1rem;
+        text-decoration: none;
+        color: var(--forest);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-weight: 700;
+    }
+
+    @media (max-width: 980px) {
+        .hero,
+        .story-grid,
+        .composer-grid,
+        .reply-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .story-sidebar {
+            position: static;
+        }
+
+        .engagement-strip {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 860px) {
+        .comments-head {
+            flex-direction: column;
+            align-items: start;
+        }
+
+        .reaction-row,
+        .comment-actions {
+            width: 100%;
+            justify-content: flex-start;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .hero-copy,
+        .hero-visual,
+        .story-body,
+        .story-sidebar,
+        .comments-shell,
+        .composer,
+        .comment-card {
+            border-radius: 22px;
+        }
+
+        .hero-copy,
+        .story-body,
+        .comments-shell {
+            padding: 1.4rem;
+        }
+
+        .hero-visual {
+            min-height: 340px;
+        }
+
+        .comments-head {
+            flex-direction: column;
+            align-items: start;
+        }
+
+        .comment-card.reply {
+            margin-left: 0.8rem;
+        }
+    }
+</style>
+
+<section class="story-shell">
+    <section class="hero">
+        <div class="hero-copy">
+            <span class="eyebrow">Safari Journal</span>
+            <h1>{{ post.title }}</h1>
+            <p>{{ post.excerpt }}</p>
+            <div class="hero-meta">
+                <span class="eyebrow">{{ post.destination.name|default:"Safari Story" }}</span>
+                <span class="eyebrow">{{ post.published_at|date:"M d, Y" }}</span>
+                <span class="eyebrow">{{ post.read_time_minutes }} min read</span>
+            </div>
+        </div>
+        <div class="hero-visual{% if post.featured_image and 'replace-me' not in post.featured_image.name %} has-image{% endif %}"></div>
+    </section>
+
+    <section class="story-grid">
+        <article class="story-body">
+            <div class="engagement-strip">
+                <div class="engagement-tile">
+                    <span>Tracked views</span>
+                    <strong>{{ post.view_count }}</strong>
+                </div>
+                <div class="engagement-tile">
+                    <span>Shares</span>
+                    <strong>{{ share_count }}</strong>
+                </div>
+                <div class="engagement-tile">
+                    <span>Comments</span>
+                    <strong>{{ comment_count }}</strong>
+                </div>
+            </div>
+
+            <div class="post-reaction-rail" id="post-reactions">
+                <h3>React to this post</h3>
+                <div class="emoji-row">
+                    {% for reaction_key, reaction_label in post_reaction_choices %}
+                    <form method="post" action="{% url 'safarisite:react_to_post' post.slug %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="reaction_type" value="{{ reaction_key }}">
+                        <button class="emoji-button{% if viewer_post_reaction == reaction_key %} active{% endif %}" type="submit">
+                            <span class="emoji-icon">{{ reaction_label }}</span>
+                            <span class="emoji-count">
+                                {% if reaction_key == 'like' %}{{ post_reaction_totals.like|default:0 }}{% endif %}
+                                {% if reaction_key == 'love' %}{{ post_reaction_totals.love|default:0 }}{% endif %}
+                                {% if reaction_key == 'wow' %}{{ post_reaction_totals.wow|default:0 }}{% endif %}
+                                {% if reaction_key == 'laugh' %}{{ post_reaction_totals.laugh|default:0 }}{% endif %}
+                            </span>
+                        </button>
+                    </form>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="share-rail" id="share-story">
+                <h3>Share this story</h3>
+                <div class="share-buttons">
+                    {% for channel_key, channel_label in share_channels %}
+                    <a class="share-link {{ channel_key }}" href="{% url 'safarisite:share_blog_post' post.slug channel_key %}" target="_blank" rel="noopener noreferrer">
+                        {{ channel_label }}
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div style="margin-top: 1.5rem;">
+                <p>{{ post.content|linebreaksbr }}</p>
+            </div>
+            <a class="back-link" href="{% url 'safarisite:blogs' %}">Back to Blogs</a>
+        </article>
+
+        <aside class="story-sidebar">
+            <h2 class="section-title">Story Notes</h2>
+            <div class="story-facts">
+                <div class="fact">
+                    <span>Author</span>
+                    <strong>{{ post.author.get_full_name|default:post.author.username }}</strong>
+                </div>
+                <div class="fact">
+                    <span>Destination</span>
+                    <strong>{{ post.destination.name|default:"Safari Story" }}</strong>
+                </div>
+                <div class="fact">
+                    <span>Views</span>
+                    <strong>{{ post.view_count }}</strong>
+                </div>
+                <div class="fact">
+                    <span>Featured</span>
+                    <strong>{% if post.is_featured %}Yes{% else %}No{% endif %}</strong>
+                </div>
+            </div>
+
+            {% if related_posts %}
+            <h2 class="section-title" style="margin-top: 1.6rem;">Related Reads</h2>
+            <div class="related-list">
+                {% for related in related_posts %}
+                <a class="related-card" href="{% url 'safarisite:blog_detail' related.slug %}">
+                    <strong>{{ related.title }}</strong>
+                    <span>{{ related.read_time_minutes }} min read</span>
+                </a>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </aside>
+    </section>
+
+    <section class="comments-shell" id="comments">
+        <div class="comments-head">
+            <div>
+                <h2>Conversation</h2>
+                <p>
+                    Join the conversation below. Share a thought, react with an emoji, or
+                    reply to keep the story moving.
+                </p>
+            </div>
+            <span class="eyebrow" style="color: var(--ink); border-color: rgba(17, 17, 17, 0.12); background: rgba(255, 255, 255, 0.56);">{{ comment_count }} comments</span>
+        </div>
+
+        <form class="composer" method="post" action="{% url 'safarisite:add_blog_comment' post.slug %}">
+            {% csrf_token %}
+            <div class="composer-grid">
+                <div class="field">
+                    {% if request.user.is_authenticated %}
+                    <input type="text" value="{{ request.user.get_full_name|default:request.user.username }}" disabled>
+                    {% else %}
+                    {{ comment_form.guest_name }}
+                    {% endif %}
+                </div>
+                <div class="field">{{ comment_form.content }}</div>
+                <button class="submit-button" type="submit">Post Comment</button>
+            </div>
+        </form>
+
+        {% if comments %}
+        <div class="comment-stream">
+            {% for comment in comments %}
+            <article class="comment-card" id="comment-{{ comment.id }}">
+                <div class="comment-meta">
+                    <div>
+                        <div class="comment-author">{{ comment.display_name }}</div>
+                        <div class="comment-time">{{ comment.created_at|date:"M d, Y H:i" }}</div>
+                    </div>
+                </div>
+
+                {% if comment.is_deleted %}
+                <div class="comment-body deleted">This comment was removed by its author.</div>
+                {% else %}
+                <div class="comment-body">{{ comment.content|linebreaksbr }}</div>
+                {% endif %}
+
+                <div class="reaction-row">
+                    {% for reaction_key, reaction_label in reaction_choices %}
+                    <form method="post" action="{% url 'safarisite:react_to_comment' comment.id %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="reaction_type" value="{{ reaction_key }}">
+                        <button class="reaction-button{% if comment.viewer_reaction == reaction_key %} active{% endif %}" type="submit">
+                            <span>{{ reaction_label }}</span>
+                            <span class="reaction-count">
+                                {% if reaction_key == 'like' %}{{ comment.reaction_totals.like|default:0 }}{% endif %}
+                                {% if reaction_key == 'love' %}{{ comment.reaction_totals.love|default:0 }}{% endif %}
+                                {% if reaction_key == 'fire' %}{{ comment.reaction_totals.fire|default:0 }}{% endif %}
+                                {% if reaction_key == 'laugh' %}{{ comment.reaction_totals.laugh|default:0 }}{% endif %}
+                            </span>
+                        </button>
+                    </form>
+                    {% endfor %}
+                </div>
+
+                <div class="comment-actions">
+                    <details class="reply-wrap">
+                        <summary>Reply</summary>
+                        <form class="reply-form" method="post" action="{% url 'safarisite:add_blog_comment' post.slug %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                            <div class="reply-grid">
+                                <div class="field">
+                                    {% if request.user.is_authenticated %}
+                                    <input type="text" value="{{ request.user.get_full_name|default:request.user.username }}" disabled>
+                                    {% else %}
+                                    <input type="text" name="guest_name" placeholder="Your name">
+                                    {% endif %}
+                                </div>
+                                <div class="field">
+                                    <textarea name="content" rows="3" placeholder="Write a reply"></textarea>
+                                </div>
+                                <button class="reply-button" type="submit">Reply</button>
+                            </div>
+                        </form>
+                    </details>
+
+                    {% if comment.can_delete and not comment.is_deleted %}
+                    <form method="post" action="{% url 'safarisite:delete_comment' comment.id %}">
+                        {% csrf_token %}
+                        <button class="delete-button" type="submit">Delete</button>
+                    </form>
+                    {% endif %}
+                </div>
+
+                {% if comment.rendered_replies %}
+                <div class="comment-stream" style="margin-top: 1rem;">
+                    {% for reply in comment.rendered_replies %}
+                    <article class="comment-card reply" id="comment-{{ reply.id }}">
+                        <div class="comment-meta">
+                            <div>
+                                <div class="comment-author">{{ reply.display_name }}</div>
+                                <div class="comment-time">{{ reply.created_at|date:"M d, Y H:i" }}</div>
+                            </div>
+                        </div>
+
+                        {% if reply.is_deleted %}
+                        <div class="comment-body deleted">This reply was removed by its author.</div>
+                        {% else %}
+                        <div class="comment-body">{{ reply.content|linebreaksbr }}</div>
+                        {% endif %}
+
+                        <div class="reaction-row">
+                            {% for reaction_key, reaction_label in reaction_choices %}
+                            <form method="post" action="{% url 'safarisite:react_to_comment' reply.id %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="reaction_type" value="{{ reaction_key }}">
+                                <button class="reaction-button{% if reply.viewer_reaction == reaction_key %} active{% endif %}" type="submit">
+                                    <span>{{ reaction_label }}</span>
+                                    <span class="reaction-count">
+                                        {% if reaction_key == 'like' %}{{ reply.reaction_totals.like|default:0 }}{% endif %}
+                                        {% if reaction_key == 'love' %}{{ reply.reaction_totals.love|default:0 }}{% endif %}
+                                        {% if reaction_key == 'fire' %}{{ reply.reaction_totals.fire|default:0 }}{% endif %}
+                                        {% if reaction_key == 'laugh' %}{{ reply.reaction_totals.laugh|default:0 }}{% endif %}
+                                    </span>
+                                </button>
+                            </form>
+                            {% endfor %}
+                        </div>
+
+                        {% if reply.can_delete and not reply.is_deleted %}
+                        <div class="comment-actions">
+                            <form method="post" action="{% url 'safarisite:delete_comment' reply.id %}">
+                                {% csrf_token %}
+                                <button class="delete-button" type="submit">Delete</button>
+                            </form>
+                        </div>
+                        {% endif %}
+                    </article>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </article>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state">
+            No comments yet. Be the first to share a thought.
+        </div>
+        {% endif %}
+    </section>
+</section>
+{% endblock %}

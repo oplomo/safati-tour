@@ -1,0 +1,561 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Safari Tour{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'safarisite/css/style.css' %}">
+    <style>
+        :root {
+            --shell-cream: #f8f4ec;
+            --shell-deep: #102f24;
+            --shell-gold: #d89b2c;
+            --shell-text: #111;
+            --shell-muted: rgba(17, 17, 17, 0.64);
+            --shell-border: rgba(17, 17, 17, 0.08);
+            --shell-shadow: 0 22px 70px rgba(17, 17, 17, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--shell-cream);
+            color: var(--shell-text);
+            font-family: "Segoe UI", sans-serif;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            border-bottom: 1px solid var(--shell-border);
+            background: rgba(248, 244, 236, 0.88);
+            backdrop-filter: blur(14px);
+        }
+
+        .header-inner,
+        .message-shell,
+        .footer-inner {
+            width: min(1180px, calc(100% - 2rem));
+            margin: 0 auto;
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 0.95rem 0;
+        }
+
+        .brand-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.9rem;
+            text-decoration: none;
+            min-width: 0;
+        }
+
+        .brand-mark {
+            width: 50px;
+            height: 50px;
+            border-radius: 18px;
+            display: grid;
+            place-items: center;
+            background:
+                radial-gradient(circle at 30% 30%, rgba(255, 236, 201, 0.86), transparent 42%),
+                linear-gradient(145deg, #123524, #d08328);
+            color: #fff8ee;
+            font-weight: 900;
+            letter-spacing: 0.08em;
+            box-shadow: 0 14px 30px rgba(18, 53, 36, 0.18);
+            flex-shrink: 0;
+        }
+
+        .brand-copy {
+            min-width: 0;
+        }
+
+        .brand-copy strong {
+            display: block;
+            color: var(--shell-deep);
+            font-size: 1rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .brand-copy span {
+            display: block;
+            color: var(--shell-muted);
+            font-size: 0.76rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .menu-toggle {
+            display: none;
+            width: 52px;
+            height: 52px;
+            border: 1px solid var(--shell-border);
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.62);
+            color: var(--shell-deep);
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shell-shadow);
+        }
+
+        .menu-toggle span,
+        .menu-toggle span::before,
+        .menu-toggle span::after {
+            display: block;
+            width: 18px;
+            height: 2px;
+            border-radius: 999px;
+            background: currentColor;
+            position: relative;
+            transition: 0.2s ease;
+        }
+
+        .menu-toggle span::before,
+        .menu-toggle span::after {
+            content: "";
+            position: absolute;
+            left: 0;
+        }
+
+        .menu-toggle span::before {
+            top: -6px;
+        }
+
+        .menu-toggle span::after {
+            top: 6px;
+        }
+
+        .site-nav {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            min-width: 0;
+        }
+
+        .nav-links,
+        .nav-account {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .nav-links a,
+        .nav-account a,
+        .nav-account span,
+        .account-summary {
+            text-decoration: none;
+            border-radius: 999px;
+            padding: 0.72rem 0.95rem;
+            font-size: 0.94rem;
+            transition: 0.2s ease;
+        }
+
+        .nav-links a {
+            color: rgba(17, 17, 17, 0.8);
+        }
+
+        .nav-links a:hover,
+        .nav-account a:hover,
+        .account-summary:hover {
+            background: rgba(18, 53, 36, 0.06);
+            color: var(--shell-deep);
+        }
+
+        .nav-account {
+            padding-left: 0.8rem;
+            border-left: 1px solid var(--shell-border);
+        }
+
+        .account-menu {
+            position: relative;
+        }
+
+        .account-summary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.65rem;
+            cursor: pointer;
+            list-style: none;
+            color: var(--shell-deep);
+            font-weight: 700;
+            background: rgba(18, 53, 36, 0.06);
+        }
+
+        .account-summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .account-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #123524, #d08328);
+            color: #fff8ef;
+            flex-shrink: 0;
+        }
+
+        .account-dropdown {
+            position: absolute;
+            right: 0;
+            top: calc(100% + 0.6rem);
+            min-width: 220px;
+            padding: 0.8rem;
+            border-radius: 22px;
+            border: 1px solid var(--shell-border);
+            background: rgba(248, 244, 236, 0.98);
+            box-shadow: var(--shell-shadow);
+            display: grid;
+            gap: 0.4rem;
+        }
+
+        .account-dropdown a,
+        .account-dropdown span {
+            display: block;
+            padding: 0.85rem 0.95rem;
+            border-radius: 16px;
+            background: rgba(17, 17, 17, 0.03);
+            color: rgba(17, 17, 17, 0.82);
+        }
+
+        .account-dropdown .account-identity {
+            color: var(--shell-deep);
+            font-weight: 700;
+            background: rgba(18, 53, 36, 0.06);
+        }
+
+        .message-shell {
+            margin-top: 1rem;
+        }
+
+        .site-message {
+            padding: 1rem 1.05rem;
+            border-radius: 18px;
+            background: #e8f5e9;
+            color: #123524;
+            border: 1px solid rgba(18, 53, 36, 0.12);
+            box-shadow: var(--shell-shadow);
+        }
+
+        .site-footer {
+            margin-top: 4rem;
+            background:
+                radial-gradient(circle at top right, rgba(216, 155, 44, 0.15), transparent 22%),
+                linear-gradient(145deg, #102f24, #0b241b);
+            color: #f8f4ec;
+        }
+
+        .footer-inner {
+            padding: 2.8rem 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr 0.8fr;
+            gap: 1.5rem;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: start;
+            gap: 0.95rem;
+        }
+
+        .footer-brand .brand-mark {
+            width: 54px;
+            height: 54px;
+        }
+
+        .footer-column h3 {
+            margin-top: 0;
+            margin-bottom: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-size: 0.82rem;
+            color: rgba(248, 244, 236, 0.74);
+        }
+
+        .footer-column p {
+            margin: 0;
+            color: rgba(248, 244, 236, 0.76);
+            line-height: 1.8;
+        }
+
+        .footer-links {
+            display: grid;
+            gap: 0.55rem;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: rgba(248, 244, 236, 0.88);
+        }
+
+        .footer-links a:hover {
+            color: #fff;
+        }
+
+        @media (max-width: 1100px) {
+            .header-inner,
+            .message-shell,
+            .footer-inner {
+                width: min(1180px, calc(100% - 1.5rem));
+            }
+        }
+
+        @media (max-width: 980px) {
+            .menu-toggle {
+                display: inline-flex;
+            }
+
+            .site-nav {
+                position: absolute;
+                top: calc(100% + 0.65rem);
+                left: 1rem;
+                right: 1rem;
+                padding: 1rem;
+                border-radius: 24px;
+                border: 1px solid var(--shell-border);
+                background: rgba(248, 244, 236, 0.98);
+                box-shadow: var(--shell-shadow);
+                display: none;
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .site-nav.is-open {
+                display: flex;
+            }
+
+            .nav-links,
+            .nav-account {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.45rem;
+            }
+
+            .nav-account {
+                border-left: none;
+                border-top: 1px solid var(--shell-border);
+                padding-left: 0;
+                padding-top: 0.9rem;
+                margin-top: 0.2rem;
+            }
+
+            .nav-links a,
+            .nav-account a,
+            .nav-account span,
+            .account-summary {
+                border-radius: 18px;
+                background: rgba(17, 17, 17, 0.03);
+            }
+
+            .account-menu {
+                width: 100%;
+            }
+
+            .account-summary {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .account-dropdown {
+                position: static;
+                min-width: 0;
+                margin-top: 0.5rem;
+                border-radius: 18px;
+                box-shadow: none;
+                background: rgba(17, 17, 17, 0.03);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 760px) {
+            .brand-copy strong {
+                font-size: 0.92rem;
+            }
+
+            .brand-mark {
+                width: 46px;
+                height: 46px;
+                border-radius: 16px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .header-inner,
+            .message-shell,
+            .footer-inner {
+                width: min(1180px, calc(100% - 1.2rem));
+            }
+
+            .brand-copy span {
+                display: none;
+            }
+
+            .brand-copy strong {
+                letter-spacing: 0.1em;
+            }
+
+            .site-message {
+                border-radius: 14px;
+                padding: 0.9rem;
+            }
+        }
+    </style>
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="{% url 'safarisite:home' %}" class="brand-link">
+                <div class="brand-mark" aria-hidden="true">ST</div>
+                <div class="brand-copy">
+                    <strong>Safari Tour</strong>
+                    <span>East Africa Curated</span>
+                </div>
+            </a>
+
+            <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" id="menu-toggle">
+                <span></span>
+            </button>
+
+            <nav class="site-nav" id="site-nav">
+                <div class="nav-links">
+                    <a href="{% url 'safarisite:home' %}">Home</a>
+                    <a href="{% url 'safarisite:about' %}">About Us</a>
+                    <a href="{% url 'safarisite:services' %}">Services</a>
+                    <a href="{% url 'safarisite:tours' %}">Tours</a>
+                    <a href="{% url 'safarisite:destinations' %}">Destinations</a>
+                    <a href="{% url 'safarisite:booking' %}">Booking</a>
+                    <a href="{% url 'safarisite:blogs' %}">Blogs</a>
+                    <a href="{% url 'safarisite:contact' %}">Contact</a>
+                </div>
+                <div class="nav-account">
+                    <details class="account-menu">
+                        <summary class="account-summary">
+                            <span class="account-icon" aria-hidden="true">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                    <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M4 20a8 8 0 0 1 16 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                            <span>Account</span>
+                        </summary>
+                        <div class="account-dropdown">
+                            {% if request.user.is_authenticated %}
+                            <span class="account-identity">{{ request.user.username }}</span>
+                            <a href="{% url 'safarisite:my_bookings' %}">My Bookings</a>
+                            <a href="{% url 'safarisite:logout' %}">Logout</a>
+                            {% else %}
+                            <a href="{% url 'safarisite:login' %}">Login</a>
+                            <a href="{% url 'safarisite:register' %}">Register</a>
+                            <a href="{% url 'safarisite:booking' %}">Booking</a>
+                            {% endif %}
+                        </div>
+                    </details>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        {% if messages %}
+        <section class="message-shell">
+            {% for message in messages %}
+            <div class="site-message">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </section>
+        {% endif %}
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <div class="footer-brand">
+                        <div class="brand-mark" aria-hidden="true">ST</div>
+                        <div>
+                            <h3>Safari Tour</h3>
+                            <p>Curated safari journeys, coastal escapes, mountain adventures, and story-led travel shaped for East Africa and beyond.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Explore</h3>
+                    <div class="footer-links">
+                        <a href="{% url 'safarisite:about' %}">About Us</a>
+                        <a href="{% url 'safarisite:services' %}">Services</a>
+                        <a href="{% url 'safarisite:tours' %}">Tours</a>
+                        <a href="{% url 'safarisite:destinations' %}">Destinations</a>
+                        <a href="{% url 'safarisite:booking' %}">Booking</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Account</h3>
+                    <div class="footer-links">
+                        <a href="{% url 'safarisite:blogs' %}">Blogs</a>
+                        <a href="{% url 'safarisite:contact' %}">Contact</a>
+                        {% if request.user.is_authenticated %}
+                        <a href="{% url 'safarisite:logout' %}">Logout</a>
+                        {% else %}
+                        <a href="{% url 'safarisite:login' %}">Login</a>
+                        <a href="{% url 'safarisite:register' %}">Register</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function () {
+            const toggle = document.getElementById('menu-toggle');
+            const nav = document.getElementById('site-nav');
+
+            if (!toggle || !nav) {
+                return;
+            }
+
+            toggle.addEventListener('click', function () {
+                const isOpen = nav.classList.toggle('is-open');
+                toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            });
+
+            window.addEventListener('resize', function () {
+                if (window.innerWidth > 980) {
+                    nav.classList.remove('is-open');
+                    toggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+        }());
+    </script>
+</body>
+</html>

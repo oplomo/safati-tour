@@ -1,0 +1,42 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f1e8;
+    color: #1f2933;
+}
+
+header {
+    padding: 1rem 2rem;
+    background: #1b4332;
+}
+
+nav a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+main {
+    padding: 3rem 2rem;
+}
+
+.hero {
+    max-width: 720px;
+}
+
+.eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.8rem;
+    color: #6b7280;
+}
+
+.button {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.85rem 1.2rem;
+    border-radius: 999px;
+    background: #40916c;
+    color: #ffffff;
+    text-decoration: none;
+}

@@ -1,0 +1,497 @@
+{% extends 'base.html' %}
+
+{% block title %}Tours | Safari Tour{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        background:
+            radial-gradient(circle at top left, rgba(244, 163, 0, 0.16), transparent 28%),
+            radial-gradient(circle at right, rgba(18, 53, 36, 0.14), transparent 24%),
+            linear-gradient(135deg, #f8f1e2 0%, #eee2c9 55%, #f8f4ec 100%);
+        color: #111;
+    }
+
+    .tours-shell {
+        width: min(1180px, calc(100% - 2rem));
+        margin: 3rem auto;
+    }
+
+    .tours-hero {
+        border-radius: 32px;
+        padding: 3rem;
+        background:
+            linear-gradient(145deg, rgba(16, 47, 36, 0.97), rgba(8, 22, 16, 0.96)),
+            linear-gradient(120deg, rgba(244, 163, 0, 0.15), transparent);
+        color: #fff6ea;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 26px 80px rgba(17, 17, 17, 0.18);
+    }
+
+    .tours-hero::after {
+        content: "";
+        position: absolute;
+        width: 240px;
+        height: 240px;
+        right: -40px;
+        bottom: -50px;
+        background: radial-gradient(circle, rgba(244, 163, 0, 0.26), transparent 66%);
+        filter: blur(8px);
+    }
+
+    .hero-kicker {
+        display: inline-flex;
+        padding: 0.45rem 0.8rem;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: rgba(255, 255, 255, 0.08);
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        font-size: 0.72rem;
+    }
+
+    .tours-hero h1 {
+        margin: 1rem 0 0.8rem;
+        font-size: clamp(3rem, 6vw, 5.6rem);
+        line-height: 0.93;
+        text-transform: uppercase;
+    }
+
+    .tours-hero p {
+        margin: 0;
+        max-width: 48rem;
+        line-height: 1.8;
+        color: rgba(255, 246, 234, 0.84);
+    }
+
+    .hero-stats {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+        margin-top: 1.8rem;
+    }
+
+    .hero-stat {
+        border-radius: 20px;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .hero-stat span {
+        display: block;
+        font-size: 0.74rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(255, 246, 234, 0.72);
+        margin-bottom: 0.45rem;
+    }
+
+    .hero-stat strong {
+        font-size: 1.8rem;
+    }
+
+    .section-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        align-items: end;
+        margin: 2rem 0 1rem;
+    }
+
+    .section-head h2 {
+        margin: 0;
+        font-size: clamp(2rem, 4vw, 3.2rem);
+        line-height: 0.95;
+        text-transform: uppercase;
+    }
+
+    .section-head p {
+        margin: 0;
+        max-width: 36rem;
+        line-height: 1.75;
+        color: rgba(17, 17, 17, 0.68);
+    }
+
+    .featured-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+    }
+
+    .tour-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+
+    .tour-card {
+        border-radius: 26px;
+        overflow: hidden;
+        background: rgba(255, 249, 240, 0.82);
+        border: 1px solid rgba(17, 17, 17, 0.08);
+        backdrop-filter: blur(14px);
+        box-shadow: 0 20px 60px rgba(17, 17, 17, 0.12);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .tour-card.featured:first-child {
+        grid-column: span 2;
+    }
+
+    .tour-image {
+        min-height: 220px;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        background-image:
+            linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.42)),
+            linear-gradient(135deg, rgba(18, 53, 36, 0.94), rgba(200, 76, 36, 0.82));
+    }
+
+    .tour-image.real-image {
+        background-image:
+            linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.42)),
+            var(--tour-image);
+    }
+
+    .tour-card-body {
+        padding: 1.15rem;
+        display: grid;
+        gap: 0.9rem;
+        flex: 1;
+    }
+
+    .tour-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 0.75rem;
+        align-items: start;
+        flex-wrap: wrap;
+    }
+
+    .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.45rem 0.75rem;
+        border-radius: 999px;
+        background: rgba(17, 17, 17, 0.05);
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: rgba(17, 17, 17, 0.7);
+    }
+
+    .tour-card h3 {
+        margin: 0;
+        font-size: 1.5rem;
+        line-height: 1.05;
+        text-transform: uppercase;
+    }
+
+    .tour-card p {
+        margin: 0;
+        color: rgba(17, 17, 17, 0.74);
+        line-height: 1.75;
+    }
+
+    .tour-meta {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.65rem;
+    }
+
+    .tour-meta-card {
+        border-radius: 18px;
+        padding: 0.85rem;
+        background: rgba(255, 255, 255, 0.52);
+        border: 1px solid rgba(17, 17, 17, 0.06);
+    }
+
+    .tour-meta-card span {
+        display: block;
+        font-size: 0.72rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(17, 17, 17, 0.5);
+        margin-bottom: 0.35rem;
+    }
+
+    .tour-meta-card strong {
+        font-size: 1rem;
+    }
+
+    .tag-row {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+    .tour-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.8rem;
+        flex-wrap: wrap;
+        margin-top: auto;
+        padding-top: 0.3rem;
+    }
+
+    .price-line {
+        display: flex;
+        align-items: baseline;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+    .price-line strong {
+        font-size: 1.35rem;
+        color: #123524;
+    }
+
+    .price-line span {
+        color: rgba(17, 17, 17, 0.56);
+        text-decoration: line-through;
+    }
+
+    .action-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 48px;
+        padding: 0 1rem;
+        border-radius: 999px;
+        text-decoration: none;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .action-link.primary {
+        background: linear-gradient(135deg, #123524, #24513c);
+        color: #fff;
+    }
+
+    .action-link.secondary {
+        background: rgba(17, 17, 17, 0.05);
+        color: #123524;
+    }
+
+    .departure-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+
+    .departure-card {
+        border-radius: 24px;
+        padding: 1.1rem;
+        background: rgba(255, 249, 240, 0.82);
+        border: 1px solid rgba(17, 17, 17, 0.08);
+        box-shadow: 0 16px 50px rgba(17, 17, 17, 0.1);
+    }
+
+    .departure-card h3 {
+        margin-top: 0;
+        margin-bottom: 0.45rem;
+        font-size: 1.2rem;
+    }
+
+    .departure-card p {
+        margin: 0.2rem 0;
+        color: rgba(17, 17, 17, 0.72);
+    }
+
+    @media (max-width: 980px) {
+        .featured-grid,
+        .tour-grid,
+        .departure-grid,
+        .hero-stats {
+            grid-template-columns: 1fr;
+        }
+
+        .tour-card.featured:first-child {
+            grid-column: auto;
+        }
+    }
+
+    @media (max-width: 680px) {
+        .tours-hero,
+        .tour-card,
+        .departure-card {
+            border-radius: 22px;
+        }
+
+        .tours-hero {
+            padding: 2.1rem 1.3rem;
+        }
+
+        .tour-meta {
+            grid-template-columns: 1fr;
+        }
+
+        .tour-actions {
+            align-items: start;
+            flex-direction: column;
+        }
+    }
+
+    @media (max-width: 860px) {
+        .section-head {
+            flex-direction: column;
+            align-items: start;
+        }
+    }
+</style>
+
+<section class="tours-shell">
+    <section class="tours-hero">
+        <span class="hero-kicker">Tour Collection</span>
+        <h1>Safari routes with real depth</h1>
+        <p>
+            Explore a collection of journeys shaped around wildlife encounters, elegant stays,
+            dramatic landscapes, and the kind of pacing that turns a trip into a lasting memory.
+        </p>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <span>Active tours</span>
+                <strong>{{ tour_count }}</strong>
+            </div>
+            <div class="hero-stat">
+                <span>Destinations</span>
+                <strong>{{ destination_count }}</strong>
+            </div>
+            <div class="hero-stat">
+                <span>Categories</span>
+                <strong>{{ category_count }}</strong>
+            </div>
+        </div>
+    </section>
+
+    {% if featured_tours %}
+    <section>
+        <div class="section-head">
+            <h2>Featured tours</h2>
+            <p>Start with the standout routes that bring together big landscapes, strong wildlife moments, and beautifully paced travel days.</p>
+        </div>
+        <div class="featured-grid">
+            {% for tour in featured_tours %}
+            <article class="tour-card featured">
+                <div class="tour-image{% if tour.featured_image and 'replace-me' not in tour.featured_image.name %} real-image{% endif %}"{% if tour.featured_image and 'replace-me' not in tour.featured_image.name %} style="--tour-image: url('{{ tour.featured_image.url }}');"{% endif %}></div>
+                <div class="tour-card-body">
+                    <div class="tour-top">
+                        <span class="pill">{{ tour.destination.name }}</span>
+                        {% if tour.is_trending %}<span class="pill">Trending</span>{% endif %}
+                    </div>
+                    <h3>{{ tour.title }}</h3>
+                    <p>{{ tour.overview }}</p>
+                    <div class="tour-meta">
+                        <div class="tour-meta-card">
+                            <span>Duration</span>
+                            <strong>{{ tour.duration_days }} days</strong>
+                        </div>
+                        <div class="tour-meta-card">
+                            <span>Difficulty</span>
+                            <strong>{{ tour.get_difficulty_level_display }}</strong>
+                        </div>
+                        <div class="tour-meta-card">
+                            <span>Departure</span>
+                            <strong>{% if tour.upcoming_departure %}{{ tour.upcoming_departure|date:"M d, Y" }}{% else %}On request{% endif %}</strong>
+                        </div>
+                    </div>
+                    <div class="tag-row">
+                        {% for category in tour.categories.all|slice:":3" %}
+                        <span class="pill">{{ category.name }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="tour-actions">
+                        <div class="price-line">
+                            <strong>KSh {{ tour.final_price }}</strong>
+                            {% if tour.discount_price %}<span>KSh {{ tour.price_per_person }}</span>{% endif %}
+                        </div>
+                        <div style="display:flex; gap:0.65rem; flex-wrap:wrap;">
+                            <a class="action-link primary" href="{% url 'safarisite:booking' %}?tour={{ tour.slug }}">Book Now</a>
+                            <a class="action-link secondary" href="{% url 'safarisite:contact' %}">Ask First</a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    <section>
+        <div class="section-head">
+            <h2>All tours</h2>
+            <p>Browse the wider collection and find the route that fits your season, travel style, and sense of adventure.</p>
+        </div>
+        <div class="tour-grid">
+            {% for tour in tours %}
+            <article class="tour-card">
+                <div class="tour-image{% if tour.featured_image and 'replace-me' not in tour.featured_image.name %} real-image{% endif %}"{% if tour.featured_image and 'replace-me' not in tour.featured_image.name %} style="--tour-image: url('{{ tour.featured_image.url }}');"{% endif %}></div>
+                <div class="tour-card-body">
+                    <div class="tour-top">
+                        <span class="pill">{{ tour.destination.name }}</span>
+                        {% if tour.is_featured %}<span class="pill">Featured</span>{% endif %}
+                    </div>
+                    <h3>{{ tour.title }}</h3>
+                    <p>{{ tour.overview|truncatechars:180 }}</p>
+                    <div class="tour-meta">
+                        <div class="tour-meta-card">
+                            <span>Duration</span>
+                            <strong>{{ tour.duration_days }}D / {{ tour.duration_nights }}N</strong>
+                        </div>
+                        <div class="tour-meta-card">
+                            <span>Group</span>
+                            <strong>{{ tour.min_group_size }}-{{ tour.max_group_size }}</strong>
+                        </div>
+                        <div class="tour-meta-card">
+                            <span>Rating</span>
+                            <strong>{{ tour.average_rating }}</strong>
+                        </div>
+                    </div>
+                    <div class="tag-row">
+                        {% for category in tour.categories.all|slice:":2" %}
+                        <span class="pill">{{ category.name }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="tour-actions">
+                        <div class="price-line">
+                            <strong>KSh {{ tour.final_price }}</strong>
+                            {% if tour.discount_price %}<span>KSh {{ tour.price_per_person }}</span>{% endif %}
+                        </div>
+                        <a class="action-link primary" href="{% url 'safarisite:booking' %}?tour={{ tour.slug }}">Book Now</a>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </section>
+
+    {% if active_departures %}
+    <section>
+        <div class="section-head">
+            <h2>Upcoming departures</h2>
+            <p>Looking for a specific departure window? These upcoming dates make it easier to move from browsing to planning.</p>
+        </div>
+        <div class="departure-grid">
+            {% for departure in active_departures %}
+            <article class="departure-card">
+                <h3>{{ departure.tour.title }}</h3>
+                <p>{{ departure.tour.destination.name }}</p>
+                <p><strong>{{ departure.start_date|date:"M d, Y" }}</strong> to <strong>{{ departure.end_date|date:"M d, Y" }}</strong></p>
+                <p>{{ departure.available_spots }} of {{ departure.total_spots }} spots available</p>
+                <p>{% if departure.special_price %}Special rate: KSh {{ departure.special_price }}{% else %}Standard rate applies{% endif %}</p>
+            </article>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+</section>
+{% endblock %}

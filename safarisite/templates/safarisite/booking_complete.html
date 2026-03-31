@@ -1,0 +1,203 @@
+{% extends 'base.html' %}
+
+{% block title %}Booking Confirmed | Safari Tour{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        background:
+            radial-gradient(circle at top left, rgba(244, 163, 0, 0.16), transparent 30%),
+            radial-gradient(circle at right, rgba(18, 53, 36, 0.12), transparent 24%),
+            linear-gradient(135deg, #f8f1e4 0%, #efe2cb 55%, #f8f5ef 100%);
+        color: #111;
+    }
+
+    .complete-shell {
+        width: min(980px, calc(100% - 2rem));
+        margin: 3rem auto 4rem;
+        display: grid;
+        gap: 1.5rem;
+    }
+
+    .complete-card,
+    .detail-card {
+        border-radius: 30px;
+        background: rgba(255, 249, 240, 0.84);
+        border: 1px solid rgba(17, 17, 17, 0.08);
+        box-shadow: 0 22px 70px rgba(17, 17, 17, 0.12);
+        overflow: hidden;
+    }
+
+    .complete-card {
+        padding: 3rem;
+        text-align: center;
+        background:
+            linear-gradient(145deg, rgba(16, 47, 36, 0.97), rgba(8, 22, 16, 0.95)),
+            linear-gradient(120deg, rgba(244, 163, 0, 0.16), transparent);
+        color: #fff6ea;
+    }
+
+    .success-badge {
+        width: 84px;
+        height: 84px;
+        margin: 0 auto 1.2rem;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(135deg, #f4a300, #d46f24);
+        color: #102f24;
+        font-size: 2rem;
+        font-weight: 900;
+        box-shadow: 0 18px 50px rgba(212, 111, 36, 0.28);
+    }
+
+    .complete-card h1 {
+        margin: 0 0 0.8rem;
+        font-size: clamp(2.6rem, 5vw, 4.6rem);
+        line-height: 0.94;
+        text-transform: uppercase;
+    }
+
+    .complete-card p {
+        margin: 0 auto;
+        max-width: 40rem;
+        line-height: 1.8;
+        color: rgba(255, 246, 234, 0.84);
+    }
+
+    .detail-card {
+        padding: 1.4rem;
+    }
+
+    .detail-card h2 {
+        margin-top: 0;
+        margin-bottom: 1rem;
+        font-size: 1.7rem;
+        text-transform: uppercase;
+        line-height: 1;
+    }
+
+    .detail-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.9rem;
+    }
+
+    .detail-item {
+        padding: 0.95rem 1rem;
+        border-radius: 18px;
+        background: rgba(17, 17, 17, 0.04);
+    }
+
+    .detail-item span {
+        display: block;
+        margin-bottom: 0.35rem;
+        color: rgba(17, 17, 17, 0.54);
+        font-size: 0.74rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+    }
+
+    .detail-item strong {
+        font-size: 1rem;
+        line-height: 1.55;
+    }
+
+    .action-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        justify-content: center;
+    }
+
+    .action-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 50px;
+        padding: 0 1.1rem;
+        border-radius: 999px;
+        text-decoration: none;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .action-link.primary {
+        background: linear-gradient(135deg, #123524, #24513c);
+        color: #fff;
+    }
+
+    .action-link.secondary {
+        background: rgba(17, 17, 17, 0.05);
+        color: #123524;
+    }
+
+    @media (max-width: 680px) {
+        .complete-card,
+        .detail-card {
+            border-radius: 22px;
+        }
+
+        .complete-card {
+            padding: 2.1rem 1.3rem;
+        }
+
+        .detail-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 860px) {
+        .action-row {
+            justify-content: stretch;
+        }
+    }
+</style>
+
+<section class="complete-shell">
+    <article class="complete-card">
+        <div class="success-badge">✓</div>
+        <h1>Booking confirmed</h1>
+        <p>
+            Your trip request has been accepted successfully. A confirmation is now in place,
+            and the journey can move forward from here with the details already saved.
+        </p>
+    </article>
+
+    <article class="detail-card">
+        <h2>Confirmation details</h2>
+        <div class="detail-grid">
+            <div class="detail-item">
+                <span>Guest</span>
+                <strong>{{ booking.name }}</strong>
+            </div>
+            <div class="detail-item">
+                <span>Email</span>
+                <strong>{{ booking.email }}</strong>
+            </div>
+            <div class="detail-item">
+                <span>Tour</span>
+                <strong>{% if booking.tour %}{{ booking.tour.title }}{% else %}Custom booking{% endif %}</strong>
+            </div>
+            <div class="detail-item">
+                <span>Travelers</span>
+                <strong>{{ booking.number_of_people|default:"To be confirmed" }}</strong>
+            </div>
+            <div class="detail-item">
+                <span>Preferred date</span>
+                <strong>{% if booking.preferred_date %}{{ booking.preferred_date|date:"M d, Y" }}{% else %}Flexible{% endif %}</strong>
+            </div>
+            <div class="detail-item">
+                <span>Reference</span>
+                <strong>#BK{{ booking.id }}</strong>
+            </div>
+        </div>
+    </article>
+
+    <div class="action-row">
+        <a href="{% url 'safarisite:tours' %}" class="action-link primary">Explore More Tours</a>
+        <a href="{% url 'safarisite:home' %}" class="action-link secondary">Return Home</a>
+    </div>
+</section>
+{% endblock %}

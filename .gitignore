@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+.env.*
+media/
+staticfiles/
+*.log
+# Allow db.sqlite3 to be committed for this repo.
+*.sqlite3
+!db.sqlite3
+*.DS_Store

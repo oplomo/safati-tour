@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Dashboard | Safari Tour{% endblock %}</title>
+    <style>
+        :root {
+            color-scheme: dark;
+            --dash-bg: #0c1117;
+            --dash-panel: #121a22;
+            --dash-panel-soft: #18212c;
+            --dash-border: rgba(160, 198, 255, 0.12);
+            --dash-text: #eef4fb;
+            --dash-muted: rgba(238, 244, 251, 0.66);
+            --dash-accent: #65d4ff;
+            --dash-accent-2: #9cffb3;
+            --dash-warning: #ffb969;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", sans-serif;
+            background:
+                radial-gradient(circle at top right, rgba(101, 212, 255, 0.12), transparent 24%),
+                radial-gradient(circle at left, rgba(156, 255, 179, 0.08), transparent 28%),
+                linear-gradient(145deg, #091018 0%, #0c1117 46%, #101922 100%);
+            color: var(--dash-text);
+        }
+
+        a {
+            color: inherit;
+        }
+
+        .dashboard-shell {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+        }
+
+        .dashboard-sidebar {
+            border-right: 1px solid var(--dash-border);
+            background: rgba(7, 11, 17, 0.86);
+            backdrop-filter: blur(14px);
+            padding: 1.2rem;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: grid;
+            grid-template-rows: auto auto 1fr auto;
+            gap: 1rem;
+        }
+
+        .brand-block,
+        .sidebar-card,
+        .topbar,
+        .stat-card,
+        .content-panel,
+        .table-card,
+        .quick-card {
+            border: 1px solid var(--dash-border);
+            background: rgba(18, 26, 34, 0.82);
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
+        }
+
+        .brand-block {
+            padding: 1.15rem;
+        }
+
+        .brand-block span {
+            display: inline-flex;
+            padding: 0.4rem 0.75rem;
+            border-radius: 999px;
+            background: rgba(101, 212, 255, 0.1);
+            color: var(--dash-accent);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            font-size: 0.72rem;
+        }
+
+        .brand-block h1 {
+            margin: 0.85rem 0 0.35rem;
+            font-size: 1.65rem;
+            line-height: 1;
+            text-transform: uppercase;
+        }
+
+        .brand-block p,
+        .sidebar-card p {
+            margin: 0;
+            color: var(--dash-muted);
+            line-height: 1.7;
+        }
+
+        .sidebar-nav {
+            display: grid;
+            gap: 0.55rem;
+            align-content: start;
+        }
+
+        .sidebar-link {
+            display: grid;
+            gap: 0.18rem;
+            padding: 0.95rem 1rem;
+            border-radius: 18px;
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid transparent;
+            transition: 0.2s ease;
+        }
+
+        .sidebar-link:hover,
+        .sidebar-link.is-active {
+            border-color: rgba(101, 212, 255, 0.18);
+            background: rgba(101, 212, 255, 0.08);
+        }
+
+        .sidebar-link strong {
+            font-size: 0.92rem;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .sidebar-link span {
+            color: var(--dash-muted);
+            font-size: 0.84rem;
+            line-height: 1.45;
+        }
+
+        .sidebar-card {
+            padding: 1rem;
+        }
+
+        .sidebar-card h3 {
+            margin-top: 0;
+            margin-bottom: 0.45rem;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .sidebar-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-top: 0.9rem;
+        }
+
+        .chip-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 42px;
+            padding: 0 0.9rem;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-size: 0.78rem;
+        }
+
+        .chip-link.primary {
+            background: linear-gradient(135deg, #65d4ff, #9cffb3);
+            color: #071018;
+        }
+
+        .chip-link.secondary {
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--dash-text);
+        }
+
+        .dashboard-main {
+            padding: 1.25rem;
+            display: grid;
+            gap: 1rem;
+            align-content: start;
+        }
+
+        .topbar {
+            padding: 1rem 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .topbar h2 {
+            margin: 0;
+            font-size: clamp(2rem, 4vw, 3.1rem);
+            line-height: 0.95;
+            text-transform: uppercase;
+        }
+
+        .topbar p {
+            margin: 0.35rem 0 0;
+            color: var(--dash-muted);
+            line-height: 1.7;
+            max-width: 44rem;
+        }
+
+        .topbar-meta {
+            text-align: right;
+        }
+
+        .topbar-meta span {
+            display: block;
+            color: var(--dash-muted);
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .topbar-meta strong {
+            display: block;
+            margin-top: 0.25rem;
+            font-size: 1rem;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 1rem;
+        }
+
+        .stat-card {
+            padding: 1rem;
+        }
+
+        .stat-card span {
+            display: block;
+            color: var(--dash-muted);
+            font-size: 0.74rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 0.35rem;
+        }
+
+        .stat-card strong {
+            font-size: 1.8rem;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 1rem;
+        }
+
+        .content-panel,
+        .table-card,
+        .quick-card {
+            padding: 1.15rem;
+        }
+
+        .section-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 1rem;
+            margin-bottom: 0.9rem;
+        }
+
+        .section-head h3 {
+            margin: 0;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .section-head p {
+            margin: 0;
+            color: var(--dash-muted);
+            line-height: 1.6;
+        }
+
+        .mini-grid {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .mini-item {
+            padding: 0.95rem 1rem;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .mini-item strong {
+            display: block;
+            margin-bottom: 0.2rem;
+            font-size: 0.92rem;
+        }
+
+        .mini-item span {
+            color: var(--dash-muted);
+            font-size: 0.88rem;
+            line-height: 1.55;
+        }
+
+        .table-stack {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .table-row {
+            display: grid;
+            gap: 0.2rem;
+            padding: 0.95rem 1rem;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .table-row strong {
+            font-size: 0.95rem;
+        }
+
+        .table-row span {
+            color: var(--dash-muted);
+            line-height: 1.55;
+            font-size: 0.88rem;
+        }
+
+        .checklist {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .checklist-item {
+            padding: 0.95rem 1rem;
+            border-radius: 18px;
+            background: rgba(101, 212, 255, 0.05);
+            border: 1px solid rgba(101, 212, 255, 0.08);
+            color: var(--dash-text);
+        }
+
+        .muted-note {
+            color: var(--dash-warning);
+            line-height: 1.7;
+        }
+
+        @media (max-width: 1100px) {
+            .dashboard-shell,
+            .content-grid,
+            .stat-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-sidebar {
+                position: static;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--dash-border);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-shell">
+        <aside class="dashboard-sidebar">
+            <div class="brand-block">
+                <span>Internal Panel</span>
+                <h1>Safari Ops</h1>
+                <p>A separate admin workspace with its own visual language, distinct from the public site.</p>
+            </div>
+
+            <nav class="sidebar-nav">
+                {% for section in dashboard_sections %}
+                <a href="{% url section.route %}" class="sidebar-link{% if section.is_active %} is-active{% endif %}">
+                    <strong>{{ section.label }}</strong>
+                    <span>{{ section.summary }}</span>
+                </a>
+                {% endfor %}
+            </nav>
+
+            <div class="sidebar-card">
+                <h3>Operator</h3>
+                <p>{{ request.user.get_full_name|default:request.user.username }}</p>
+                <div class="sidebar-actions">
+                    <a class="chip-link primary" href="{% url 'safarisite:home' %}">Public Site</a>
+                    <a class="chip-link secondary" href="{% url 'safarisite:logout' %}">Logout</a>
+                </div>
+            </div>
+        </aside>
+
+        <main class="dashboard-main">
+            <section class="topbar">
+                <div>
+                    <h2>{{ page_title }}</h2>
+                    <p>{{ page_subtitle }}</p>
+                </div>
+                <div class="topbar-meta">
+                    <span>Signed in as</span>
+                    <strong>{{ request.user.username }}</strong>
+                </div>
+            </section>
+
+            <section class="stat-grid">
+                <article class="stat-card">
+                    <span>Tours</span>
+                    <strong>{{ dashboard_counts.tours }}</strong>
+                </article>
+                <article class="stat-card">
+                    <span>Destinations</span>
+                    <strong>{{ dashboard_counts.destinations }}</strong>
+                </article>
+                <article class="stat-card">
+                    <span>Bookings</span>
+                    <strong>{{ dashboard_counts.bookings }}</strong>
+                </article>
+                <article class="stat-card">
+                    <span>Users</span>
+                    <strong>{{ dashboard_counts.users }}</strong>
+                </article>
+            </section>
+
+            {% block dashboard_content %}{% endblock %}
+        </main>
+    </div>
+</body>
+</html>

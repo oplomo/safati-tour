@@ -1,0 +1,304 @@
+{% extends 'base.html' %}
+
+{% block title %}Booking | Safari Tour{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        background:
+            radial-gradient(circle at top left, rgba(244, 163, 0, 0.16), transparent 30%),
+            radial-gradient(circle at right, rgba(18, 53, 36, 0.12), transparent 24%),
+            linear-gradient(135deg, #f8f1e2 0%, #eee1c7 55%, #f8f4ec 100%);
+        color: #111;
+    }
+
+    .booking-shell {
+        width: min(1180px, calc(100% - 2rem));
+        margin: 3rem auto;
+    }
+
+    .booking-hero {
+        border-radius: 30px;
+        padding: 3rem;
+        color: #fff6ea;
+        background:
+            linear-gradient(145deg, rgba(16, 47, 36, 0.96), rgba(8, 22, 16, 0.96)),
+            linear-gradient(120deg, rgba(244, 163, 0, 0.16), transparent);
+        box-shadow: 0 24px 80px rgba(17, 17, 17, 0.18);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .booking-hero::after {
+        content: "";
+        position: absolute;
+        width: 220px;
+        height: 220px;
+        right: -40px;
+        bottom: -40px;
+        background: radial-gradient(circle, rgba(244, 163, 0, 0.26), transparent 66%);
+        filter: blur(8px);
+    }
+
+    .booking-kicker {
+        display: inline-flex;
+        padding: 0.45rem 0.8rem;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: rgba(255, 255, 255, 0.08);
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        font-size: 0.72rem;
+    }
+
+    .booking-hero h1 {
+        margin: 1rem 0 0.8rem;
+        font-size: clamp(2.8rem, 5vw, 5.2rem);
+        line-height: 0.94;
+        text-transform: uppercase;
+    }
+
+    .booking-hero p {
+        max-width: 44rem;
+        line-height: 1.8;
+        color: rgba(255, 246, 234, 0.84);
+    }
+
+    .booking-grid {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 1.3rem;
+        margin-top: 1.5rem;
+        align-items: start;
+    }
+
+    .booking-form-wrap,
+    .booking-info {
+        border-radius: 28px;
+        background: rgba(255, 249, 240, 0.82);
+        backdrop-filter: blur(14px);
+        border: 1px solid rgba(17, 17, 17, 0.08);
+        box-shadow: 0 20px 60px rgba(17, 17, 17, 0.12);
+    }
+
+    .booking-form-wrap {
+        padding: 1.5rem;
+    }
+
+    .booking-info {
+        padding: 1.4rem;
+        display: grid;
+        gap: 1rem;
+        position: sticky;
+        top: 1rem;
+    }
+
+    .booking-form {
+        display: grid;
+        gap: 1rem;
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+    }
+
+    .field {
+        display: grid;
+        gap: 0.45rem;
+    }
+
+    .field.full {
+        grid-column: 1 / -1;
+    }
+
+    .field label {
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: rgba(17, 17, 17, 0.56);
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+        width: 100%;
+        padding: 0.95rem 1rem;
+        border-radius: 18px;
+        border: 1px solid rgba(17, 17, 17, 0.12);
+        background: #fffdf8;
+        color: #111;
+        font: inherit;
+        box-sizing: border-box;
+    }
+
+    .field textarea {
+        min-height: 150px;
+        resize: vertical;
+    }
+
+    .submit-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-top: 0.5rem;
+    }
+
+    .submit-row p {
+        margin: 0;
+        color: rgba(17, 17, 17, 0.62);
+        line-height: 1.7;
+        max-width: 28rem;
+    }
+
+    .submit-button {
+        border: 0;
+        border-radius: 999px;
+        padding: 1rem 1.4rem;
+        background: linear-gradient(135deg, #123524, #24513c);
+        color: #fff;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    .info-card {
+        border-radius: 22px;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.56);
+        border: 1px solid rgba(17, 17, 17, 0.06);
+    }
+
+    .info-card h2,
+    .info-card h3 {
+        margin-top: 0;
+    }
+
+    .info-list {
+        display: grid;
+        gap: 0.65rem;
+    }
+
+    .info-item {
+        padding-bottom: 0.65rem;
+        border-bottom: 1px dashed rgba(17, 17, 17, 0.12);
+        color: rgba(17, 17, 17, 0.74);
+        line-height: 1.7;
+    }
+
+    @media (max-width: 980px) {
+        .booking-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .booking-info {
+            position: static;
+        }
+    }
+
+    @media (max-width: 680px) {
+        .booking-hero,
+        .booking-form-wrap,
+        .booking-info {
+            border-radius: 22px;
+        }
+
+        .booking-hero {
+            padding: 2rem 1.3rem;
+        }
+
+        .form-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .submit-row {
+            align-items: start;
+            flex-direction: column;
+        }
+    }
+
+    @media (max-width: 860px) {
+        .submit-row {
+            align-items: start;
+        }
+    }
+</style>
+
+<section class="booking-shell">
+    <section class="booking-hero">
+        <span class="booking-kicker">Booking Page</span>
+        <h1>Start your safari booking</h1>
+        <p>
+            Tell us the tour you want, your travel dates, the number of travelers,
+            and any special requirements. We will turn your request into a proper
+            booking conversation and guide you through the next step.
+        </p>
+    </section>
+
+    <section class="booking-grid">
+        <div class="booking-form-wrap">
+            <form class="booking-form" method="post">
+                {% csrf_token %}
+                <div class="form-grid">
+                    <div class="field">
+                        <label for="{{ form.name.id_for_label }}">Full Name</label>
+                        {{ form.name }}
+                    </div>
+                    <div class="field">
+                        <label for="{{ form.email.id_for_label }}">Email</label>
+                        {{ form.email }}
+                    </div>
+                    <div class="field">
+                        <label for="{{ form.phone.id_for_label }}">Phone</label>
+                        {{ form.phone }}
+                    </div>
+                    <div class="field">
+                        <label for="{{ form.number_of_people.id_for_label }}">Travelers</label>
+                        {{ form.number_of_people }}
+                    </div>
+                    <div class="field full">
+                        <label for="{{ form.tour.id_for_label }}">Select Tour</label>
+                        {{ form.tour }}
+                    </div>
+                    <div class="field full">
+                        <label for="{{ form.preferred_date.id_for_label }}">Preferred Date</label>
+                        {{ form.preferred_date }}
+                    </div>
+                    <div class="field full">
+                        <label for="{{ form.message.id_for_label }}">Trip Details</label>
+                        {{ form.message }}
+                    </div>
+                </div>
+                <div class="submit-row">
+                    <p>Continue to checkout to review your trip details and confirm the booking.</p>
+                    <button class="submit-button" type="submit">Continue to Checkout</button>
+                </div>
+            </form>
+        </div>
+
+        <aside class="booking-info">
+            <div class="info-card">
+                <h2>What happens next?</h2>
+                <div class="info-list">
+                    <div class="info-item">Review your trip summary on the checkout page.</div>
+                    <div class="info-item">Confirm the booking with a friendly payment step.</div>
+                    <div class="info-item">Receive an instant confirmation once the booking is accepted.</div>
+                </div>
+            </div>
+            <div class="info-card">
+                <h3>Best for this form</h3>
+                <div class="info-list">
+                    <div class="info-item">Private safari planning</div>
+                    <div class="info-item">Family or group travel</div>
+                    <div class="info-item">Custom honeymoon or luxury itineraries</div>
+                    <div class="info-item">Date-specific booking requests</div>
+                </div>
+            </div>
+        </aside>
+    </section>
+</section>
+{% endblock %}

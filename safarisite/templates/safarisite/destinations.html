@@ -1,0 +1,581 @@
+{% extends 'base.html' %}
+
+{% block title %}Destinations | Safari Tour{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        background:
+            radial-gradient(circle at top right, rgba(190, 124, 41, 0.16), transparent 26%),
+            radial-gradient(circle at left, rgba(18, 53, 36, 0.14), transparent 28%),
+            linear-gradient(135deg, #f7f1e6 0%, #ecdfc7 52%, #f7f5ef 100%);
+        color: #121212;
+    }
+
+    .destinations-shell {
+        width: min(1220px, calc(100% - 2rem));
+        margin: 3rem auto 4rem;
+        display: grid;
+        gap: 2rem;
+    }
+
+    .destinations-hero {
+        position: relative;
+        overflow: hidden;
+        border-radius: 34px;
+        padding: 3.2rem;
+        background:
+            linear-gradient(140deg, rgba(15, 43, 33, 0.98), rgba(8, 22, 17, 0.94)),
+            linear-gradient(130deg, rgba(202, 111, 45, 0.14), transparent);
+        color: #fff6ea;
+        box-shadow: 0 28px 90px rgba(17, 17, 17, 0.18);
+    }
+
+    .destinations-hero::before,
+    .destinations-hero::after {
+        content: "";
+        position: absolute;
+        border-radius: 999px;
+        filter: blur(8px);
+    }
+
+    .destinations-hero::before {
+        width: 320px;
+        height: 320px;
+        right: -80px;
+        top: -110px;
+        background: radial-gradient(circle, rgba(244, 163, 0, 0.18), transparent 68%);
+    }
+
+    .destinations-hero::after {
+        width: 250px;
+        height: 250px;
+        left: -70px;
+        bottom: -120px;
+        background: radial-gradient(circle, rgba(232, 95, 53, 0.18), transparent 66%);
+    }
+
+    .hero-kicker {
+        display: inline-flex;
+        padding: 0.45rem 0.8rem;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: rgba(255, 255, 255, 0.08);
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        font-size: 0.72rem;
+    }
+
+    .destinations-hero h1 {
+        margin: 1rem 0 0.9rem;
+        font-size: clamp(3rem, 7vw, 5.8rem);
+        line-height: 0.92;
+        text-transform: uppercase;
+        max-width: 10ch;
+    }
+
+    .destinations-hero p {
+        margin: 0;
+        max-width: 50rem;
+        line-height: 1.8;
+        color: rgba(255, 246, 234, 0.84);
+    }
+
+    .hero-stats {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+        margin-top: 1.9rem;
+    }
+
+    .hero-stat {
+        border-radius: 22px;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .hero-stat span {
+        display: block;
+        margin-bottom: 0.35rem;
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        color: rgba(255, 246, 234, 0.72);
+    }
+
+    .hero-stat strong {
+        font-size: 1.8rem;
+    }
+
+    .section-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .section-head h2 {
+        margin: 0;
+        font-size: clamp(2rem, 4vw, 3.2rem);
+        line-height: 0.95;
+        text-transform: uppercase;
+    }
+
+    .section-head p {
+        margin: 0;
+        max-width: 38rem;
+        line-height: 1.75;
+        color: rgba(17, 17, 17, 0.68);
+    }
+
+    .featured-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr 0.8fr;
+        gap: 1rem;
+    }
+
+    .destination-card {
+        overflow: hidden;
+        border-radius: 28px;
+        background: rgba(255, 249, 241, 0.85);
+        border: 1px solid rgba(17, 17, 17, 0.08);
+        box-shadow: 0 18px 60px rgba(17, 17, 17, 0.11);
+        display: flex;
+        flex-direction: column;
+        min-height: 100%;
+    }
+
+    .destination-card.featured:first-child {
+        grid-row: span 2;
+    }
+
+    .destination-visual {
+        min-height: 250px;
+        position: relative;
+        background-size: cover;
+        background-position: center;
+        background-image:
+            linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.52)),
+            linear-gradient(140deg, rgba(18, 53, 36, 0.96), rgba(203, 87, 45, 0.86));
+    }
+
+    .destination-card.featured:first-child .destination-visual {
+        min-height: 420px;
+    }
+
+    .destination-visual.real-image {
+        background-image:
+            linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.52)),
+            var(--destination-image);
+    }
+
+    .destination-overlay {
+        position: absolute;
+        inset: auto 1rem 1rem 1rem;
+        display: flex;
+        justify-content: space-between;
+        gap: 0.75rem;
+        align-items: end;
+        flex-wrap: wrap;
+    }
+
+    .pill {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.45rem 0.75rem;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.14);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        color: #fff7ed;
+        font-size: 0.72rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        backdrop-filter: blur(8px);
+    }
+
+    .rating-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.5rem 0.8rem;
+        border-radius: 999px;
+        background: rgba(12, 12, 12, 0.34);
+        color: #fff7ed;
+        font-weight: 700;
+        backdrop-filter: blur(10px);
+    }
+
+    .destination-body {
+        display: grid;
+        gap: 1rem;
+        padding: 1.2rem;
+        flex: 1;
+    }
+
+    .destination-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 0.8rem;
+        align-items: start;
+        flex-wrap: wrap;
+    }
+
+    .destination-top span {
+        color: rgba(17, 17, 17, 0.6);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        font-size: 0.72rem;
+    }
+
+    .destination-card h3 {
+        margin: 0.15rem 0 0;
+        font-size: 1.7rem;
+        line-height: 1;
+        text-transform: uppercase;
+    }
+
+    .destination-card p {
+        margin: 0;
+        color: rgba(17, 17, 17, 0.72);
+        line-height: 1.78;
+    }
+
+    .stat-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.7rem;
+    }
+
+    .stat-card {
+        padding: 0.9rem;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.58);
+        border: 1px solid rgba(17, 17, 17, 0.06);
+    }
+
+    .stat-card span {
+        display: block;
+        margin-bottom: 0.3rem;
+        font-size: 0.7rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(17, 17, 17, 0.52);
+    }
+
+    .stat-card strong {
+        font-size: 1rem;
+    }
+
+    .destination-actions {
+        margin-top: auto;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+
+    .action-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 48px;
+        padding: 0 1rem;
+        border-radius: 999px;
+        text-decoration: none;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .action-link.primary {
+        background: linear-gradient(135deg, #123524, #24513c);
+        color: #fff;
+    }
+
+    .action-link.secondary {
+        background: rgba(17, 17, 17, 0.05);
+        color: #123524;
+    }
+
+    .editorial-band {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 1rem;
+    }
+
+    .editorial-panel {
+        border-radius: 28px;
+        padding: 1.4rem;
+        background: rgba(255, 250, 244, 0.74);
+        border: 1px solid rgba(17, 17, 17, 0.08);
+        box-shadow: 0 16px 50px rgba(17, 17, 17, 0.08);
+    }
+
+    .editorial-panel h3 {
+        margin-top: 0;
+        margin-bottom: 0.7rem;
+        font-size: 1.5rem;
+        text-transform: uppercase;
+        line-height: 1;
+    }
+
+    .editorial-panel p {
+        margin: 0;
+        line-height: 1.75;
+        color: rgba(17, 17, 17, 0.72);
+    }
+
+    .editorial-list {
+        display: grid;
+        gap: 0.85rem;
+        margin-top: 1rem;
+    }
+
+    .editorial-item {
+        padding: 0.95rem 1rem;
+        border-radius: 18px;
+        background: rgba(17, 17, 17, 0.04);
+    }
+
+    .editorial-item strong {
+        display: block;
+        margin-bottom: 0.25rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-size: 0.84rem;
+    }
+
+    .destination-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+    }
+
+    .empty-state {
+        border-radius: 26px;
+        padding: 1.5rem;
+        background: rgba(255, 250, 244, 0.74);
+        border: 1px solid rgba(17, 17, 17, 0.08);
+        color: rgba(17, 17, 17, 0.7);
+    }
+
+    @media (max-width: 1080px) {
+        .featured-grid,
+        .editorial-band,
+        .destination-grid,
+        .hero-stats {
+            grid-template-columns: 1fr;
+        }
+
+        .destination-card.featured:first-child {
+            grid-row: auto;
+        }
+
+        .destination-card.featured:first-child .destination-visual {
+            min-height: 300px;
+        }
+    }
+
+    @media (max-width: 720px) {
+        .destinations-hero,
+        .destination-card,
+        .editorial-panel {
+            border-radius: 22px;
+        }
+
+        .destinations-hero {
+            padding: 2.1rem 1.3rem;
+        }
+
+        .stat-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 860px) {
+        .section-head {
+            flex-direction: column;
+            align-items: start;
+        }
+    }
+</style>
+
+<section class="destinations-shell">
+    <section class="destinations-hero">
+        <span class="hero-kicker">Destination Atlas</span>
+        <h1>Wild places with proper presence</h1>
+        <p>
+            Discover landscapes that stay with you: open savannah, volcanic ridges, coastal calm,
+            and places where each journey begins with a strong sense of mood and arrival.
+        </p>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <span>Active destinations</span>
+                <strong>{{ destination_count }}</strong>
+            </div>
+            <div class="hero-stat">
+                <span>Featured spots</span>
+                <strong>{{ featured_count }}</strong>
+            </div>
+            <div class="hero-stat">
+                <span>Countries covered</span>
+                <strong>{{ country_count }}</strong>
+            </div>
+        </div>
+    </section>
+
+    {% if featured_destinations %}
+    <section>
+        <div class="section-head">
+            <h2>Front cover picks</h2>
+            <p>These are the destinations that set the tone, each one offering its own character, rhythm, and reason to stay longer.</p>
+        </div>
+        <div class="featured-grid">
+            {% for destination in featured_destinations %}
+            <article class="destination-card featured">
+                <div class="destination-visual{% if destination.featured_image and 'replace-me' not in destination.featured_image.name %} real-image{% endif %}"{% if destination.featured_image and 'replace-me' not in destination.featured_image.name %} style="--destination-image: url('{{ destination.featured_image.url }}');"{% endif %}>
+                    <div class="destination-overlay">
+                        <span class="pill">{{ destination.get_continent_display }}</span>
+                        <span class="rating-badge">★ {{ destination.average_rating|default:"0.0" }}</span>
+                    </div>
+                </div>
+                <div class="destination-body">
+                    <div class="destination-top">
+                        <div>
+                            <span>{{ destination.country }}</span>
+                            <h3>{{ destination.name }}</h3>
+                        </div>
+                        {% if destination.is_featured %}
+                        <span class="pill" style="background: rgba(18, 53, 36, 0.08); border-color: rgba(18, 53, 36, 0.12); color: #123524;">Featured</span>
+                        {% endif %}
+                    </div>
+                    <p>
+                        {% if destination.short_description %}
+                            {{ destination.short_description }}
+                        {% else %}
+                            {{ destination.description|truncatechars:180 }}
+                        {% endif %}
+                    </p>
+                    <div class="stat-grid">
+                        <div class="stat-card">
+                            <span>Tours</span>
+                            <strong>{{ destination.tours.count }}</strong>
+                        </div>
+                        <div class="stat-card">
+                            <span>Stories</span>
+                            <strong>{{ destination.blog_posts.count }}</strong>
+                        </div>
+                        <div class="stat-card">
+                            <span>Reviews</span>
+                            <strong>{{ destination.review_count }}</strong>
+                        </div>
+                    </div>
+                    <div class="destination-actions">
+                        <a class="action-link primary" href="{% url 'safarisite:booking' %}">Plan a Trip</a>
+                        <a class="action-link secondary" href="{% url 'safarisite:tours' %}">See Tours</a>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    <section class="editorial-band">
+        <article class="editorial-panel">
+            <h3>Travel by mood, not only by map</h3>
+            <p>
+                Some destinations call for dawn game drives and long golden evenings.
+                Others invite slow beach mornings, cool highland air, or city energy between the wild places.
+            </p>
+            <div class="editorial-list">
+                <div class="editorial-item">
+                    <strong>Wildlife country</strong>
+                    For travelers chasing movement, migration, and the raw scale of East Africa.
+                </div>
+                <div class="editorial-item">
+                    <strong>Coastal pause</strong>
+                    For itineraries that need lightness, salt air, and slower evenings by the water.
+                </div>
+                <div class="editorial-item">
+                    <strong>Layered routes</strong>
+                    For journeys that combine landscapes, cultures, and different travel moods in one trip.
+                </div>
+            </div>
+        </article>
+        <article class="editorial-panel">
+            <h3>Where to go from here</h3>
+            <div class="editorial-list">
+                <div class="editorial-item">
+                    <strong>Find the right region</strong>
+                    Start with the place that matches the season and the feeling you want from the trip.
+                </div>
+                <div class="editorial-item">
+                    <strong>Pair places well</strong>
+                    Combine safari, city, coast, and mountain settings for a more complete journey.
+                </div>
+                <div class="editorial-item">
+                    <strong>Let the stories guide you</strong>
+                    Read the journal pieces to get a deeper feel for each landscape before you decide.
+                </div>
+            </div>
+        </article>
+    </section>
+
+    <section>
+        <div class="section-head">
+            <h2>All destinations</h2>
+            <p>Move through the full collection and discover the places that best match your route, pace, and style of travel.</p>
+        </div>
+        {% if destinations %}
+        <div class="destination-grid">
+            {% for destination in destinations %}
+            <article class="destination-card">
+                <div class="destination-visual{% if destination.featured_image and 'replace-me' not in destination.featured_image.name %} real-image{% endif %}"{% if destination.featured_image and 'replace-me' not in destination.featured_image.name %} style="--destination-image: url('{{ destination.featured_image.url }}');"{% endif %}>
+                    <div class="destination-overlay">
+                        <span class="pill">{{ destination.country }}</span>
+                        <span class="rating-badge">★ {{ destination.average_rating|default:"0.0" }}</span>
+                    </div>
+                </div>
+                <div class="destination-body">
+                    <div class="destination-top">
+                        <div>
+                            <span>{{ destination.get_continent_display }}</span>
+                            <h3>{{ destination.name }}</h3>
+                        </div>
+                        {% if destination.is_featured %}
+                        <span class="pill" style="background: rgba(18, 53, 36, 0.08); border-color: rgba(18, 53, 36, 0.12); color: #123524;">Cover Pick</span>
+                        {% endif %}
+                    </div>
+                    <p>{{ destination.description|truncatechars:190 }}</p>
+                    <div class="stat-grid">
+                        <div class="stat-card">
+                            <span>Tours</span>
+                            <strong>{{ destination.tours.count }}</strong>
+                        </div>
+                        <div class="stat-card">
+                            <span>Visitors</span>
+                            <strong>{{ destination.visitor_count }}</strong>
+                        </div>
+                        <div class="stat-card">
+                            <span>Stories</span>
+                            <strong>{{ destination.blog_posts.count }}</strong>
+                        </div>
+                    </div>
+                    <div class="destination-actions">
+                        <a class="action-link primary" href="{% url 'safarisite:booking' %}">Book This Region</a>
+                        <a class="action-link secondary" href="{% url 'safarisite:contact' %}">Ask About It</a>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state">
+            New destinations will appear here soon.
+        </div>
+        {% endif %}
+    </section>
+</section>
+{% endblock %}

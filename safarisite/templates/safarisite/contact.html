@@ -1,0 +1,539 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact | Safari Tour{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        background:
+            radial-gradient(circle at top right, rgba(244, 163, 0, 0.15), transparent 26%),
+            radial-gradient(circle at left, rgba(18, 53, 36, 0.13), transparent 28%),
+            linear-gradient(135deg, #f8f1e4 0%, #ede0c7 54%, #f8f5ef 100%);
+        color: #111;
+    }
+
+    .contact-shell {
+        width: min(1220px, calc(100% - 2rem));
+        margin: 3rem auto 4rem;
+        display: grid;
+        gap: 2rem;
+    }
+
+    .contact-hero {
+        position: relative;
+        overflow: hidden;
+        border-radius: 36px;
+        padding: 3rem;
+        background:
+            linear-gradient(145deg, rgba(15, 43, 33, 0.98), rgba(8, 22, 16, 0.95)),
+            linear-gradient(120deg, rgba(244, 163, 0, 0.14), transparent);
+        color: #fff6ea;
+        box-shadow: 0 28px 90px rgba(17, 17, 17, 0.18);
+    }
+
+    .contact-hero::after {
+        content: "";
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        right: -80px;
+        top: -90px;
+        background: radial-gradient(circle, rgba(244, 163, 0, 0.18), transparent 68%);
+        border-radius: 50%;
+        filter: blur(8px);
+    }
+
+    .hero-grid {
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 1.2rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    .hero-kicker {
+        display: inline-flex;
+        padding: 0.45rem 0.8rem;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: rgba(255, 255, 255, 0.08);
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        font-size: 0.72rem;
+    }
+
+    .contact-hero h1 {
+        margin: 1rem 0 0.9rem;
+        font-size: clamp(3rem, 6.8vw, 5.7rem);
+        line-height: 0.9;
+        text-transform: uppercase;
+        max-width: 10ch;
+    }
+
+    .contact-hero p {
+        margin: 0;
+        max-width: 44rem;
+        line-height: 1.8;
+        color: rgba(255, 246, 234, 0.84);
+    }
+
+    .hero-stats {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.8rem;
+        align-content: start;
+    }
+
+    .hero-stat,
+    .contact-card,
+    .contact-form-panel,
+    .tour-card,
+    .destination-card {
+        border-radius: 28px;
+        background: rgba(255, 249, 241, 0.84);
+        border: 1px solid rgba(17, 17, 17, 0.08);
+        box-shadow: 0 18px 60px rgba(17, 17, 17, 0.1);
+        overflow: hidden;
+    }
+
+    .hero-stat {
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.12);
+        color: #fff6ea;
+        box-shadow: none;
+    }
+
+    .hero-stat span {
+        display: block;
+        margin-bottom: 0.35rem;
+        font-size: 0.7rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(255, 246, 234, 0.72);
+    }
+
+    .hero-stat strong {
+        font-size: 1.7rem;
+    }
+
+    .contact-grid {
+        display: grid;
+        grid-template-columns: 0.85fr 1.15fr;
+        gap: 1rem;
+    }
+
+    .contact-card,
+    .contact-form-panel {
+        padding: 1.4rem;
+    }
+
+    .contact-card h3,
+    .contact-form-panel h2,
+    .section-head h2 {
+        margin-top: 0;
+        margin-bottom: 0.7rem;
+        font-size: clamp(2rem, 4vw, 3rem);
+        line-height: 0.95;
+        text-transform: uppercase;
+    }
+
+    .contact-card p,
+    .contact-form-panel p,
+    .card-body p,
+    .section-head p {
+        margin: 0;
+        line-height: 1.75;
+        color: rgba(17, 17, 17, 0.72);
+    }
+
+    .contact-list {
+        display: grid;
+        gap: 0.9rem;
+        margin-top: 1rem;
+    }
+
+    .contact-item {
+        padding: 0.95rem 1rem;
+        border-radius: 18px;
+        background: rgba(17, 17, 17, 0.04);
+    }
+
+    .contact-item strong {
+        display: block;
+        margin-bottom: 0.2rem;
+        font-size: 0.84rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+        margin-top: 1.2rem;
+    }
+
+    .form-group {
+        display: grid;
+        gap: 0.45rem;
+    }
+
+    .form-group.full {
+        grid-column: 1 / -1;
+    }
+
+    .form-group label {
+        font-size: 0.82rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: rgba(17, 17, 17, 0.62);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        border: 1px solid rgba(17, 17, 17, 0.1);
+        border-radius: 18px;
+        padding: 0.9rem 1rem;
+        background: rgba(255, 255, 255, 0.88);
+        color: #111;
+        font: inherit;
+        box-sizing: border-box;
+        outline: none;
+    }
+
+    .form-group textarea {
+        resize: vertical;
+        min-height: 160px;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+        border-color: rgba(18, 53, 36, 0.35);
+        box-shadow: 0 0 0 4px rgba(18, 53, 36, 0.08);
+    }
+
+    .form-errors {
+        color: #9f2f21;
+        font-size: 0.88rem;
+    }
+
+    .submit-row,
+    .action-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-top: 1.2rem;
+    }
+
+    .action-link,
+    .submit-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 48px;
+        padding: 0 1rem;
+        border-radius: 999px;
+        text-decoration: none;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .action-link.primary,
+    .submit-button {
+        background: linear-gradient(135deg, #123524, #24513c);
+        color: #fff;
+        border: none;
+        cursor: pointer;
+    }
+
+    .action-link.secondary {
+        background: rgba(17, 17, 17, 0.05);
+        color: #123524;
+    }
+
+    .section-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .tour-grid,
+    .destination-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+    }
+
+    .visual {
+        min-height: 220px;
+        position: relative;
+        background-size: cover;
+        background-position: center;
+        background-image:
+            linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.48)),
+            linear-gradient(135deg, rgba(18, 53, 36, 0.94), rgba(200, 76, 36, 0.82));
+    }
+
+    .visual.real-image {
+        background-image:
+            linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.48)),
+            var(--card-image);
+    }
+
+    .visual-badge {
+        position: absolute;
+        left: 1rem;
+        bottom: 1rem;
+        display: inline-flex;
+        padding: 0.45rem 0.75rem;
+        border-radius: 999px;
+        background: rgba(12, 12, 12, 0.34);
+        color: #fff7ed;
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        backdrop-filter: blur(8px);
+    }
+
+    .card-body {
+        padding: 1.15rem;
+        display: grid;
+        gap: 0.9rem;
+    }
+
+    .card-body h3 {
+        margin: 0;
+        font-size: 1.35rem;
+        line-height: 1.02;
+        text-transform: uppercase;
+    }
+
+    .meta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.55rem;
+    }
+
+    .pill {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.45rem 0.75rem;
+        border-radius: 999px;
+        background: rgba(17, 17, 17, 0.05);
+        color: rgba(17, 17, 17, 0.72);
+        font-size: 0.72rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+    }
+
+    @media (max-width: 1080px) {
+        .hero-grid,
+        .contact-grid,
+        .tour-grid,
+        .destination-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 720px) {
+        .contact-hero,
+        .hero-stat,
+        .contact-card,
+        .contact-form-panel,
+        .tour-card,
+        .destination-card {
+            border-radius: 22px;
+        }
+
+        .contact-hero {
+            padding: 2.1rem 1.3rem;
+        }
+
+        .hero-stats,
+        .form-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 860px) {
+        .section-head {
+            flex-direction: column;
+            align-items: start;
+        }
+
+        .submit-row,
+        .action-row {
+            width: 100%;
+        }
+    }
+</style>
+
+<section class="contact-shell">
+    <section class="contact-hero">
+        <div class="hero-grid">
+            <div>
+                <span class="hero-kicker">Contact And Planning</span>
+                <h1>Start the trip with a proper conversation</h1>
+        <p>
+            Whether you are still refining the idea or already choosing dates, we are here
+            to help shape the trip, answer your questions, and guide the next step with care.
+        </p>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <span>Active tours</span>
+                    <strong>{{ tour_count }}</strong>
+                </div>
+                <div class="hero-stat">
+                    <span>Destinations</span>
+                    <strong>{{ destination_count }}</strong>
+                </div>
+                <div class="hero-stat">
+                    <span>Trip support</span>
+                    <strong>Open</strong>
+                </div>
+                <div class="hero-stat">
+                    <span>Planning style</span>
+                    <strong>Tailored</strong>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-grid">
+        <article class="contact-card">
+            <h3>How to reach us</h3>
+            <p>
+                Reach out for anything from route ideas and lodge questions to availability checks,
+                private planning, and group travel coordination.
+            </p>
+            <div class="contact-list">
+                <div class="contact-item">
+                    <strong>Trip planning</strong>
+                    Best for custom safaris, destination combinations, and pacing questions.
+                </div>
+                <div class="contact-item">
+                    <strong>Group and corporate</strong>
+                    Use this if you are planning for a team, family cluster, or hosted event.
+                </div>
+                <div class="contact-item">
+                    <strong>Quick next steps</strong>
+                    If you already know the tour you want, you can also head straight to Booking.
+                </div>
+            </div>
+            <div class="submit-row">
+                <a class="action-link primary" href="{% url 'safarisite:booking' %}">Go To Booking</a>
+                <a class="action-link secondary" href="{% url 'safarisite:tours' %}">Browse Tours</a>
+            </div>
+        </article>
+
+        <article class="contact-form-panel">
+            <h2>Send your inquiry</h2>
+            <p>Tell us what you are imagining and we will help shape the next step.</p>
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="{{ form.name.id_for_label }}">Full Name</label>
+                        {{ form.name }}
+                        {% if form.name.errors %}<div class="form-errors">{{ form.name.errors|join:", " }}</div>{% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{ form.email.id_for_label }}">Email</label>
+                        {{ form.email }}
+                        {% if form.email.errors %}<div class="form-errors">{{ form.email.errors|join:", " }}</div>{% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{ form.phone.id_for_label }}">Phone</label>
+                        {{ form.phone }}
+                        {% if form.phone.errors %}<div class="form-errors">{{ form.phone.errors|join:", " }}</div>{% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{ form.inquiry_type.id_for_label }}">Inquiry Type</label>
+                        {{ form.inquiry_type }}
+                        {% if form.inquiry_type.errors %}<div class="form-errors">{{ form.inquiry_type.errors|join:", " }}</div>{% endif %}
+                    </div>
+                    <div class="form-group full">
+                        <label for="{{ form.subject.id_for_label }}">Subject</label>
+                        {{ form.subject }}
+                        {% if form.subject.errors %}<div class="form-errors">{{ form.subject.errors|join:", " }}</div>{% endif %}
+                    </div>
+                    <div class="form-group full">
+                        <label for="{{ form.message.id_for_label }}">Message</label>
+                        {{ form.message }}
+                        {% if form.message.errors %}<div class="form-errors">{{ form.message.errors|join:", " }}</div>{% endif %}
+                    </div>
+                </div>
+                <div class="submit-row">
+                    <button type="submit" class="submit-button">Send Message</button>
+                </div>
+            </form>
+        </article>
+    </section>
+
+    {% if featured_tours %}
+    <section>
+        <div class="section-head">
+            <h2>Trips people ask about</h2>
+            <p>These journeys often start the conversation and give a sense of the travel styles guests are most drawn to.</p>
+        </div>
+        <div class="tour-grid">
+            {% for tour in featured_tours %}
+            <article class="tour-card">
+                <div class="visual{% if tour.featured_image and 'replace-me' not in tour.featured_image.name %} real-image{% endif %}"{% if tour.featured_image and 'replace-me' not in tour.featured_image.name %} style="--card-image: url('{{ tour.featured_image.url }}');"{% endif %}>
+                    <span class="visual-badge">{{ tour.destination.name }}</span>
+                </div>
+                <div class="card-body">
+                    <div class="meta-row">
+                        <span class="pill">{{ tour.duration_days }} days</span>
+                        <span class="pill">{{ tour.get_difficulty_level_display }}</span>
+                    </div>
+                    <h3>{{ tour.title }}</h3>
+                    <p>{{ tour.overview|truncatechars:160 }}</p>
+                    <div class="action-row">
+                        <a class="action-link primary" href="{% url 'safarisite:booking' %}?tour={{ tour.slug }}">Book Now</a>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    {% if featured_destinations %}
+    <section>
+        <div class="section-head">
+            <h2>Destinations behind the requests</h2>
+            <p>These destinations often shape the first draft of an itinerary and help narrow the right route.</p>
+        </div>
+        <div class="destination-grid">
+            {% for destination in featured_destinations %}
+            <article class="destination-card">
+                <div class="visual{% if destination.featured_image and 'replace-me' not in destination.featured_image.name %} real-image{% endif %}"{% if destination.featured_image and 'replace-me' not in destination.featured_image.name %} style="--card-image: url('{{ destination.featured_image.url }}');"{% endif %}>
+                    <span class="visual-badge">{{ destination.country }}</span>
+                </div>
+                <div class="card-body">
+                    <div class="meta-row">
+                        <span class="pill">{{ destination.get_continent_display }}</span>
+                        <span class="pill">{{ destination.tours.count }} tours</span>
+                    </div>
+                    <h3>{{ destination.name }}</h3>
+                    <p>{{ destination.short_description|default:destination.description|truncatechars:160 }}</p>
+                    <div class="action-row">
+                        <a class="action-link secondary" href="{% url 'safarisite:destinations' %}">See Destinations</a>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+</section>
+{% endblock %}

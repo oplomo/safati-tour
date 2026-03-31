@@ -1,0 +1,524 @@
+{% extends 'base.html' %}
+
+{% block title %}About Us | Safari Tour{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        background:
+            radial-gradient(circle at top left, rgba(244, 163, 0, 0.15), transparent 27%),
+            radial-gradient(circle at right, rgba(18, 53, 36, 0.13), transparent 25%),
+            linear-gradient(135deg, #f8f1e4 0%, #ede0c7 55%, #f8f5ef 100%);
+        color: #111;
+    }
+
+    .about-shell {
+        width: min(1220px, calc(100% - 2rem));
+        margin: 3rem auto 4rem;
+        display: grid;
+        gap: 2rem;
+    }
+
+    .about-hero {
+        position: relative;
+        overflow: hidden;
+        border-radius: 36px;
+        padding: 3rem;
+        background:
+            linear-gradient(145deg, rgba(15, 43, 33, 0.98), rgba(8, 22, 16, 0.95)),
+            linear-gradient(120deg, rgba(244, 163, 0, 0.14), transparent);
+        color: #fff6ea;
+        box-shadow: 0 28px 90px rgba(17, 17, 17, 0.18);
+    }
+
+    .about-hero::after {
+        content: "";
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        right: -80px;
+        top: -100px;
+        background: radial-gradient(circle, rgba(244, 163, 0, 0.18), transparent 68%);
+        border-radius: 50%;
+        filter: blur(8px);
+    }
+
+    .hero-grid {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 1.2rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    .hero-kicker {
+        display: inline-flex;
+        padding: 0.45rem 0.8rem;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: rgba(255, 255, 255, 0.08);
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        font-size: 0.72rem;
+    }
+
+    .about-hero h1 {
+        margin: 1rem 0 0.9rem;
+        font-size: clamp(3rem, 6.8vw, 5.9rem);
+        line-height: 0.9;
+        text-transform: uppercase;
+        max-width: 11ch;
+    }
+
+    .about-hero p {
+        margin: 0;
+        max-width: 48rem;
+        line-height: 1.8;
+        color: rgba(255, 246, 234, 0.84);
+    }
+
+    .hero-stats {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.8rem;
+        align-content: start;
+    }
+
+    .hero-stat,
+    .story-panel,
+    .value-card,
+    .destination-card,
+    .tour-card,
+    .story-card {
+        border-radius: 26px;
+        background: rgba(255, 249, 241, 0.84);
+        border: 1px solid rgba(17, 17, 17, 0.08);
+        box-shadow: 0 18px 60px rgba(17, 17, 17, 0.1);
+        overflow: hidden;
+    }
+
+    .hero-stat {
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.12);
+        color: #fff6ea;
+        box-shadow: none;
+    }
+
+    .hero-stat span {
+        display: block;
+        margin-bottom: 0.35rem;
+        font-size: 0.7rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(255, 246, 234, 0.72);
+    }
+
+    .hero-stat strong {
+        font-size: 1.7rem;
+    }
+
+    .section-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .section-head h2 {
+        margin: 0;
+        font-size: clamp(2rem, 4vw, 3.2rem);
+        line-height: 0.95;
+        text-transform: uppercase;
+    }
+
+    .section-head p {
+        margin: 0;
+        max-width: 40rem;
+        line-height: 1.75;
+        color: rgba(17, 17, 17, 0.68);
+    }
+
+    .story-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 1rem;
+    }
+
+    .story-panel {
+        padding: 1.4rem;
+    }
+
+    .story-panel h3 {
+        margin-top: 0;
+        margin-bottom: 0.7rem;
+        font-size: 1.5rem;
+        line-height: 1;
+        text-transform: uppercase;
+    }
+
+    .story-panel p {
+        margin: 0;
+        line-height: 1.78;
+        color: rgba(17, 17, 17, 0.72);
+    }
+
+    .story-list {
+        display: grid;
+        gap: 0.85rem;
+        margin-top: 1rem;
+    }
+
+    .story-item {
+        padding: 0.95rem 1rem;
+        border-radius: 18px;
+        background: rgba(17, 17, 17, 0.04);
+    }
+
+    .story-item strong {
+        display: block;
+        margin-bottom: 0.25rem;
+        font-size: 0.84rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .values-grid,
+    .destination-grid,
+    .tour-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+    }
+
+    .value-card {
+        padding: 1.3rem;
+        display: grid;
+        gap: 0.8rem;
+    }
+
+    .value-icon {
+        width: 56px;
+        height: 56px;
+        border-radius: 18px;
+        display: grid;
+        place-items: center;
+        font-size: 1.4rem;
+        background: linear-gradient(135deg, #123524, #ca7028);
+        color: #fff8ef;
+    }
+
+    .value-card h3,
+    .card-body h3 {
+        margin: 0;
+        font-size: 1.35rem;
+        line-height: 1.02;
+        text-transform: uppercase;
+    }
+
+    .value-card p,
+    .card-body p {
+        margin: 0;
+        line-height: 1.75;
+        color: rgba(17, 17, 17, 0.72);
+    }
+
+    .visual {
+        min-height: 220px;
+        position: relative;
+        background-size: cover;
+        background-position: center;
+        background-image:
+            linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.48)),
+            linear-gradient(135deg, rgba(18, 53, 36, 0.94), rgba(200, 76, 36, 0.82));
+    }
+
+    .visual.real-image {
+        background-image:
+            linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.48)),
+            var(--card-image);
+    }
+
+    .visual-badge {
+        position: absolute;
+        left: 1rem;
+        bottom: 1rem;
+        display: inline-flex;
+        padding: 0.45rem 0.75rem;
+        border-radius: 999px;
+        background: rgba(12, 12, 12, 0.34);
+        color: #fff7ed;
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        backdrop-filter: blur(8px);
+    }
+
+    .card-body {
+        padding: 1.15rem;
+        display: grid;
+        gap: 0.9rem;
+    }
+
+    .meta-row,
+    .action-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.65rem;
+    }
+
+    .pill {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.45rem 0.75rem;
+        border-radius: 999px;
+        background: rgba(17, 17, 17, 0.05);
+        color: rgba(17, 17, 17, 0.72);
+        font-size: 0.72rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+    }
+
+    .action-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 48px;
+        padding: 0 1rem;
+        border-radius: 999px;
+        text-decoration: none;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .action-link.primary {
+        background: linear-gradient(135deg, #123524, #24513c);
+        color: #fff;
+    }
+
+    .action-link.secondary {
+        background: rgba(17, 17, 17, 0.05);
+        color: #123524;
+    }
+
+    @media (max-width: 1040px) {
+        .hero-grid,
+        .hero-stats,
+        .story-grid,
+        .values-grid,
+        .destination-grid,
+        .tour-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 680px) {
+        .about-hero,
+        .hero-stat,
+        .story-panel,
+        .value-card,
+        .destination-card,
+        .tour-card,
+        .story-card {
+            border-radius: 22px;
+        }
+
+        .about-hero {
+            padding: 2.1rem 1.3rem;
+        }
+    }
+
+    @media (max-width: 860px) {
+        .section-head {
+            flex-direction: column;
+            align-items: start;
+        }
+    }
+</style>
+
+<section class="about-shell">
+    <section class="about-hero">
+        <div class="hero-grid">
+            <div>
+                <span class="hero-kicker">About The Brand</span>
+                <h1>We shape travel with more care than noise</h1>
+                <p>
+                    Safari Tour is built around the idea that great travel should feel curated,
+                    not crowded. We combine route design, destination judgment, editorial
+                    storytelling, and practical planning so each trip feels considered from the
+                    first page view to the last game drive.
+                </p>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <span>Active tours</span>
+                    <strong>{{ tour_count }}</strong>
+                </div>
+                <div class="hero-stat">
+                    <span>Destinations</span>
+                    <strong>{{ destination_count }}</strong>
+                </div>
+                <div class="hero-stat">
+                    <span>Published stories</span>
+                    <strong>{{ story_count }}</strong>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="story-grid">
+        <article class="story-panel">
+            <h3>What makes the approach different</h3>
+            <p>
+                The point is not to overwhelm people with options. It is to shape a route with
+                rhythm. That means paying attention to distance, season, camp style, recovery
+                time, and the emotional sequence of the trip, not just listing attractions.
+            </p>
+            <div class="story-list">
+                <div class="story-item">
+                    <strong>Curated over generic</strong>
+                    Trips are built for fit, not assembled from the same repeated itinerary blocks.
+                </div>
+                <div class="story-item">
+                    <strong>Editorial eye</strong>
+                    The stories, visuals, and page flow help communicate atmosphere, not only logistics.
+                </div>
+                <div class="story-item">
+                    <strong>Practical grounding</strong>
+                    Every itinerary is built to be both inspiring and genuinely bookable.
+                </div>
+            </div>
+        </article>
+        <article class="story-panel">
+            <h3>How we think about the journey</h3>
+            <div class="story-list">
+                <div class="story-item">
+                    <strong>Pacing matters</strong>
+                    A trip should breathe, not feel like a checklist.
+                </div>
+                <div class="story-item">
+                    <strong>Places should connect</strong>
+                    Bush, city, coast, and culture should flow naturally from one to the next.
+                </div>
+                <div class="story-item">
+                    <strong>Every page should lead somewhere</strong>
+                    Discovery and action should work together, not compete.
+                </div>
+            </div>
+        </article>
+    </section>
+
+    <section>
+        <div class="section-head">
+            <h2>What we care about</h2>
+            <p>These values shape the way every route, recommendation, and guest experience comes together.</p>
+        </div>
+        <div class="values-grid">
+            <article class="value-card">
+                <div class="value-icon">🧭</div>
+                <h3>Thoughtful route design</h3>
+                <p>We care about how the journey unfolds, not just what appears on the list of stops.</p>
+            </article>
+            <article class="value-card">
+                <div class="value-icon">🌍</div>
+                <h3>Strong destination sense</h3>
+                <p>Every place should earn its place in the itinerary through mood, timing, and fit.</p>
+            </article>
+            <article class="value-card">
+                <div class="value-icon">✨</div>
+                <h3>Travel that feels personal</h3>
+                <p>The final plan should match the traveler, not force the traveler to match a template.</p>
+            </article>
+        </div>
+    </section>
+
+    {% if featured_destinations %}
+    <section>
+        <div class="section-head">
+            <h2>Places we frame best</h2>
+            <p>These landscapes reflect the kind of journeys we love to shape: layered, memorable, and full of atmosphere.</p>
+        </div>
+        <div class="destination-grid">
+            {% for destination in featured_destinations %}
+            <article class="destination-card">
+                <div class="visual{% if destination.featured_image and 'replace-me' not in destination.featured_image.name %} real-image{% endif %}"{% if destination.featured_image and 'replace-me' not in destination.featured_image.name %} style="--card-image: url('{{ destination.featured_image.url }}');"{% endif %}>
+                    <span class="visual-badge">{{ destination.country }}</span>
+                </div>
+                <div class="card-body">
+                    <div class="meta-row">
+                        <span class="pill">{{ destination.get_continent_display }}</span>
+                        <span class="pill">{{ destination.tours.count }} tours</span>
+                    </div>
+                    <h3>{{ destination.name }}</h3>
+                    <p>{{ destination.short_description|default:destination.description|truncatechars:170 }}</p>
+                    <div class="action-row">
+                        <a class="action-link primary" href="{% url 'safarisite:destinations' %}">See Destinations</a>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    {% if featured_tours %}
+    <section>
+        <div class="section-head">
+            <h2>Journeys on the table</h2>
+            <p>These journeys show how the brand translates from an idea into a trip you can genuinely take.</p>
+        </div>
+        <div class="tour-grid">
+            {% for tour in featured_tours %}
+            <article class="tour-card">
+                <div class="visual{% if tour.featured_image and 'replace-me' not in tour.featured_image.name %} real-image{% endif %}"{% if tour.featured_image and 'replace-me' not in tour.featured_image.name %} style="--card-image: url('{{ tour.featured_image.url }}');"{% endif %}>
+                    <span class="visual-badge">{{ tour.destination.name }}</span>
+                </div>
+                <div class="card-body">
+                    <div class="meta-row">
+                        <span class="pill">{{ tour.duration_days }} days</span>
+                        <span class="pill">{{ tour.get_difficulty_level_display }}</span>
+                    </div>
+                    <h3>{{ tour.title }}</h3>
+                    <p>{{ tour.overview|truncatechars:170 }}</p>
+                    <div class="action-row">
+                        <a class="action-link primary" href="{% url 'safarisite:booking' %}?tour={{ tour.slug }}">Book Now</a>
+                        <a class="action-link secondary" href="{% url 'safarisite:tours' %}">All Tours</a>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    {% if featured_stories %}
+    <section>
+        <div class="section-head">
+            <h2>Stories that carry the voice</h2>
+            <p>Stories carry the texture of the region, helping future travelers feel the journey before they choose it.</p>
+        </div>
+        <div class="tour-grid">
+            {% for post in featured_stories %}
+            <article class="story-card">
+                <div class="visual{% if post.featured_image and 'replace-me' not in post.featured_image.name %} real-image{% endif %}"{% if post.featured_image and 'replace-me' not in post.featured_image.name %} style="--card-image: url('{{ post.featured_image.url }}');"{% endif %}>
+                    <span class="visual-badge">{% if post.destination %}{{ post.destination.name }}{% else %}Safari Journal{% endif %}</span>
+                </div>
+                <div class="card-body">
+                    <div class="meta-row">
+                        <span class="pill">{{ post.read_time_minutes }} min read</span>
+                    </div>
+                    <h3>{{ post.title }}</h3>
+                    <p>{{ post.excerpt }}</p>
+                    <div class="action-row">
+                        <a class="action-link primary" href="{% url 'safarisite:blog_detail' post.slug %}">Read Story</a>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+</section>
+{% endblock %}

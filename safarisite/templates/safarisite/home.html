@@ -1,0 +1,773 @@
+{% extends 'base.html' %}
+
+{% block title %}Safari Tour | Curated Journeys Across East Africa{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        background:
+            radial-gradient(circle at top left, rgba(244, 163, 0, 0.16), transparent 26%),
+            radial-gradient(circle at right, rgba(18, 53, 36, 0.14), transparent 24%),
+            linear-gradient(135deg, #f7f0e4 0%, #ebdec4 54%, #f8f5ef 100%);
+        color: #111;
+    }
+
+    .home-shell {
+        width: min(1220px, calc(100% - 2rem));
+        margin: 2rem auto 4rem;
+        display: grid;
+        gap: 2rem;
+    }
+
+    .home-hero {
+        position: relative;
+        overflow: hidden;
+        border-radius: 38px;
+        padding: 3.2rem;
+        background:
+            linear-gradient(145deg, rgba(15, 43, 33, 0.98), rgba(8, 22, 16, 0.95)),
+            linear-gradient(130deg, rgba(205, 114, 46, 0.14), transparent);
+        color: #fff6ea;
+        box-shadow: 0 30px 100px rgba(17, 17, 17, 0.2);
+    }
+
+    .home-hero::before {
+        content: "";
+        position: absolute;
+        width: 360px;
+        height: 360px;
+        right: -80px;
+        top: -110px;
+        background: radial-gradient(circle, rgba(244, 163, 0, 0.2), transparent 68%);
+        border-radius: 50%;
+        filter: blur(10px);
+    }
+
+    .hero-grid {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 1.4rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    .hero-kicker {
+        display: inline-flex;
+        padding: 0.45rem 0.8rem;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: rgba(255, 255, 255, 0.08);
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        font-size: 0.72rem;
+    }
+
+    .hero-copy h1 {
+        margin: 1rem 0 0.9rem;
+        font-size: clamp(3.2rem, 7vw, 6.1rem);
+        line-height: 0.9;
+        text-transform: uppercase;
+        max-width: 10ch;
+    }
+
+    .hero-copy p {
+        margin: 0;
+        max-width: 46rem;
+        line-height: 1.8;
+        color: rgba(255, 246, 234, 0.84);
+    }
+
+    .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        margin-top: 1.7rem;
+    }
+
+    .action-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 50px;
+        padding: 0 1.1rem;
+        border-radius: 999px;
+        text-decoration: none;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .action-link.primary {
+        background: linear-gradient(135deg, #f4a300, #d46f24);
+        color: #112d20;
+    }
+
+    .action-link.secondary {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        color: #fff6ea;
+    }
+
+    .hero-side {
+        display: grid;
+        gap: 1rem;
+        align-content: start;
+    }
+
+    .hero-card {
+        border-radius: 24px;
+        padding: 1.2rem;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(14px);
+    }
+
+    .hero-card h3 {
+        margin-top: 0;
+        margin-bottom: 0.55rem;
+        font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+    }
+
+    .hero-card p {
+        margin: 0;
+        line-height: 1.7;
+        color: rgba(255, 246, 234, 0.8);
+    }
+
+    .hero-stats {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.8rem;
+        margin-top: 1rem;
+    }
+
+    .hero-stat {
+        border-radius: 20px;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .hero-stat span {
+        display: block;
+        margin-bottom: 0.35rem;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        color: rgba(255, 246, 234, 0.72);
+    }
+
+    .hero-stat strong {
+        font-size: 1.7rem;
+    }
+
+    .section-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .section-head h2 {
+        margin: 0;
+        font-size: clamp(2rem, 4vw, 3.2rem);
+        line-height: 0.95;
+        text-transform: uppercase;
+    }
+
+    .section-head p {
+        margin: 0;
+        max-width: 40rem;
+        line-height: 1.75;
+        color: rgba(17, 17, 17, 0.68);
+    }
+
+    .panel-grid {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 1rem;
+    }
+
+    .editorial-panel,
+    .destination-card,
+    .tour-card,
+    .story-card,
+    .departure-card,
+    .service-card {
+        border-radius: 28px;
+        background: rgba(255, 249, 241, 0.84);
+        border: 1px solid rgba(17, 17, 17, 0.08);
+        box-shadow: 0 18px 60px rgba(17, 17, 17, 0.1);
+        overflow: hidden;
+    }
+
+    .editorial-panel {
+        padding: 1.4rem;
+    }
+
+    .editorial-panel h3 {
+        margin-top: 0;
+        margin-bottom: 0.7rem;
+        font-size: 1.5rem;
+        line-height: 1;
+        text-transform: uppercase;
+    }
+
+    .editorial-panel p {
+        margin: 0;
+        line-height: 1.75;
+        color: rgba(17, 17, 17, 0.72);
+    }
+
+    .editorial-list {
+        display: grid;
+        gap: 0.8rem;
+        margin-top: 1rem;
+    }
+
+    .editorial-item {
+        padding: 0.95rem 1rem;
+        border-radius: 18px;
+        background: rgba(17, 17, 17, 0.04);
+    }
+
+    .editorial-item strong {
+        display: block;
+        margin-bottom: 0.25rem;
+        font-size: 0.84rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .services-strip {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1rem;
+    }
+
+    .service-card {
+        padding: 1.2rem;
+        display: grid;
+        gap: 0.8rem;
+    }
+
+    .service-icon {
+        width: 54px;
+        height: 54px;
+        border-radius: 16px;
+        display: grid;
+        place-items: center;
+        font-size: 1.4rem;
+        background: linear-gradient(135deg, #123524, #ca7028);
+        color: #fff8ef;
+    }
+
+    .service-card h3 {
+        margin: 0;
+        font-size: 1.2rem;
+        line-height: 1;
+        text-transform: uppercase;
+    }
+
+    .service-card p {
+        margin: 0;
+        line-height: 1.7;
+        color: rgba(17, 17, 17, 0.7);
+    }
+
+    .destination-grid,
+    .tour-grid,
+    .story-grid,
+    .departure-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+    }
+
+    .destination-grid {
+        grid-template-columns: 1.1fr 0.9fr 0.9fr 0.9fr;
+    }
+
+    .destination-card:first-child {
+        grid-column: span 2;
+    }
+
+    .visual {
+        min-height: 230px;
+        position: relative;
+        background-size: cover;
+        background-position: center;
+        background-image:
+            linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.5)),
+            linear-gradient(135deg, rgba(18, 53, 36, 0.94), rgba(200, 76, 36, 0.82));
+    }
+
+    .destination-card:first-child .visual {
+        min-height: 320px;
+    }
+
+    .visual.real-image {
+        background-image:
+            linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.5)),
+            var(--card-image);
+    }
+
+    .visual-badge {
+        position: absolute;
+        left: 1rem;
+        bottom: 1rem;
+        display: inline-flex;
+        padding: 0.45rem 0.75rem;
+        border-radius: 999px;
+        background: rgba(12, 12, 12, 0.34);
+        color: #fff7ed;
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        backdrop-filter: blur(8px);
+    }
+
+    .card-body {
+        padding: 1.15rem;
+        display: grid;
+        gap: 0.9rem;
+        flex: 1;
+    }
+
+    .card-body h3 {
+        margin: 0;
+        font-size: 1.45rem;
+        line-height: 1.02;
+        text-transform: uppercase;
+    }
+
+    .card-body p {
+        margin: 0;
+        line-height: 1.75;
+        color: rgba(17, 17, 17, 0.72);
+    }
+
+    .meta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.55rem;
+    }
+
+    .pill {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.45rem 0.75rem;
+        border-radius: 999px;
+        background: rgba(17, 17, 17, 0.05);
+        color: rgba(17, 17, 17, 0.72);
+        font-size: 0.72rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+    }
+
+    .metric-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.65rem;
+    }
+
+    .metric-card {
+        padding: 0.85rem;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.56);
+        border: 1px solid rgba(17, 17, 17, 0.06);
+    }
+
+    .metric-card span {
+        display: block;
+        margin-bottom: 0.3rem;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: rgba(17, 17, 17, 0.5);
+    }
+
+    .metric-card strong {
+        font-size: 1rem;
+    }
+
+    .action-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-top: auto;
+    }
+
+    .departure-card {
+        padding: 1.15rem;
+    }
+
+    .departure-card h3 {
+        margin-top: 0;
+        margin-bottom: 0.45rem;
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        line-height: 1.1;
+    }
+
+    .departure-card p {
+        margin: 0.2rem 0;
+        line-height: 1.7;
+        color: rgba(17, 17, 17, 0.72);
+    }
+
+    .cta-band {
+        position: relative;
+        overflow: hidden;
+        border-radius: 32px;
+        padding: 2rem;
+        background:
+            linear-gradient(135deg, rgba(202, 111, 40, 0.96), rgba(110, 45, 16, 0.94)),
+            linear-gradient(120deg, rgba(255, 255, 255, 0.08), transparent);
+        color: #fff7ef;
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        align-items: center;
+        flex-wrap: wrap;
+        box-shadow: 0 24px 70px rgba(136, 65, 24, 0.2);
+    }
+
+    .cta-band h2 {
+        margin: 0 0 0.45rem;
+        font-size: clamp(2rem, 4vw, 3rem);
+        line-height: 0.95;
+        text-transform: uppercase;
+    }
+
+    .cta-band p {
+        margin: 0;
+        max-width: 42rem;
+        line-height: 1.8;
+        color: rgba(255, 247, 239, 0.86);
+    }
+
+    @media (max-width: 1080px) {
+        .hero-grid,
+        .panel-grid,
+        .services-strip,
+        .destination-grid,
+        .tour-grid,
+        .story-grid,
+        .departure-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .destination-card:first-child {
+            grid-column: auto;
+        }
+
+        .destination-card:first-child .visual {
+            min-height: 240px;
+        }
+    }
+
+    @media (max-width: 720px) {
+        .home-hero,
+        .editorial-panel,
+        .service-card,
+        .destination-card,
+        .tour-card,
+        .story-card,
+        .departure-card,
+        .cta-band {
+            border-radius: 22px;
+        }
+
+        .home-hero {
+            padding: 2.1rem 1.3rem;
+        }
+
+        .hero-stats,
+        .metric-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 860px) {
+        .section-head {
+            flex-direction: column;
+            align-items: start;
+        }
+
+        .hero-actions,
+        .action-row {
+            width: 100%;
+        }
+    }
+</style>
+
+<section class="home-shell">
+    <section class="home-hero">
+        <div class="hero-grid">
+            <div class="hero-copy">
+                <span class="hero-kicker">East Africa Curated</span>
+                <h1>Journeys with a stronger point of view</h1>
+                <p>
+                    Follow the rhythm of East Africa through wildlife safaris, coastal hideaways,
+                    mountain air, and story-rich journeys shaped with style, pace, and a strong
+                    sense of place.
+                </p>
+                <div class="hero-actions">
+                    <a class="action-link primary" href="{% url 'safarisite:booking' %}">Start Booking</a>
+                    <a class="action-link secondary" href="{% url 'safarisite:tours' %}">Explore Tours</a>
+                    <a class="action-link secondary" href="{% url 'safarisite:blogs' %}">Read Stories</a>
+                </div>
+            </div>
+            <div class="hero-side">
+                <div class="hero-card">
+                    <h3>Crafted for curious travelers</h3>
+                    <p>
+                        Every route is built to feel collected rather than crowded, balancing
+                        iconic moments with quieter experiences that stay with you long after the trip ends.
+                    </p>
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <span>Tours</span>
+                        <strong>{{ tour_count }}</strong>
+                    </div>
+                    <div class="hero-stat">
+                        <span>Destinations</span>
+                        <strong>{{ destination_count }}</strong>
+                    </div>
+                    <div class="hero-stat">
+                        <span>Stories</span>
+                        <strong>{{ story_count }}</strong>
+                    </div>
+                    <div class="hero-stat">
+                        <span>Departures</span>
+                        <strong>{{ departure_count }}</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="panel-grid">
+        <article class="editorial-panel">
+            <h3>A stronger way to begin the journey</h3>
+            <p>
+                Great travel begins before departure. It starts with a sense of mood, trust,
+                and direction. Here, you can move from inspiration to planning without losing
+                the feeling that drew you in.
+            </p>
+            <div class="editorial-list">
+                <div class="editorial-item">
+                    <strong>Curated routes</strong>
+                    Signature journeys built around timing, atmosphere, and memorable contrast.
+                </div>
+                <div class="editorial-item">
+                    <strong>Distinct places</strong>
+                    Landscapes, camps, coastlines, and city moments woven into one travel story.
+                </div>
+                <div class="editorial-item">
+                    <strong>Easy next steps</strong>
+                    Move naturally into tours, stories, or trip planning when the moment feels right.
+                </div>
+            </div>
+        </article>
+        <article class="editorial-panel">
+            <h3>How the experience comes together</h3>
+            <div class="editorial-list">
+                <div class="editorial-item">
+                    <strong>Private safari planning</strong>
+                    Travel shaped around season, pace, and the style of experience you want.
+                </div>
+                <div class="editorial-item">
+                    <strong>Destination pairing</strong>
+                    Wildlife, coast, city, and mountain combinations that feel balanced and elegant.
+                </div>
+                <div class="editorial-item">
+                    <strong>Story-rich journeys</strong>
+                    Experiences chosen for the feeling they create, not just the map they cover.
+                </div>
+            </div>
+        </article>
+    </section>
+
+    <section class="services-strip">
+        <article class="service-card">
+            <div class="service-icon">🧭</div>
+            <h3>Tailored routes</h3>
+            <p>Trips shaped around real interests and seasonality, not copied itinerary blocks.</p>
+        </article>
+        <article class="service-card">
+            <div class="service-icon">🦓</div>
+            <h3>Wildlife depth</h3>
+            <p>Safari planning with destination rhythm, game-drive logic, and realistic route flow.</p>
+        </article>
+        <article class="service-card">
+            <div class="service-icon">🏝</div>
+            <h3>Coast add-ons</h3>
+            <p>Easy pairing of bush and beach for softer landing or celebration-style trips.</p>
+        </article>
+        <article class="service-card">
+            <div class="service-icon">✨</div>
+            <h3>Premium moments</h3>
+            <p>Honeymoon pacing, special stays, and elevated touches that make the journey memorable.</p>
+        </article>
+    </section>
+
+    {% if featured_destinations %}
+    <section>
+        <div class="section-head">
+            <h2>Destinations with presence</h2>
+            <p>From savannah drama to island calm, these destinations anchor the journeys that define the collection.</p>
+        </div>
+        <div class="destination-grid">
+            {% for destination in featured_destinations %}
+            <article class="destination-card">
+                <div class="visual{% if destination.featured_image and 'replace-me' not in destination.featured_image.name %} real-image{% endif %}"{% if destination.featured_image and 'replace-me' not in destination.featured_image.name %} style="--card-image: url('{{ destination.featured_image.url }}');"{% endif %}>
+                    <span class="visual-badge">{{ destination.country }}</span>
+                </div>
+                <div class="card-body">
+                    <div class="meta-row">
+                        <span class="pill">{{ destination.get_continent_display }}</span>
+                        {% if destination.is_featured %}<span class="pill">Featured</span>{% endif %}
+                    </div>
+                    <h3>{{ destination.name }}</h3>
+                    <p>{{ destination.short_description|default:destination.description|truncatechars:170 }}</p>
+                    <div class="metric-grid">
+                        <div class="metric-card">
+                            <span>Tours</span>
+                            <strong>{{ destination.tours.count }}</strong>
+                        </div>
+                        <div class="metric-card">
+                            <span>Stories</span>
+                            <strong>{{ destination.blog_posts.count }}</strong>
+                        </div>
+                        <div class="metric-card">
+                            <span>Rating</span>
+                            <strong>{{ destination.average_rating }}</strong>
+                        </div>
+                    </div>
+                    <div class="action-row">
+                        <a class="action-link primary" href="{% url 'safarisite:destinations' %}">See Destinations</a>
+                        <a class="action-link secondary" href="{% url 'safarisite:booking' %}">Plan a Trip</a>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    {% if featured_tours %}
+    <section>
+        <div class="section-head">
+            <h2>Featured journeys</h2>
+            <p>Start with the trips that capture the spirit of the region and set the tone for everything that follows.</p>
+        </div>
+        <div class="tour-grid">
+            {% for tour in featured_tours %}
+            <article class="tour-card">
+                <div class="visual{% if tour.featured_image and 'replace-me' not in tour.featured_image.name %} real-image{% endif %}"{% if tour.featured_image and 'replace-me' not in tour.featured_image.name %} style="--card-image: url('{{ tour.featured_image.url }}');"{% endif %}>
+                    <span class="visual-badge">{{ tour.destination.name }}</span>
+                </div>
+                <div class="card-body">
+                    <div class="meta-row">
+                        <span class="pill">{{ tour.duration_days }} days</span>
+                        <span class="pill">{{ tour.get_difficulty_level_display }}</span>
+                        {% if tour.is_trending %}<span class="pill">Trending</span>{% endif %}
+                    </div>
+                    <h3>{{ tour.title }}</h3>
+                    <p>{{ tour.overview|truncatechars:170 }}</p>
+                    <div class="metric-grid">
+                        <div class="metric-card">
+                            <span>Price</span>
+                            <strong>KSh {{ tour.final_price }}</strong>
+                        </div>
+                        <div class="metric-card">
+                            <span>Group</span>
+                            <strong>{{ tour.min_group_size }}-{{ tour.max_group_size }}</strong>
+                        </div>
+                        <div class="metric-card">
+                            <span>Rating</span>
+                            <strong>{{ tour.average_rating }}</strong>
+                        </div>
+                    </div>
+                    <div class="action-row">
+                        <a class="action-link primary" href="{% url 'safarisite:booking' %}?tour={{ tour.slug }}">Book Now</a>
+                        <a class="action-link secondary" href="{% url 'safarisite:tours' %}">All Tours</a>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    {% if active_departures %}
+    <section>
+        <div class="section-head">
+            <h2>Upcoming departures</h2>
+            <p>Choose from near-term departures if you already know the season, the mood, and the moment you want to travel.</p>
+        </div>
+        <div class="departure-grid">
+            {% for departure in active_departures %}
+            <article class="departure-card">
+                <h3>{{ departure.tour.title }}</h3>
+                <p>{{ departure.tour.destination.name }}</p>
+                <p><strong>{{ departure.start_date|date:"M d, Y" }}</strong> to <strong>{{ departure.end_date|date:"M d, Y" }}</strong></p>
+                <p>{{ departure.available_spots }} of {{ departure.total_spots }} spots available</p>
+                <p>{% if departure.special_price %}Special rate: KSh {{ departure.special_price }}{% else %}Standard trip pricing{% endif %}</p>
+            </article>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    {% if featured_stories %}
+    <section>
+        <div class="section-head">
+            <h2>Stories with movement</h2>
+            <p>Travel stories, field notes, and destination moods that bring the region closer before you even leave home.</p>
+        </div>
+        <div class="story-grid">
+            {% for post in featured_stories %}
+            <article class="story-card">
+                <div class="visual{% if post.featured_image and 'replace-me' not in post.featured_image.name %} real-image{% endif %}"{% if post.featured_image and 'replace-me' not in post.featured_image.name %} style="--card-image: url('{{ post.featured_image.url }}');"{% endif %}>
+                    <span class="visual-badge">{% if post.destination %}{{ post.destination.name }}{% else %}Safari Journal{% endif %}</span>
+                </div>
+                <div class="card-body">
+                    <div class="meta-row">
+                        <span class="pill">{{ post.read_time_minutes }} min read</span>
+                        <span class="pill">{{ post.share_total }} shares</span>
+                        <span class="pill">{{ post.comment_total }} comments</span>
+                    </div>
+                    <h3>{{ post.title }}</h3>
+                    <p>{{ post.excerpt }}</p>
+                    <div class="action-row">
+                        <a class="action-link primary" href="{% url 'safarisite:blog_detail' post.slug %}">Read Story</a>
+                        <a class="action-link secondary" href="{% url 'safarisite:blogs' %}">All Blogs</a>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    <section class="cta-band">
+        <div>
+            <h2>Ready to shape the route?</h2>
+            <p>
+                Move straight into booking if you already know the direction, or reach out first if you want the trip refined around dates, group size, and style.
+            </p>
+        </div>
+        <div class="action-row">
+            <a class="action-link primary" href="{% url 'safarisite:booking' %}">Book the Trip</a>
+            <a class="action-link secondary" href="{% url 'safarisite:contact' %}">Ask First</a>
+        </div>
+    </section>
+</section>
+{% endblock %}

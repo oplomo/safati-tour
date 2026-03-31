@@ -1,0 +1,378 @@
+{% extends 'base.html' %}
+
+{% block title %}Checkout | Safari Tour{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        background:
+            radial-gradient(circle at top right, rgba(244, 163, 0, 0.16), transparent 28%),
+            radial-gradient(circle at left, rgba(18, 53, 36, 0.12), transparent 24%),
+            linear-gradient(135deg, #f8f1e4 0%, #eee1c8 55%, #f8f5ef 100%);
+        color: #111;
+    }
+
+    .checkout-shell {
+        width: min(1180px, calc(100% - 2rem));
+        margin: 3rem auto 4rem;
+        display: grid;
+        gap: 1.5rem;
+    }
+
+    .checkout-hero {
+        border-radius: 32px;
+        padding: 3rem;
+        background:
+            linear-gradient(145deg, rgba(16, 47, 36, 0.97), rgba(8, 22, 16, 0.96)),
+            linear-gradient(120deg, rgba(244, 163, 0, 0.16), transparent);
+        color: #fff6ea;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 26px 80px rgba(17, 17, 17, 0.18);
+    }
+
+    .checkout-hero::after {
+        content: "";
+        position: absolute;
+        width: 250px;
+        height: 250px;
+        right: -50px;
+        bottom: -60px;
+        background: radial-gradient(circle, rgba(244, 163, 0, 0.24), transparent 66%);
+        filter: blur(8px);
+    }
+
+    .checkout-kicker {
+        display: inline-flex;
+        padding: 0.45rem 0.8rem;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: rgba(255, 255, 255, 0.08);
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        font-size: 0.72rem;
+    }
+
+    .checkout-hero h1 {
+        margin: 1rem 0 0.75rem;
+        font-size: clamp(2.8rem, 5vw, 5rem);
+        line-height: 0.94;
+        text-transform: uppercase;
+    }
+
+    .checkout-hero p {
+        margin: 0;
+        max-width: 46rem;
+        line-height: 1.8;
+        color: rgba(255, 246, 234, 0.84);
+    }
+
+    .checkout-grid {
+        display: grid;
+        grid-template-columns: 1fr 0.92fr;
+        gap: 1.3rem;
+        align-items: start;
+    }
+
+    .checkout-panel,
+    .summary-panel {
+        border-radius: 28px;
+        background: rgba(255, 249, 240, 0.84);
+        border: 1px solid rgba(17, 17, 17, 0.08);
+        box-shadow: 0 20px 60px rgba(17, 17, 17, 0.12);
+    }
+
+    .checkout-panel {
+        padding: 1.5rem;
+        display: grid;
+        gap: 1rem;
+    }
+
+    .summary-panel {
+        padding: 1.4rem;
+        display: grid;
+        gap: 1rem;
+        position: sticky;
+        top: 1rem;
+    }
+
+    .section-card {
+        border-radius: 22px;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.58);
+        border: 1px solid rgba(17, 17, 17, 0.06);
+    }
+
+    .section-card h2,
+    .section-card h3 {
+        margin-top: 0;
+        margin-bottom: 0.7rem;
+    }
+
+    .detail-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.85rem;
+    }
+
+    .detail-item {
+        padding: 0.9rem;
+        border-radius: 18px;
+        background: rgba(17, 17, 17, 0.04);
+    }
+
+    .detail-item span {
+        display: block;
+        margin-bottom: 0.35rem;
+        color: rgba(17, 17, 17, 0.54);
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+    }
+
+    .detail-item strong {
+        font-size: 1rem;
+        line-height: 1.5;
+    }
+
+    .payment-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.8rem;
+    }
+
+    .payment-card {
+        padding: 1rem;
+        border-radius: 20px;
+        background: rgba(17, 17, 17, 0.04);
+        border: 1px solid rgba(17, 17, 17, 0.06);
+    }
+
+    .payment-card strong {
+        display: block;
+        margin-bottom: 0.3rem;
+    }
+
+    .payment-card span {
+        color: rgba(17, 17, 17, 0.68);
+        line-height: 1.6;
+        font-size: 0.92rem;
+    }
+
+    .total-line {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 1rem;
+        padding: 1rem;
+        border-radius: 22px;
+        background: linear-gradient(135deg, rgba(18, 53, 36, 0.94), rgba(36, 81, 60, 0.9));
+        color: #fff8ef;
+    }
+
+    .total-line span {
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font-size: 0.78rem;
+        color: rgba(255, 248, 239, 0.74);
+    }
+
+    .total-line strong {
+        font-size: 2rem;
+    }
+
+    .checkout-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        align-items: center;
+    }
+
+    .action-link,
+    .checkout-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 50px;
+        padding: 0 1.1rem;
+        border-radius: 999px;
+        text-decoration: none;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .checkout-button {
+        border: 0;
+        cursor: pointer;
+        background: linear-gradient(135deg, #123524, #24513c);
+        color: #fff;
+    }
+
+    .action-link {
+        background: rgba(17, 17, 17, 0.05);
+        color: #123524;
+    }
+
+    .soft-note {
+        line-height: 1.75;
+        color: rgba(17, 17, 17, 0.68);
+    }
+
+    @media (max-width: 980px) {
+        .checkout-grid,
+        .payment-grid,
+        .detail-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .summary-panel {
+            position: static;
+        }
+    }
+
+    @media (max-width: 680px) {
+        .checkout-hero,
+        .checkout-panel,
+        .summary-panel,
+        .section-card {
+            border-radius: 22px;
+        }
+
+        .checkout-hero {
+            padding: 2rem 1.3rem;
+        }
+    }
+
+    @media (max-width: 860px) {
+        .checkout-actions {
+            width: 100%;
+        }
+    }
+</style>
+
+<section class="checkout-shell">
+    <section class="checkout-hero">
+        <span class="checkout-kicker">Checkout</span>
+        <h1>Your journey is almost confirmed</h1>
+        <p>
+            Take a final look at your trip details, review the total, and complete the booking.
+            This checkout is designed to feel calm, clear, and reassuring from start to finish.
+        </p>
+    </section>
+
+    <section class="checkout-grid">
+        <div class="checkout-panel">
+            <div class="section-card">
+                <h2>Guest details</h2>
+                <div class="detail-grid">
+                    <div class="detail-item">
+                        <span>Name</span>
+                        <strong>{{ checkout.name }}</strong>
+                    </div>
+                    <div class="detail-item">
+                        <span>Email</span>
+                        <strong>{{ checkout.email }}</strong>
+                    </div>
+                    <div class="detail-item">
+                        <span>Phone</span>
+                        <strong>{{ checkout.phone|default:"To be confirmed" }}</strong>
+                    </div>
+                    <div class="detail-item">
+                        <span>Travelers</span>
+                        <strong>{{ checkout.number_of_people }}</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <h2>Trip details</h2>
+                <div class="detail-grid">
+                    <div class="detail-item">
+                        <span>Selected tour</span>
+                        <strong>{{ checkout.tour.title }}</strong>
+                    </div>
+                    <div class="detail-item">
+                        <span>Destination</span>
+                        <strong>{{ checkout.tour.destination.name }}</strong>
+                    </div>
+                    <div class="detail-item">
+                        <span>Preferred date</span>
+                        <strong>{% if checkout.preferred_date %}{{ checkout.preferred_date|date:"M d, Y" }}{% else %}Flexible{% endif %}</strong>
+                    </div>
+                    <div class="detail-item">
+                        <span>Duration</span>
+                        <strong>{{ checkout.tour.duration_days }} days / {{ checkout.tour.duration_nights }} nights</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <h3>Payment options</h3>
+                <div class="payment-grid">
+                    <div class="payment-card">
+                        <strong>Card</strong>
+                        <span>Quick and familiar for a smooth checkout moment.</span>
+                    </div>
+                    <div class="payment-card">
+                        <strong>M-Pesa</strong>
+                        <span>A comfortable local option for guests booking from Kenya.</span>
+                    </div>
+                    <div class="payment-card">
+                        <strong>Bank transfer</strong>
+                        <span>Ideal for travelers who prefer a more traditional route.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <h3>Trip note</h3>
+                <p class="soft-note">{{ checkout.message }}</p>
+            </div>
+        </div>
+
+        <aside class="summary-panel">
+            <div class="section-card">
+                <h3>Booking summary</h3>
+                <div class="detail-grid">
+                    <div class="detail-item">
+                        <span>Price per traveler</span>
+                        <strong>KSh {{ checkout.tour.final_price }}</strong>
+                    </div>
+                    <div class="detail-item">
+                        <span>Travelers</span>
+                        <strong>{{ checkout.number_of_people }}</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="total-line">
+                <div>
+                    <span>Total</span>
+                    <strong>KSh {{ checkout.subtotal }}</strong>
+                </div>
+                <div style="text-align:right;">
+                    <span>Payment status</span>
+                    <strong style="font-size:1rem;">Ready</strong>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <h3>Before you confirm</h3>
+                <p class="soft-note">
+                    Once you complete this step, the booking will be accepted and saved successfully.
+                    We will then treat it as a confirmed request while the live payment gateway is prepared later.
+                </p>
+            </div>
+
+            <form method="post">
+                {% csrf_token %}
+                <div class="checkout-actions">
+                    <button type="submit" class="checkout-button">Pay and Confirm</button>
+                    <a href="{% url 'safarisite:booking' %}" class="action-link">Edit Booking</a>
+                </div>
+            </form>
+        </aside>
+    </section>
+</section>
+{% endblock %}
