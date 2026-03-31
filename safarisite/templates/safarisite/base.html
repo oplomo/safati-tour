@@ -85,8 +85,12 @@
             text-decoration: none;
         }
 
-        .logo i {
-            color: var(--accent-color);
+        .logo img {
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            object-fit: cover;
+            box-shadow: 0 6px 18px rgba(17, 17, 17, 0.15);
         }
 
         .nav-menu {
@@ -181,7 +185,7 @@
     <nav class="navbar">
         <div class="nav-container">
             <a href="/" class="logo">
-                <i class="fas fa-compass"></i>
+                <img src="{% static 'safarisite/favicon/favicon_image.png' %}" alt="Safari Discoveries logo">
                 <span>Safari Discoveries</span>
             </a>
             
@@ -212,7 +216,7 @@
     <footer class="footer">
         <div class="footer-content">
             <div class="logo" style="color: white;">
-                <i class="fas fa-compass"></i>
+                <img src="{% static 'safarisite/favicon/favicon_image.png' %}" alt="Safari Discoveries logo">
                 <span>Safari Discoveries</span>
             </div>
             <div>
