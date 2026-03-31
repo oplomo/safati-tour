@@ -1,279 +1,563 @@
-<!DOCTYPE html>
 {% load static %}
-<html lang="en" data-theme="light">
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Safari Discoveries{% endblock %}</title>
+    <title>{% block title %}Safari Tour{% endblock %}</title>
     <link rel="icon" type="image/png" href="{% static 'safarisite/favicon/favicon_image.png' %}">
     <link rel="shortcut icon" type="image/png" href="{% static 'safarisite/favicon/favicon_image.png' %}">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
+    <link rel="stylesheet" href="{% static 'safarisite/css/style.css' %}">
     <style>
-        /* CSS Variables for themes */
         :root {
-            /* Light theme (default) */
-            --primary-color: #1e4b6e;
-            --accent-color: #f5923e;
-            --bg-primary: #ffffff;
-            --bg-secondary: #f8f9fa;
-            --text-primary: #212529;
-            --text-secondary: #495057;
-            --nav-bg: #ffffff;
-            --footer-bg: #1e4b6e;
-            --footer-text: #ffffff;
-            --shadow: 0 2px 4px rgba(0,0,0,0.1);
+            --shell-cream: #f8f4ec;
+            --shell-deep: #102f24;
+            --shell-gold: #d89b2c;
+            --shell-text: #111;
+            --shell-muted: rgba(17, 17, 17, 0.64);
+            --shell-border: rgba(17, 17, 17, 0.08);
+            --shell-shadow: 0 22px 70px rgba(17, 17, 17, 0.08);
         }
 
-        /* Dark theme */
-        [data-theme="dark"] {
-            --primary-color: #2c7bb6;
-            --accent-color: #ffa55c;
-            --bg-primary: #1a1d20;
-            --bg-secondary: #2c3034;
-            --text-primary: #f8f9fa;
-            --text-secondary: #dee2e6;
-            --nav-bg: #1a1d20;
-            --footer-bg: #0f1215;
-            --footer-text: #f8f9fa;
-            --shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
-
-        /* Base styles */
         * {
-            margin: 0;
-            padding: 0;
             box-sizing: border-box;
-            transition: background-color 0.3s, color 0.2s;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+            margin: 0;
+            background: var(--shell-cream);
+            color: var(--shell-text);
+            font-family: "Segoe UI", sans-serif;
         }
 
-        /* Navigation */
-        .navbar {
-            background-color: var(--nav-bg);
-            box-shadow: var(--shadow);
-            padding: 1rem 5%;
+        a {
+            color: inherit;
+        }
+
+        .site-header {
             position: sticky;
             top: 0;
-            z-index: 1000;
+            z-index: 40;
+            border-bottom: 1px solid var(--shell-border);
+            background: rgba(248, 244, 236, 0.88);
+            backdrop-filter: blur(14px);
         }
 
-        .nav-container {
-            max-width: 1200px;
+        .header-inner,
+        .message-shell,
+        .footer-inner {
+            width: min(1180px, calc(100% - 2rem));
             margin: 0 auto;
+        }
+
+        .header-inner {
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary-color);
-            text-decoration: none;
-        }
-
-        .logo img {
-            width: 34px;
-            height: 34px;
-            border-radius: 10px;
-            object-fit: cover;
-            box-shadow: 0 6px 18px rgba(17, 17, 17, 0.15);
-        }
-
-        .nav-menu {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-menu a {
-            color: var(--text-primary);
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .nav-menu a:hover {
-            color: var(--accent-color);
-        }
-
-        /* Theme toggle button */
-        .theme-toggle {
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0.5rem;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            background-color: var(--bg-secondary);
-            color: var(--text-primary);
-        }
-
-        /* Main content */
-        main {
-            flex: 1;
-            padding: 2rem 5%;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        /* Footer */
-        .footer {
-            background-color: var(--footer-bg);
-            color: var(--footer-text);
-            padding: 2rem 5% 1rem;
-            margin-top: auto;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
             gap: 1rem;
+            padding: 0.95rem 0;
         }
 
-        .footer-bottom {
-            text-align: center;
-            padding-top: 1rem;
+        .brand-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.9rem;
+            text-decoration: none;
+            min-width: 0;
+        }
+
+        .brand-mark {
+            width: 50px;
+            height: 50px;
+            border-radius: 18px;
+            display: grid;
+            place-items: center;
+            background:
+                radial-gradient(circle at 30% 30%, rgba(255, 236, 201, 0.86), transparent 42%),
+                linear-gradient(145deg, #123524, #d08328);
+            color: #fff8ee;
+            font-weight: 900;
+            letter-spacing: 0.08em;
+            box-shadow: 0 14px 30px rgba(18, 53, 36, 0.18);
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .brand-mark img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .brand-copy {
+            min-width: 0;
+        }
+
+        .brand-copy strong {
+            display: block;
+            color: var(--shell-deep);
+            font-size: 1rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .brand-copy span {
+            display: block;
+            color: var(--shell-muted);
+            font-size: 0.76rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .menu-toggle {
+            display: none;
+            width: 52px;
+            height: 52px;
+            border: 1px solid var(--shell-border);
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.62);
+            color: var(--shell-deep);
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shell-shadow);
+        }
+
+        .menu-toggle span,
+        .menu-toggle span::before,
+        .menu-toggle span::after {
+            display: block;
+            width: 18px;
+            height: 2px;
+            border-radius: 999px;
+            background: currentColor;
+            position: relative;
+            transition: 0.2s ease;
+        }
+
+        .menu-toggle span::before,
+        .menu-toggle span::after {
+            content: "";
+            position: absolute;
+            left: 0;
+        }
+
+        .menu-toggle span::before {
+            top: -6px;
+        }
+
+        .menu-toggle span::after {
+            top: 6px;
+        }
+
+        .site-nav {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            min-width: 0;
+        }
+
+        .nav-links,
+        .nav-account {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .nav-links a,
+        .nav-account a,
+        .nav-account span,
+        .account-summary {
+            text-decoration: none;
+            border-radius: 999px;
+            padding: 0.72rem 0.95rem;
+            font-size: 0.94rem;
+            transition: 0.2s ease;
+        }
+
+        .nav-links a {
+            color: rgba(17, 17, 17, 0.8);
+        }
+
+        .nav-links a:hover,
+        .nav-account a:hover,
+        .account-summary:hover {
+            background: rgba(18, 53, 36, 0.06);
+            color: var(--shell-deep);
+        }
+
+        .nav-account {
+            padding-left: 0.8rem;
+            border-left: 1px solid var(--shell-border);
+        }
+
+        .account-menu {
+            position: relative;
+        }
+
+        .account-summary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.65rem;
+            cursor: pointer;
+            list-style: none;
+            color: var(--shell-deep);
+            font-weight: 700;
+            background: rgba(18, 53, 36, 0.06);
+        }
+
+        .account-summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .account-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #123524, #d08328);
+            color: #fff8ef;
+            flex-shrink: 0;
+        }
+
+        .account-dropdown {
+            position: absolute;
+            right: 0;
+            top: calc(100% + 0.6rem);
+            min-width: 220px;
+            padding: 0.8rem;
+            border-radius: 22px;
+            border: 1px solid var(--shell-border);
+            background: rgba(248, 244, 236, 0.98);
+            box-shadow: var(--shell-shadow);
+            display: grid;
+            gap: 0.4rem;
+        }
+
+        .account-dropdown a,
+        .account-dropdown span {
+            display: block;
+            padding: 0.85rem 0.95rem;
+            border-radius: 16px;
+            background: rgba(17, 17, 17, 0.03);
+            color: rgba(17, 17, 17, 0.82);
+        }
+
+        .account-dropdown .account-identity {
+            color: var(--shell-deep);
+            font-weight: 700;
+            background: rgba(18, 53, 36, 0.06);
+        }
+
+        .message-shell {
             margin-top: 1rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            font-size: 0.9rem;
         }
 
-        /* Utility */
-        .coming-soon {
-            text-align: center;
-            padding: 4rem 2rem;
-            background-color: var(--bg-secondary);
-            border-radius: 1rem;
-            box-shadow: var(--shadow);
+        .site-message {
+            padding: 1rem 1.05rem;
+            border-radius: 18px;
+            background: #e8f5e9;
+            color: #123524;
+            border: 1px solid rgba(18, 53, 36, 0.12);
+            box-shadow: var(--shell-shadow);
         }
 
-        .coming-soon h1 {
-            color: var(--primary-color);
-            margin-bottom: 1rem;
+        .site-footer {
+            margin-top: 4rem;
+            background:
+                radial-gradient(circle at top right, rgba(216, 155, 44, 0.15), transparent 22%),
+                linear-gradient(145deg, #102f24, #0b241b);
+            color: #f8f4ec;
         }
 
-        .coming-soon i {
-            color: var(--accent-color);
-            margin-right: 0.5rem;
+        .footer-inner {
+            padding: 2.8rem 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr 0.8fr;
+            gap: 1.5rem;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: start;
+            gap: 0.95rem;
+        }
+
+        .footer-brand .brand-mark {
+            width: 54px;
+            height: 54px;
+        }
+
+        .footer-column h3 {
+            margin-top: 0;
+            margin-bottom: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-size: 0.82rem;
+            color: rgba(248, 244, 236, 0.74);
+        }
+
+        .footer-column p {
+            margin: 0;
+            color: rgba(248, 244, 236, 0.76);
+            line-height: 1.8;
+        }
+
+        .footer-links {
+            display: grid;
+            gap: 0.55rem;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: rgba(248, 244, 236, 0.88);
+        }
+
+        .footer-links a:hover {
+            color: #fff;
+        }
+
+        @media (max-width: 1100px) {
+            .header-inner,
+            .message-shell,
+            .footer-inner {
+                width: min(1180px, calc(100% - 1.5rem));
+            }
+        }
+
+        @media (max-width: 980px) {
+            .menu-toggle {
+                display: inline-flex;
+            }
+
+            .site-nav {
+                position: absolute;
+                top: calc(100% + 0.65rem);
+                left: 1rem;
+                right: 1rem;
+                padding: 1rem;
+                border-radius: 24px;
+                border: 1px solid var(--shell-border);
+                background: rgba(248, 244, 236, 0.98);
+                box-shadow: var(--shell-shadow);
+                display: none;
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .site-nav.is-open {
+                display: flex;
+            }
+
+            .nav-links,
+            .nav-account {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.45rem;
+            }
+
+            .nav-account {
+                border-left: none;
+                border-top: 1px solid var(--shell-border);
+                padding-left: 0;
+                padding-top: 0.9rem;
+                margin-top: 0.2rem;
+            }
+
+            .nav-links a,
+            .nav-account a,
+            .nav-account span,
+            .account-summary {
+                border-radius: 18px;
+                background: rgba(17, 17, 17, 0.03);
+            }
+
+            .account-menu {
+                width: 100%;
+            }
+
+            .account-summary {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .account-dropdown {
+                position: static;
+                min-width: 0;
+                margin-top: 0.5rem;
+                border-radius: 18px;
+                box-shadow: none;
+                background: rgba(17, 17, 17, 0.03);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 760px) {
+            .brand-copy strong {
+                font-size: 0.92rem;
+            }
+
+            .brand-mark {
+                width: 46px;
+                height: 46px;
+                border-radius: 16px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .header-inner,
+            .message-shell,
+            .footer-inner {
+                width: min(1180px, calc(100% - 1.2rem));
+            }
+
+            .brand-copy span {
+                display: none;
+            }
+
+            .brand-copy strong {
+                letter-spacing: 0.1em;
+            }
+
+            .site-message {
+                border-radius: 14px;
+                padding: 0.9rem;
+            }
         }
     </style>
     {% block extra_css %}{% endblock %}
+    {% block extra_head %}{% endblock %}
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="/" class="logo">
-                <img src="{% static 'safarisite/favicon/favicon_image.png' %}" alt="Safari Discoveries logo">
-                <span>Safari Discoveries</span>
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="{% url 'safarisite:home' %}" class="brand-link">
+                <div class="brand-mark" aria-hidden="true">
+                    <img src="{% static 'safarisite/favicon/favicon_image.png' %}" alt="Safari Tour logo">
+                </div>
+                <div class="brand-copy">
+                    <strong>Safari Tour</strong>
+                    <span>East Africa Curated</span>
+                </div>
             </a>
-            
-            <ul class="nav-menu">
-                <li><a href="{% url 'safarisite:home' %}">Home</a></li>
-                <li><a href="{% url 'safarisite:destinations' %}">Destinations</a></li>
-                <li><a href="{% url 'safarisite:tours' %}">Tours</a></li>
-                <li><a href="{% url 'safarisite:services' %}">Services</a></li>
-                <li><a href="{% url 'safarisite:about' %}">About</a></li>
-                <li><a href="{% url 'safarisite:contact' %}">Contact</a></li>
-                <li><a href="{% url 'safarisite:blogs' %}">Blog</a></li>
-                <li>
-                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-                        <i class="fas fa-moon"></i>
-                    </button>
-                </li>
-            </ul>
-        </div>
-    </nav>
 
-    <!-- Main Content -->
-    <main>
-        <div class="container">
-            {% block content %}
-            {% endblock %}
+            <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" id="menu-toggle">
+                <span></span>
+            </button>
+
+            <nav class="site-nav" id="site-nav">
+                <div class="nav-links">
+                    <a href="{% url 'safarisite:home' %}">Home</a>
+                    <a href="{% url 'safarisite:about' %}">About Us</a>
+                    <a href="{% url 'safarisite:services' %}">Services</a>
+                    <a href="{% url 'safarisite:tours' %}">Tours</a>
+                    <a href="{% url 'safarisite:destinations' %}">Destinations</a>
+                    <a href="{% url 'safarisite:booking' %}">Booking</a>
+                    <a href="{% url 'safarisite:blogs' %}">Blogs</a>
+                    <a href="{% url 'safarisite:contact' %}">Contact</a>
+                </div>
+                <div class="nav-account">
+                    <details class="account-menu">
+                        <summary class="account-summary">
+                            <span class="account-icon" aria-hidden="true">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                    <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M4 20a8 8 0 0 1 16 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                            <span>Account</span>
+                        </summary>
+                        <div class="account-dropdown">
+                            {% if request.user.is_authenticated %}
+                            <span class="account-identity">{{ request.user.username }}</span>
+                            <a href="{% url 'safarisite:my_bookings' %}">My Bookings</a>
+                            <a href="{% url 'safarisite:logout' %}">Logout</a>
+                            {% else %}
+                            <a href="{% url 'safarisite:login' %}">Login</a>
+                            <a href="{% url 'safarisite:register' %}">Register</a>
+                            <a href="{% url 'safarisite:booking' %}">Booking</a>
+                            {% endif %}
+                        </div>
+                    </details>
+                </div>
+            </nav>
         </div>
+    </header>
+
+    <main>
+        {% if messages %}
+        <section class="message-shell">
+            {% for message in messages %}
+            <div class="site-message">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </section>
+        {% endif %}
+        {% block content %}{% endblock %}
     </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="logo" style="color: white;">
-                <img src="{% static 'safarisite/favicon/favicon_image.png' %}" alt="Safari Discoveries logo">
-                <span>Safari Discoveries</span>
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <div class="footer-brand">
+                        <div class="brand-mark" aria-hidden="true">
+                            <img src="{% static 'safarisite/favicon/favicon_image.png' %}" alt="Safari Tour logo">
+                        </div>
+                        <div>
+                            <h3>Safari Tour</h3>
+                            <p>Curated safari journeys, coastal escapes, mountain adventures, and story-led travel shaped for East Africa and beyond.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Explore</h3>
+                    <div class="footer-links">
+                        <a href="{% url 'safarisite:about' %}">About Us</a>
+                        <a href="{% url 'safarisite:services' %}">Services</a>
+                        <a href="{% url 'safarisite:tours' %}">Tours</a>
+                        <a href="{% url 'safarisite:destinations' %}">Destinations</a>
+                        <a href="{% url 'safarisite:booking' %}">Booking</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Connect</h3>
+                    <div class="footer-links">
+                        <a href="{% url 'safarisite:blogs' %}">Safari Journal</a>
+                        <a href="{% url 'safarisite:contact' %}">Contact</a>
+                        <a href="{% url 'safarisite:login' %}">Account</a>
+                    </div>
+                </div>
             </div>
-            <div>
-                &copy; 2024 All rights reserved
-            </div>
-            <div class="social-links">
-                <a href="#" style="color: white; margin: 0 0.5rem;"><i class="fab fa-facebook"></i></a>
-                <a href="#" style="color: white; margin: 0 0.5rem;"><i class="fab fa-twitter"></i></a>
-                <a href="#" style="color: white; margin: 0 0.5rem;"><i class="fab fa-instagram"></i></a>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            Designed for unforgettable experiences
         </div>
     </footer>
 
-    <!-- Theme Toggle JavaScript -->
     <script>
         (function() {
-            // Get theme from localStorage or default to 'light'
-            const getTheme = () => {
-                return localStorage.getItem('theme') || 'light';
-            };
+            var menuToggle = document.getElementById('menu-toggle');
+            var siteNav = document.getElementById('site-nav');
 
-            // Apply theme
-            const applyTheme = (theme) => {
-                document.documentElement.setAttribute('data-theme', theme);
-                localStorage.setItem('theme', theme);
-                
-                // Update icon
-                const icon = document.querySelector('#themeToggle i');
-                if (icon) {
-                    icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-                }
-            };
+            if (!menuToggle || !siteNav) {
+                return;
+            }
 
-            // Toggle theme
-            const toggleTheme = () => {
-                const current = document.documentElement.getAttribute('data-theme');
-                applyTheme(current === 'light' ? 'dark' : 'light');
-            };
-
-            // Initialize
-            document.addEventListener('DOMContentLoaded', () => {
-                applyTheme(getTheme());
-                
-                const toggleBtn = document.getElementById('themeToggle');
-                if (toggleBtn) {
-                    toggleBtn.addEventListener('click', toggleTheme);
-                }
+            menuToggle.addEventListener('click', function() {
+                var isOpen = siteNav.classList.toggle('is-open');
+                menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
             });
         })();
     </script>
-
-    {% block extra_js %}{% endblock %}
 </body>
 </html>
